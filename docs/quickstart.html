@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quick Start | SSWR Conference History Database</title>
-  <meta name="description" content="Get started with the SSWR Conference History Database in under 5 minutes.">
+  <meta name="description" content="Get started with the SSWR Conference History Database using AI-native tools.">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -27,43 +27,30 @@
   <main>
     <div class="container">
       <h1>Quick Start</h1>
-      <p>Three ways to access the data. Pick whichever fits how you work.</p>
+
+      <h2 id="philosophy">Why AI-first?</h2>
+      <p>This database is designed to be queried through conversation, not code. We are not encouraging researchers to hand off analysis to AI. The opposite: we want to <strong>free you from boilerplate</strong> so you can focus entirely on thinking about your research questions, interpreting results, and understanding the data.</p>
+      <p>Writing <code>pd.read_csv()</code> or <code>library(readr)</code> is not a scholarly contribution. It&rsquo;s plumbing. The intellectual work is deciding <em>what to ask</em>, <em>how to interpret</em>, and <em>what it means</em>. AI handles the plumbing. You do the thinking.</p>
 
       <hr>
 
-      <h2>Option 1 &mdash; Ask an AI (no code)</h2>
-      <p>Connect any MCP-compatible AI assistant (Claude Desktop, Claude Code, Cursor, OpenCode, etc.) to the live SSWR database. No SQL, no downloads &mdash; ask questions in plain language.</p>
+      <h2 id="step1">Step 1 &mdash; Connect to the Database</h2>
+      <p>Add the SSWR database to your AI tool&rsquo;s MCP configuration. This gives your AI assistant direct, read-only access to the live database.</p>
 
-      <h3>New to MCP? Give this prompt to your AI assistant</h3>
-      <p>Click the button to copy a setup prompt, then paste it into Claude Code, Cursor, or any MCP-capable tool.</p>
-      <button class="btn btn--primary" id="copy-prompt-qs">Copy Setup Prompt to Clipboard</button>
+      <h3>Option A: Let your AI set it up</h3>
+      <p>Copy this prompt and paste it into <a href="https://claude.ai/download">Claude Desktop</a>, <a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a>, <a href="https://cursor.com">Cursor</a>, or <a href="https://github.com/anomalyco/opencode">OpenCode</a>:</p>
+      <button class="btn btn--primary" id="copy-prompt">Copy Setup Prompt</button>
       <details style="margin-top:0.75rem;">
-        <summary style="font-size:0.82rem;color:#666;cursor:pointer;font-family:var(--font-sans);">Preview what gets copied</summary>
+        <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview what gets copied</summary>
         <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.85rem;line-height:1.6;">
-          <p style="margin:0 0 0.5rem;font-style:italic;">I want to connect to the SSWR Conference History Database via MCP. Please add this to my MCP config:</p>
-          <pre style="margin:0;background:#1a1a2e;padding:0.75rem 1rem;font-size:0.8rem;"><code>{
-  "mcpServers": {
-    "sswr-history": {
-      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database"
-    }
-  }
-}</code></pre>
-          <p style="margin:0.5rem 0 0;font-style:italic;">Then verify it works by listing the available tables.</p>
+          <p style="margin:0 0 0.5rem;"><em>I want to connect to the SSWR Conference History Database via MCP. Please add this to my MCP config and help me restart:</em></p>
+          <pre style="margin:0;font-size:0.8rem;"><code>{"mcpServers":{"sswr-history":{"url":"https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database"}}}</code></pre>
+          <p style="margin:0.5rem 0 0;"><em>Then verify by listing the available tables.</em></p>
         </div>
       </details>
-      <script>
-      document.getElementById('copy-prompt-qs').addEventListener('click', function() {
-        var prompt = 'I want to connect to the SSWR Conference History Database via MCP so I can query it with natural language.\n\nPlease add this to my MCP configuration:\n\n{\n  "mcpServers": {\n    "sswr-history": {\n      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database"\n    }\n  }\n}\n\nHelp me find my config file, add the connection, restart, and verify it works by listing the available tables.';
-        navigator.clipboard.writeText(prompt).then(function() {
-          var btn = document.getElementById('copy-prompt-qs');
-          btn.textContent = 'Copied!';
-          setTimeout(function() { btn.textContent = 'Copy Setup Prompt to Clipboard'; }, 2000);
-        });
-      });
-      </script>
 
-      <h3>Already familiar with MCP?</h3>
-      <p>Add this to your MCP config. No API key or Node.js needed. <a href="mcp.html">Full details</a>.</p>
+      <h3>Option B: Add it yourself</h3>
+      <p>Add this to your MCP config file (no API key or Node.js needed):</p>
       <pre><code>{
   "mcpServers": {
     "sswr-history": {
@@ -71,82 +58,69 @@
     }
   }
 }</code></pre>
+      <p>Restart your application. The database is now connected.</p>
 
       <hr>
 
-      <h2>Option 2 &mdash; Python or R</h2>
-      <p>Download the CSV files and start analyzing locally.</p>
+      <h2 id="step2">Step 2 &mdash; Install the Skill Files</h2>
+      <p>Skill files give the AI complete context about the database schema, field definitions, query patterns, and data quality notes. Without them, the AI can still query the database but may not know the best join patterns or categorical values.</p>
 
-      <h3>Python</h3>
-      <pre><code>import pandas as pd
+      <pre><code>git clone https://github.com/beperron/SSWR-History-Public.git
+cd SSWR-History-Public</code></pre>
 
-papers  = pd.read_csv("https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/papers.csv")
-authors = pd.read_csv("https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/paper_authors.csv")
+      <p>The repository contains three skill files that are read automatically:</p>
 
-# Methodology distribution
-papers.methodology.value_counts()
-
-# Presentations per year
-papers.groupby("year").size()
-
-# First authors from a specific institution
-first = authors[authors.author_order == 1]
-first[first.institution_normalized == "University of Michigan"]</code></pre>
-
-      <h3>R</h3>
-      <pre><code>library(readr)
-
-papers  &lt;- read_csv("https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/papers.csv")
-authors &lt;- read_csv("https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/paper_authors.csv")
-
-# Methodology distribution
-table(papers$methodology)
-
-# Join and analyze
-merged &lt;- merge(authors, papers, by.x = "paper_id", by.y = "id")
-table(merged$year, merged$methodology)</code></pre>
-
-      <hr>
-
-      <h2>Option 3 &mdash; REST API</h2>
-      <p>Query the live database programmatically without downloading anything.</p>
-
-      <pre><code># All qualitative presentations from 2025
-curl "https://jomsksqqcpkbuhwytovo.supabase.co/rest/v1/papers?year=eq.2025&amp;methodology=eq.qualitative&amp;select=id,title" \
-  -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg"</code></pre>
-
-      <pre><code># Python
-from supabase import create_client
-
-db = create_client(
-    "https://jomsksqqcpkbuhwytovo.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg"
-)
-
-result = db.table("papers") \
-    .select("id, title, year, methodology") \
-    .eq("methodology", "review") \
-    .order("year", desc=True) \
-    .limit(20) \
-    .execute()</code></pre>
-
-      <p>Full API documentation and embedding search examples on the <a href="download.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</a> page.</p>
-
-      <hr>
-
-      <h2>What&rsquo;s in the Data</h2>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Table</th><th>Rows</th><th>Description</th></tr></thead>
+          <thead><tr><th>File</th><th>For</th><th>What it does</th></tr></thead>
           <tbody>
-            <tr><td><code>papers</code></td><td>23,793</td><td>Presentations with titles, abstracts, methodology classifications</td></tr>
-            <tr><td><code>paper_authors</code></td><td>69,924</td><td>Author records with names, positions, institutions, countries</td></tr>
-            <tr><td><code>paper_embeddings</code></td><td>23,793</td><td>Semantic vectors for similarity search (API only)</td></tr>
+            <tr><td><code><a href="https://github.com/beperron/SSWR-History-Public/blob/main/CLAUDE.md">CLAUDE.md</a></code></td><td>Claude Code</td><td>Full schema, query patterns, data quality notes</td></tr>
+            <tr><td><code><a href="https://github.com/beperron/SSWR-History-Public/blob/main/AGENTS.md">AGENTS.md</a></code></td><td>OpenCode</td><td>Same content, for OpenCode&rsquo;s agent system</td></tr>
+            <tr><td><code><a href="https://github.com/beperron/SSWR-History-Public/blob/main/CODEBOOK_LLM.md">CODEBOOK_LLM.md</a></code></td><td>Any LLM</td><td>Compact reference &mdash; paste into any AI chat window</td></tr>
           </tbody>
         </table>
       </div>
 
-      <p>Join tables on <code>papers.id = paper_authors.paper_id</code>. Use <code>author_order = 1</code> for first authors. Use <code>canonical_author_id</code> to count unique researchers. Full field documentation in the <a href="codebook.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Codebook</a>.</p>
+      <p>If you&rsquo;re using Claude Desktop (not Claude Code), paste the contents of <code>CODEBOOK_LLM.md</code> into your first message to give Claude the full dataset context.</p>
+
+      <hr>
+
+      <h2 id="step3">Step 3 &mdash; Start Asking Questions</h2>
+      <p>You now have everything set up. Here are real questions you can ask right now:</p>
+
+      <h3>Explore the data</h3>
+      <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
+        <p style="margin:0;font-style:italic;">&ldquo;How many presentations were at SSWR in each year from 2005 to 2026? Show the trend.&rdquo;</p>
+      </div>
+      <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
+        <p style="margin:0;font-style:italic;">&ldquo;What are the top 20 institutions by first-authored presentations?&rdquo;</p>
+      </div>
+
+      <h3>Analyze trends</h3>
+      <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
+        <p style="margin:0;font-style:italic;">&ldquo;How has the proportion of qualitative vs. quantitative research changed over time? Show percentages by year.&rdquo;</p>
+      </div>
+      <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
+        <p style="margin:0;font-style:italic;">&ldquo;What percentage of first authors are doctoral students? Has this changed?&rdquo;</p>
+      </div>
+
+      <h3>Answer research questions</h3>
+      <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
+        <p style="margin:0;font-style:italic;">&ldquo;How has international participation at SSWR changed since 2010? Which countries are growing fastest?&rdquo;</p>
+      </div>
+      <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
+        <p style="margin:0;font-style:italic;">&ldquo;Compare the methodology distribution of presentations from University of Michigan vs. Columbia University.&rdquo;</p>
+      </div>
+
+      <h3>Discover connections</h3>
+      <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
+        <p style="margin:0;font-style:italic;">&ldquo;Find presentations about substance use interventions from the last 5 years. Who are the most active researchers in this area?&rdquo;</p>
+      </div>
+
+      <hr>
+
+      <h2 id="traditional">Traditional Access</h2>
+      <p>If you prefer working with files directly, the data is available as <a href="download.html">CSV, JSON, and SQLite downloads</a>. A <a href="download.html#api">REST API</a> is also available for programmatic access.</p>
 
     </div>
   </main>
@@ -160,10 +134,10 @@ result = db.table("papers") \
       <div class="footer-col">
         <h4>Links</h4>
         <ul>
-          <li><a href="quickstart.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Quick Start</a></li>
-          <li><a href="codebook.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Codebook</a></li>
+          <li><a href="quickstart.html">Quick Start</a></li>
+          <li><a href="codebook.html">Codebook</a></li>
           <li><a href="mcp.html">MCP &amp; Skill File</a></li>
-          <li><a href="download.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</a></li>
+          <li><a href="download.html">Download</a></li>
           <li><a href="about.html">About &amp; Citation</a></li>
         </ul>
       </div>
@@ -181,5 +155,15 @@ result = db.table("papers") \
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+  document.getElementById('copy-prompt').addEventListener('click', function() {
+    var prompt = 'I want to connect to the SSWR Conference History Database via MCP so I can query two decades of social work research data through natural language.\n\nPlease add this to my MCP configuration:\n\n{\n  "mcpServers": {\n    "sswr-history": {\n      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database"\n    }\n  }\n}\n\nHelp me:\n1. Find my config file and add this MCP server\n2. Restart the application\n3. Verify by listing the available tables\n\nFor more information see: https://beperron.github.io/SSWR-History-Public/mcp.html\nSkill file for full schema context: https://github.com/beperron/SSWR-History-Public/blob/main/CODEBOOK_LLM.md';
+    navigator.clipboard.writeText(prompt).then(function() {
+      var btn = document.getElementById('copy-prompt');
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = 'Copy Setup Prompt'; }, 2000);
+    });
+  });
+  </script>
 </body>
 </html>

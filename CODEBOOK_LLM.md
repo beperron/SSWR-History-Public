@@ -98,9 +98,9 @@ SELECT year, ROUND(AVG(author_count),2) as mean_authors FROM papers GROUP BY yea
 SELECT id, title, year FROM papers WHERE abstract ILIKE '%machine learning%';
 ```
 
-## SUPABASE CONNECTION
-- URL: https://jomsksqqcpkbuhwytovo.supabase.co
-- Anon key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg
+## CONNECTION
+- MCP: `{"url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database"}`
+- REST API: https://jomsksqqcpkbuhwytovo.supabase.co
 - Access: read-only (papers, paper_authors, paper_embeddings)
 
 ## DATA QUALITY

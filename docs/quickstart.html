@@ -34,21 +34,36 @@
       <h2>Option 1 &mdash; Ask an AI (no code)</h2>
       <p>Connect any MCP-compatible AI assistant (Claude Desktop, Claude Code, Cursor, OpenCode, etc.) to the live SSWR database. No SQL, no downloads &mdash; ask questions in plain language.</p>
 
-      <h3>New to MCP? Give this prompt to your AI assistant:</h3>
-      <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
-        <p style="font-style:italic;margin:0;">I want to connect to the SSWR Conference History Database via MCP. The connection details are:</p>
-        <ul style="margin:0.75rem 0 0;">
-          <li>Package: <code>@supabase/mcp-server-supabase@latest</code></li>
-          <li>URL: <code>https://jomsksqqcpkbuhwytovo.supabase.co</code></li>
-          <li>Key: <code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg</code></li>
-          <li>Mode: read-only</li>
-        </ul>
-        <p style="margin:0.75rem 0 0;font-style:italic;">Please help me set this up as an MCP server in my configuration file, then verify it works by listing the available tables.</p>
+      <h3>New to MCP? Copy this prompt and give it to your AI assistant:</h3>
+      <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;position:relative;">
+        <button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector('.cite-text').textContent.trim()).then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy prompt',1500)})">Copy prompt</button>
+        <span class="cite-text" style="display:block;white-space:pre-wrap;">I want to connect to the SSWR Conference History Database via MCP so I can query it with natural language.
+
+Please add this MCP server to my configuration:
+
+- Server name: sswr-history
+- Package: @supabase/mcp-server-supabase@latest
+- Supabase URL: https://jomsksqqcpkbuhwytovo.supabase.co
+- Supabase anon key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg
+- Mode: read-only
+
+Help me find my config file, add the connection, restart, and verify it works by listing the available tables.</span>
       </div>
-      <p>Paste this prompt into Claude Code, Cursor, or any MCP-capable tool. The AI will find your config file, add the connection, and walk you through restarting.</p>
+      <p>Paste this into Claude Code, Cursor, or any MCP-capable AI tool. The assistant will handle everything.</p>
 
       <h3>Already familiar with MCP?</h3>
-      <p>Add <code>sswr-history</code> to your MCP config using the Supabase MCP package. Full config and details on the <a href="mcp.html">MCP page</a>.</p>
+      <p>Copy the JSON config and add it to your MCP settings. <a href="mcp.html">Full details on the MCP page</a>.</p>
+      <button class="btn btn--primary" id="copy-config-qs" style="margin-bottom:1rem;">Copy MCP JSON Config</button>
+      <script>
+      document.getElementById('copy-config-qs').addEventListener('click', function() {
+        var config = '{\n  "mcpServers": {\n    "sswr-history": {\n      "command": "npx",\n      "args": [\n        "-y",\n        "@supabase/mcp-server-supabase@latest",\n        "--supabase-url",\n        "https://jomsksqqcpkbuhwytovo.supabase.co",\n        "--supabase-key",\n        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",\n        "--read-only"\n      ]\n    }\n  }\n}';
+        navigator.clipboard.writeText(config).then(function() {
+          var btn = document.getElementById('copy-config-qs');
+          btn.textContent = 'Copied!';
+          setTimeout(function() { btn.textContent = 'Copy MCP JSON Config'; }, 2000);
+        });
+      });
+      </script>
 
       <hr>
 

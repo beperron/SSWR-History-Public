@@ -8,11 +8,11 @@
 
 ---
 
-23,793 presentations · 69,924 author records · 20,779 unique researchers · 4,049 institutions · 93 countries
+23,793 presentations · 20,779 unique researchers · 4,049 institutions · 93 countries
 
 ---
 
-[**Explore the Data**](https://beperron.github.io/SSWR-History-Public/) · [**Download**](https://beperron.github.io/SSWR-History-Public/download.html) · [**Codebook**](https://beperron.github.io/SSWR-History-Public/codebook.html) · [**Report an Error**](https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml)
+[**Quick Start**](https://beperron.github.io/SSWR-History-Public/quickstart.html) · [**Codebook**](https://beperron.github.io/SSWR-History-Public/codebook.html) · [**Download**](https://beperron.github.io/SSWR-History-Public/download.html) · [**Report an Error**](https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml)
 
 </div>
 
@@ -22,120 +22,53 @@
 
 A comprehensive, structured database of every publicly available presentation abstract from the SSWR Annual Conference over 22 years. Built with AI-assisted curation — small language models parsed unstructured conference records into analyzable metadata, with human review at each stage.
 
-This dataset transforms what was previously an informational archive into research infrastructure for the social work research community.
-
-> **Read the paper:** Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship: Compiling, structuring, and analyzing two decades of presentations at the Society for Social Work and Research (2005–2026). *Journal of the Society for Social Work and Research*.
+> **Read the paper:** Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship. *Journal of the Society for Social Work and Research*. [arXiv:2603.06814](https://arxiv.org/abs/2603.06814)
 >
-> [arXiv:2603.06814](https://arxiv.org/abs/2603.06814)
-
-> **Related work:** Perron, B. E., & Qi, Z. (2025). Theoretical and methodological shifts in social work research: An AI-driven analysis of postmodern and critical theory at the SSWR Annual Conference. *Research on Social Work Practice*.
->
-> [DOI: 10.1177/10497315251352838](https://journals.sagepub.com/doi/10.1177/10497315251352838)
+> **Related work:** Perron, B. E., & Qi, Z. (2025). Theoretical and methodological shifts in social work research. *Research on Social Work Practice*. [DOI: 10.1177/10497315251352838](https://journals.sagepub.com/doi/10.1177/10497315251352838)
 
 ---
 
-## Quick Start
+## AI-First Access
 
-### CSV (simplest)
+This database is designed to be queried through conversation, not code. We are building a lightweight AI layer to facilitate access and analysis, with integrations for agentic workflows. The goal: focus on your research questions, not on writing boilerplate.
 
-```python
-import pandas as pd
+### :electric_plug: MCP — Query through conversation
 
-papers  = pd.read_csv("data/csv/papers.csv")
-authors = pd.read_csv("data/csv/paper_authors.csv")
-```
+Connect any MCP-compatible AI assistant (Claude, Cursor, OpenCode) to the live database. Ask questions in plain language — the AI writes the query, runs it, and interprets the results.
 
-### REST API (no download required)
+**[Quick Start guide](https://beperron.github.io/SSWR-History-Public/quickstart.html)** — two copy-paste prompts, no code required.
 
-Query the live database directly via the Supabase PostgREST API:
+> *"What percentage of presentations used qualitative methods in 2025?"*
+> *"Which institutions had the most first-authored presentations?"*
+> *"How has international participation changed since 2010?"*
 
-```bash
-# Get all 2026 presentations
-curl "https://jomsksqqcpkbuhwytovo.supabase.co/rest/v1/papers?year=eq.2026&select=id,title,methodology" \
-  -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg"
-```
+### :brain: Skill Files — Give AI full context
 
-```python
-from supabase import create_client
+Skill files provide the AI with complete database schema, query patterns, data quality notes, and semantic search instructions. They're read automatically by AI coding tools.
 
-db = create_client(
-    "https://jomsksqqcpkbuhwytovo.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg"
-)
+| File | For | Purpose |
+|------|-----|---------|
+| `CLAUDE.md` | Claude Code | Full schema, queries, embeddings |
+| `AGENTS.md` | OpenCode | Same content for OpenCode |
+| `CODEBOOK_LLM.md` | Any LLM | Compact reference for any AI chat |
 
-# Qualitative presentations from 2020 onward
-result = db.table("papers") \
-    .select("id, title, year") \
-    .eq("methodology", "qualitative") \
-    .gte("year", 2020) \
-    .execute()
-```
+### :mag: Vector Embeddings — Semantic search
+
+Pre-computed embeddings for all 23,793 presentations enable similarity search across two decades of scholarship. Available via the REST API using `text-embedding-3-large` (3,072 dims) or `text-embedding-3-small` (1,536 dims).
+
+> :construction: MCP integration and skill files are under active development. We welcome feedback via [GitHub Issues](https://github.com/beperron/SSWR-History-Public/issues/new?template=general-feedback.yml).
 
 ---
 
-## MCP: AI-Native Data Access
+## Downloads
 
-This database is available as a **Model Context Protocol (MCP)** resource, enabling AI assistants like Claude to query and analyze the data directly through natural conversation.
+| Format | Description | Size |
+|--------|-------------|------|
+| :package: [SQLite](https://github.com/beperron/SSWR-History-Public/raw/main/data/sswr_history_0.9.0-beta.db.gz) | Complete database, indexed | 33 MB |
+| :page_facing_up: [Papers CSV](https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/sswr_papers_0.9.0-beta.csv) | 23,793 presentations | 83 MB |
+| :busts_in_silhouette: [Authors CSV](https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/sswr_paper_authors_0.9.0-beta.csv) | 69,924 author records | 15 MB |
 
-### Why This Matters
-
-MCP represents a shift in how researchers can interact with structured datasets. Instead of writing queries, downloading files, or building dashboards, you can ask questions in plain language:
-
-- *"What percentage of SSWR presentations used qualitative methods in 2025?"*
-- *"Which institutions had the most first-authored presentations?"*
-- *"How has international participation changed since 2015?"*
-
-The AI formulates the SQL, executes it against the live database, and returns interpreted results — collapsing the pipeline from question to answer.
-
-### Connect via MCP
-
-Add this to your Claude Desktop or Claude Code MCP configuration:
-
-```json
-{
-  "mcpServers": {
-    "sswr-history": {
-      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database"
-    }
-  }
-}
-```
-
-No API key or Node.js required.
-
-Once connected, ask Claude anything about SSWR conference history. The database includes full abstracts, author affiliations, methodology classifications, institutional data, and geographic information — all queryable through conversation.
-
-> This is an early demonstration of how scholarly datasets can be made AI-accessible. We believe this pattern — structured data + MCP + natural language — will become a standard interface for research infrastructure.
-
----
-
-## Data Structure
-
-```
-papers (23,793 rows)
-├── id                              unique identifier (YYYY-L-NNNN)
-├── year                            conference year (2005–2026)
-├── title                           presentation title
-├── abstract                        full abstract text
-├── author_count                    number of authors
-├── methodology                     quantitative | qualitative | mixed_methods | review | other
-├── methodology_classification_rationale   classification rationale
-└── original_paper_id               source reference ID
-
-paper_authors (69,924 rows)
-├── id                              record identifier
-├── paper_id                → papers.id
-├── author_order                    position in author list (1 = first)
-├── name / name_normalized          original and normalized name
-├── degree                          academic credentials
-├── position / position_normalized  raw and standardized position
-├── institution / institution_raw / institution_normalized / institution_id
-├── city / state_province
-├── country / country_normalized
-├── parsing_error                   LLM parsing error flag
-├── author_id                       entity resolution ID (23,481 variants)
-└── canonical_author_id             deduplicated ID (20,779 identities)
-```
+All files are versioned (`v0.9.0-beta`). [Full download options](https://beperron.github.io/SSWR-History-Public/download.html) including JSON and REST API.
 
 ---
 
@@ -143,35 +76,23 @@ paper_authors (69,924 rows)
 
 | Metric | Value |
 |--------|-------|
-| Institution extraction accuracy | 94% (200-record manual review) |
-| Position extraction accuracy | 91% (200-record manual review) |
-| Methodology classification agreement | Cohen's kappa = .83 |
-| Entity resolution | 23,481 → 20,779 canonical identities |
-| Human review stages | 4 (after scraping, parsing, resolution, classification) |
+| Institution extraction accuracy | 94% |
+| Position extraction accuracy | 91% |
+| Methodology classification (kappa) | .83 |
+| Entity resolution | 23,481 → 20,779 identities |
+| Human review stages | 4 |
 
-Despite extensive quality assurance, errors will exist in a dataset of this scale. **[Report errors here](https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml)** — corrections with evidence are especially valuable.
+:warning: Despite extensive quality assurance, errors will exist at this scale. **[Report errors here](https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml)**.
 
 ---
 
 ## Release Status
 
-**v0.9.0-beta** — This is a beta release. Data and documentation are under active review. We welcome error reports and feedback via [GitHub Issues](https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml). Version numbers follow [Semantic Versioning](https://semver.org/). The `v1.0.0` release will follow community review.
+**v0.9.0-beta** — Data and documentation under active review. Error reports and feedback welcome via [GitHub Issues](https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml). The `v1.0.0` release will follow community review.
 
-## License
+**License:** CC BY 4.0
 
-**CC BY 4.0** — free to share and adapt for any purpose with attribution.
-
----
-
-## Citation
-
-```
-Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of
-conference scholarship: Compiling, structuring, and analyzing two decades
-of presentations at the Society for Social Work and Research (2005–2026).
-Journal of the Society for Social Work and Research.
-https://doi.org/10.48550/arXiv.2603.06814
-```
+**Citation:** Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship. *Journal of the Society for Social Work and Research*. https://doi.org/10.48550/arXiv.2603.06814
 
 ---
 

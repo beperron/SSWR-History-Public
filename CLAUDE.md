@@ -210,3 +210,52 @@ first_authors = authors[authors.author_order == 1]
 - `paper_authors.canonical_author_id` identifies deduplicated people (20,779 unique)
 - Use `author_order = 1` to isolate first/presenting authors
 - Use `canonical_author_id` (not `author_id`) for counting unique researchers
+
+## Semantic Search (complete recipe)
+
+Two RPC functions are available for similarity search against the paper_embeddings table. Query embeddings MUST use the exact same model as the stored vectors.
+
+### Full workflow:
+```python
+import openai, requests
+
+# 1. Generate query embedding via OpenRouter (or OpenAI)
+client = openai.OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key="sk-or-..."  # user's OpenRouter key
+)
+
+# Use text-embedding-3-small for match_papers_small (faster, cheaper)
+response = client.embeddings.create(
+    model="openai/text-embedding-3-small",
+    input="your search query here"
+)
+query_vector = response.data[0].embedding  # 1,536 dims
+
+# 2. Call the RPC function
+result = requests.post(
+    "https://jomsksqqcpkbuhwytovo.supabase.co/rest/v1/rpc/match_papers_small",
+    headers={
+        "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",
+        "Content-Type": "application/json"
+    },
+    json={
+        "query_embedding": query_vector,
+        "match_threshold": 0.3,
+        "match_count": 10
+    }
+).json()
+
+# result contains: id, title, year, abstract, methodology, similarity, authors
+```
+
+### RPC function signatures:
+- `match_papers(query_embedding vector(3072), match_threshold float, match_count int, min_year int, max_year int)` — uses text-embedding-3-large
+- `match_papers_small(query_embedding vector(1536), match_threshold float, match_count int, min_year int, max_year int)` — uses text-embedding-3-small
+
+### Important:
+- OpenRouter key required for embedding generation (sign up at https://openrouter.ai)
+- For text-embedding-3-large, use model ID `openai/text-embedding-3-large` and function `match_papers`
+- For text-embedding-3-small, use model ID `openai/text-embedding-3-small` and function `match_papers_small`
+- Similarity scores: >0.6 = highly relevant, 0.4-0.6 = related, <0.3 = weak match
+- All affiliation data reflects the time of the conference, not current positions

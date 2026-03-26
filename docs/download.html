@@ -22,6 +22,7 @@
         <li><a href="codebook.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Codebook</a></li>
         <li><a href="mcp.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8l2.8-2.8M17 7l2.8-2.8"/></svg>MCP</a></li>
         <li><a href="download.html" class="active"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</a></li>
+        <li><a href="https://github.com/beperron/SSWR-History-Public" style="display:inline-flex;align-items:center;gap:3px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:3px"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a></li>
         <li><a href="about.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>About</a></li>
       </ul>
     </nav>
@@ -29,16 +30,75 @@
 
   <main>
     <div class="container--wide">
-      <h1>Download the Data</h1>
-      <p>The SSWR Conference History Database is available in CSV and JSON formats. All files are encoded in UTF-8. See the <a href="codebook.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Codebook</a> for complete field documentation.</p>
+      <h1>Download &amp; Access</h1>
+
+      <nav style="margin-bottom:2rem;padding:1rem 1.25rem;background:#f7f7f8;border-radius:8px;">
+        <strong style="font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;color:#666;">On this page</strong>
+        <ul style="margin:0.5rem 0 0;padding-left:1rem;font-size:0.88rem;line-height:2;columns:2;">
+          <li><a href="#mcp">MCP Connection</a></li>
+          <li><a href="#skills">Skill Files</a></li>
+          <li><a href="#sqlite">SQLite Database</a></li>
+          <li><a href="#csv">CSV Files</a></li>
+          <li><a href="#json">JSON Files</a></li>
+          <li><a href="#api">REST API</a></li>
+          <li><a href="#embeddings">Vector Embeddings</a></li>
+        </ul>
+      </nav>
+
+      <div class="callout callout--blue">
+        <p><strong>Recommended:</strong> Use the <a href="#mcp">MCP connection</a> to query the database directly from your AI assistant. The data is hosted on Supabase with virtually no latency &mdash; no downloads, no file management, no version mismatches. You get real-time access to the full dataset including vector embeddings for semantic search.</p>
+      </div>
 
       <div class="callout">
-        <p><strong>License:</strong> This dataset is released under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 (CC BY 4.0)</a>. You are free to share and adapt the data for any purpose, provided you give appropriate credit. See <a href="about.html#citation">How to Cite</a>.</p>
+        <p><strong>Running locally?</strong> We recommend cloning the <a href="https://github.com/beperron/SSWR-History-Public">repository</a> and using an agentic tool like <a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a> or <a href="https://github.com/anomalyco/opencode">OpenCode</a> with the included skill files (<code>CLAUDE.md</code>, <code>AGENTS.md</code>). These files give the AI complete schema context, query patterns, data quality notes, and semantic search instructions &mdash; resulting in faster, more accurate analysis than writing code manually.</p>
+      </div>
+
+      <div class="callout" style="background:#fff;border-left-color:#999;">
+        <p><strong>License:</strong> <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Free to share and adapt with attribution. <a href="about.html#citation">How to Cite</a>.</p>
       </div>
 
       <hr>
 
-      <h2>SQLite Database (Recommended)</h2>
+      <h2 id="mcp">MCP Connection (Cloud)</h2>
+      <p>Add this to your <a href="https://beperron.substack.com/p/apis-and-mcps-essential-acronyms?r=1nnr07">MCP</a> configuration to query the live database with virtually no latency. No API key or Node.js required.</p>
+      <pre><code>{
+  "mcpServers": {
+    "sswr-history": {
+      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database"
+    }
+  }
+}</code></pre>
+      <p>Works with Claude Desktop, Claude Code, Cursor, OpenCode, and any MCP-compatible client. See the <a href="quickstart.html">Quick Start</a> for step-by-step setup.</p>
+
+      <hr>
+
+      <h2 id="skills">Skill Files</h2>
+      <p><a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">Skill files</a> give AI assistants complete context about the database &mdash; schema, query patterns, categorical values, data quality notes, and semantic search instructions. They are read automatically when you work from the cloned repository.</p>
+
+      <pre><code>git clone https://github.com/beperron/SSWR-History-Public.git
+cd SSWR-History-Public</code></pre>
+
+      <div class="download-grid">
+        <div class="download-card">
+          <h3>CLAUDE.md</h3>
+          <p class="meta">For Claude Code. Read automatically. Full schema, queries, embeddings.</p>
+          <a href="https://github.com/beperron/SSWR-History-Public/raw/main/CLAUDE.md" class="btn btn--primary">Download</a>
+        </div>
+        <div class="download-card">
+          <h3>AGENTS.md</h3>
+          <p class="meta">For OpenCode. Same content, read automatically by OpenCode&rsquo;s agent system.</p>
+          <a href="https://github.com/beperron/SSWR-History-Public/raw/main/AGENTS.md" class="btn btn--primary">Download</a>
+        </div>
+        <div class="download-card">
+          <h3>CODEBOOK_LLM.md</h3>
+          <p class="meta">For any LLM. Compact, token-efficient. Paste into any AI chat for instant context.</p>
+          <a href="https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md" class="btn btn--primary">Download</a>
+        </div>
+      </div>
+
+      <hr>
+
+      <h2 id="sqlite">SQLite Database</h2>
       <p>A single file with both tables, indexed and ready to query. Works with Python, R, DBeaver, or any SQLite client.</p>
 
       <div class="download-grid">
@@ -51,7 +111,7 @@
 
       <hr>
 
-      <h2>CSV Files</h2>
+      <h2 id="csv">CSV Files</h2>
       <p>For R, Python (pandas), Stata, SPSS, or spreadsheet software.</p>
 
       <div class="download-grid">
@@ -69,7 +129,7 @@
 
       <hr>
 
-      <h2>JSON Files</h2>
+      <h2 id="json">JSON Files</h2>
       <p>Structured format for web applications and programmatic access. All JSON files include version metadata.</p>
 
       <div class="download-grid">
@@ -269,7 +329,8 @@ response = client.embeddings.create(
           <li><a href="codebook.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Codebook</a></li>
         <li><a href="mcp.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8l2.8-2.8M17 7l2.8-2.8"/></svg>MCP</a></li>
           <li><a href="download.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</a></li>
-          <li><a href="about.html">About &amp; Citation</a></li>
+          <li><a href="https://github.com/beperron/SSWR-History-Public" style="display:inline-flex;align-items:center;gap:3px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:3px"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a></li>
+        <li><a href="about.html">About &amp; Citation</a></li>
           <li><a href="https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml">Report an Error</a></li>
         </ul>
       </div>

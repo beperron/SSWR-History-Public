@@ -25,8 +25,8 @@
   --font-serif: 'Newsreader', 'Georgia', serif;
   --font-mono:  'JetBrains Mono', 'Menlo', monospace;
 
-  --max-prose: 44rem;
-  --max-wide:  64rem;
+  --max-prose: 48rem;
+  --max-wide:  72rem;
   --section-gap: 4rem;
 }
 

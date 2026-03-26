@@ -35,24 +35,25 @@
       <p>Connect any MCP-compatible AI assistant (Claude Desktop, Claude Code, Cursor, OpenCode, etc.) to the live SSWR database. No SQL, no downloads &mdash; ask questions in plain language.</p>
 
       <h3>New to MCP? Give this prompt to your AI assistant</h3>
-      <p>Click the button below to copy the setup prompt, then paste it into Claude Code, Cursor, or any MCP-capable tool. The AI will find your config file, add the connection, and walk you through the rest.</p>
-      <button class="btn btn--primary" id="copy-prompt-qs" style="margin-bottom:0.5rem;">Copy Setup Prompt to Clipboard</button>
+      <p>Click the button to copy a setup prompt, then paste it into Claude Code, Cursor, or any MCP-capable tool.</p>
+      <button class="btn btn--primary" id="copy-prompt-qs">Copy Setup Prompt to Clipboard</button>
       <details style="margin-top:0.75rem;">
-        <summary style="font-size:0.82rem;color:#666;cursor:pointer;font-family:var(--font-sans);">Preview the prompt</summary>
-        <pre style="margin-top:0.5rem;font-size:0.78rem;white-space:pre-wrap;word-break:break-all;"><code>I want to connect to the SSWR Conference History Database via MCP so I can query it with natural language.
-
-Please add this MCP server to my configuration:
-- Server name: sswr-history
-- Package: @supabase/mcp-server-supabase@latest
-- Supabase URL: https://jomsksqqcpkbuhwytovo.supabase.co
-- Supabase anon key: [included in clipboard]
-- Mode: read-only
-
-Help me find my config file, add the connection, restart, and verify it works by listing the available tables.</code></pre>
+        <summary style="font-size:0.82rem;color:#666;cursor:pointer;font-family:var(--font-sans);">Preview what gets copied</summary>
+        <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.85rem;line-height:1.6;">
+          <p style="margin:0 0 0.5rem;font-style:italic;">I want to connect to the SSWR Conference History Database via MCP. Please add this to my MCP config:</p>
+          <pre style="margin:0;background:#1a1a2e;padding:0.75rem 1rem;font-size:0.8rem;"><code>{
+  "mcpServers": {
+    "sswr-history": {
+      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database"
+    }
+  }
+}</code></pre>
+          <p style="margin:0.5rem 0 0;font-style:italic;">Then verify it works by listing the available tables.</p>
+        </div>
       </details>
       <script>
       document.getElementById('copy-prompt-qs').addEventListener('click', function() {
-        var prompt = 'I want to connect to the SSWR Conference History Database via MCP so I can query it with natural language.\n\nPlease add this MCP server to my configuration:\n- Server name: sswr-history\n- Package: @supabase/mcp-server-supabase@latest\n- Supabase URL: https://jomsksqqcpkbuhwytovo.supabase.co\n- Supabase anon key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg\n- Mode: read-only\n\nHelp me find my config file, add the connection, restart, and verify it works by listing the available tables.';
+        var prompt = 'I want to connect to the SSWR Conference History Database via MCP so I can query it with natural language.\n\nPlease add this to my MCP configuration:\n\n{\n  "mcpServers": {\n    "sswr-history": {\n      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database"\n    }\n  }\n}\n\nHelp me find my config file, add the connection, restart, and verify it works by listing the available tables.';
         navigator.clipboard.writeText(prompt).then(function() {
           var btn = document.getElementById('copy-prompt-qs');
           btn.textContent = 'Copied!';
@@ -62,18 +63,14 @@ Help me find my config file, add the connection, restart, and verify it works by
       </script>
 
       <h3>Already familiar with MCP?</h3>
-      <p>Copy the JSON config directly. <a href="mcp.html">Full details on the MCP page</a>.</p>
-      <button class="btn btn--outline" id="copy-config-qs" style="margin-bottom:1rem;">Copy MCP JSON Config</button>
-      <script>
-      document.getElementById('copy-config-qs').addEventListener('click', function() {
-        var config = '{\n  "mcpServers": {\n    "sswr-history": {\n      "command": "npx",\n      "args": [\n        "-y",\n        "@supabase/mcp-server-supabase@latest",\n        "--supabase-url",\n        "https://jomsksqqcpkbuhwytovo.supabase.co",\n        "--supabase-key",\n        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",\n        "--read-only"\n      ]\n    }\n  }\n}';
-        navigator.clipboard.writeText(config).then(function() {
-          var btn = document.getElementById('copy-config-qs');
-          btn.textContent = 'Copied!';
-          setTimeout(function() { btn.textContent = 'Copy MCP JSON Config'; }, 2000);
-        });
-      });
-      </script>
+      <p>Add this to your MCP config. No API key or Node.js needed. <a href="mcp.html">Full details</a>.</p>
+      <pre><code>{
+  "mcpServers": {
+    "sswr-history": {
+      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database"
+    }
+  }
+}</code></pre>
 
       <hr>
 

@@ -94,19 +94,14 @@ Add this to your Claude Desktop or Claude Code MCP configuration:
 ```json
 {
   "mcpServers": {
-    "supabase": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@supabase/mcp-server-supabase@latest",
-        "--supabase-url", "https://jomsksqqcpkbuhwytovo.supabase.co",
-        "--supabase-key", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",
-        "--read-only"
-      ]
+    "sswr-history": {
+      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database"
     }
   }
 }
 ```
+
+No API key or Node.js required.
 
 Once connected, ask Claude anything about SSWR conference history. The database includes full abstracts, author affiliations, methodology classifications, institutional data, and geographic information — all queryable through conversation.
 

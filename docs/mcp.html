@@ -75,69 +75,29 @@
       <div class="step">
         <span class="step-num">1</span>
         <div>
-          <p><strong>Install Node.js</strong> (version 18+) if you don&rsquo;t have it. Download from <a href="https://nodejs.org/">nodejs.org</a>.</p>
+          <p><strong>Add the config</strong> to your MCP settings file. No API key or Node.js required.</p>
+          <pre><code>{
+  "mcpServers": {
+    "sswr-history": {
+      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database"
+    }
+  }
+}</code></pre>
         </div>
       </div>
 
       <div class="step">
         <span class="step-num">2</span>
         <div>
-          <p><strong>Copy the connection config</strong> to your clipboard.</p>
-          <button class="btn btn--primary" id="copy-config" style="margin-top:0.5rem;">Copy MCP Config to Clipboard</button>
+          <p><strong>Restart the application.</strong> The SSWR database will be available immediately.</p>
         </div>
       </div>
 
       <div class="step">
         <span class="step-num">3</span>
         <div>
-          <p><strong>Open your config file</strong> and paste the config inside <code>mcpServers</code>.</p>
-          <div class="table-wrap">
-            <table>
-              <tbody>
-                <tr><td style="font-family:var(--font-sans);font-size:0.82rem;font-weight:500;">Claude Desktop (macOS)</td><td><code>~/Library/Application Support/Claude/claude_desktop_config.json</code></td></tr>
-                <tr><td style="font-family:var(--font-sans);font-size:0.82rem;font-weight:500;">Claude Desktop (Windows)</td><td><code>%APPDATA%\Claude\claude_desktop_config.json</code></td></tr>
-                <tr><td style="font-family:var(--font-sans);font-size:0.82rem;font-weight:500;">Claude Code</td><td><code>~/.claude/settings.json</code></td></tr>
-                <tr><td style="font-family:var(--font-sans);font-size:0.82rem;font-weight:500;">Cursor</td><td><code>~/.cursor/mcp.json</code></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <span class="step-num">4</span>
-        <div>
-          <p><strong>Restart the application.</strong> The SSWR database will be available immediately.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <span class="step-num">5</span>
-        <div>
           <p><strong>Try asking:</strong></p>
           <div class="prompt-example">&ldquo;How many presentations were at SSWR in 2026?&rdquo;</div>
-        </div>
-      </div>
-
-      <div class="config-reveal">
-        <button class="config-toggle" onclick="this.nextElementSibling.classList.toggle('open')">Show raw configuration &darr;</button>
-        <div class="config-content">
-          <pre><code>{
-  "mcpServers": {
-    "sswr-history": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@supabase/mcp-server-supabase@latest",
-        "--supabase-url",
-        "https://jomsksqqcpkbuhwytovo.supabase.co",
-        "--supabase-key",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",
-        "--read-only"
-      ]
-    }
-  }
-}</code></pre>
         </div>
       </div>
 
@@ -220,7 +180,7 @@ cd SSWR-History-Public</code></pre>
   <script src="js/main.js"></script>
   <script>
   document.getElementById('copy-config').addEventListener('click', function() {
-    var config = '{\n  "mcpServers": {\n    "sswr-history": {\n      "command": "npx",\n      "args": [\n        "-y",\n        "@supabase/mcp-server-supabase@latest",\n        "--supabase-url",\n        "https://jomsksqqcpkbuhwytovo.supabase.co",\n        "--supabase-key",\n        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",\n        "--read-only"\n      ]\n    }\n  }\n}';
+    var config = '{\n  "mcpServers": {\n    "sswr-history": {\n      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database"\n    }\n  }\n}';
     navigator.clipboard.writeText(config).then(function() {
       var btn = document.getElementById('copy-config');
       btn.textContent = 'Copied!';

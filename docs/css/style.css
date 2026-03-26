@@ -96,6 +96,9 @@ h4 {
 
 p { margin: 0 0 1rem; }
 
+/* Offset anchors so sticky nav doesn't cover headings */
+[id] { scroll-margin-top: 5rem; }
+
 strong { color: var(--ink); }
 
 code {

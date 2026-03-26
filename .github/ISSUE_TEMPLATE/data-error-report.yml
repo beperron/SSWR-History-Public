@@ -1,0 +1,88 @@
+name: Data Error Report
+description: Report an error or inaccuracy in the SSWR Conference History Database
+title: "[Data Error]: "
+labels: ["data-error"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve the accuracy of the SSWR Conference History Database. Please provide as much detail as possible so we can investigate and correct the error.
+
+  - type: input
+    id: record-id
+    attributes:
+      label: Record Identifier
+      description: |
+        The paper `id` (e.g., 2019-P-0142) or, for author records, the `paper_id` and `author_order` (e.g., 2019-P-0142, author 2).
+      placeholder: "e.g., 2019-P-0142"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: table
+    attributes:
+      label: Table
+      description: Which table does the error appear in?
+      options:
+        - Papers
+        - Paper Authors
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: fields
+    attributes:
+      label: Field(s) with Error
+      description: Select all fields that contain errors.
+      options:
+        - label: title
+        - label: abstract
+        - label: format (Oral, Poster, etc.)
+        - label: methodology
+        - label: name
+        - label: degree
+        - label: position / position_normalized
+        - label: institution / institution_normalized
+        - label: city
+        - label: state_province
+        - label: country / country_normalized
+        - label: author_order
+        - label: Other (describe below)
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of Error
+      description: What is incorrect? Please be specific.
+      placeholder: "e.g., The institution is listed as 'University of Michign' but should be 'University of Michigan'"
+    validations:
+      required: true
+
+  - type: textarea
+    id: correction
+    attributes:
+      label: Suggested Correction
+      description: What should the correct value be?
+      placeholder: "e.g., institution should be 'University of Michigan'"
+    validations:
+      required: false
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or Source
+      description: How did you determine this is an error? (e.g., personal knowledge, published CV, institutional website, the original Confex listing)
+    validations:
+      required: false
+
+  - type: dropdown
+    id: relationship
+    attributes:
+      label: Your Relationship to the Data
+      options:
+        - I am the author listed in this record
+        - I know the author personally
+        - I found this while using the dataset
+        - Other
+    validations:
+      required: false

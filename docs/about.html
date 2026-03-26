@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | SSWR Conference History Database</title>
+  <meta name="description" content="About the SSWR Conference History Database project, citation information, data quality, and known limitations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-inner">
+      <a href="index.html" class="nav-brand">SSWR History</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="codebook.html">Codebook</a></li>
+        <li><a href="methodology.html">Methodology</a></li>
+        <li><a href="download.html">Download</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>About This Project</h1>
+
+      <p>The SSWR Conference History Database is a comprehensive, structured dataset of presentation abstracts from the Society for Social Work and Research (SSWR) Annual Conference, spanning 2005 through 2026. It was constructed using AI-assisted methods to transform unstructured conference program data into analyzable research infrastructure.</p>
+
+      <p>This project is an <strong>independent research effort</strong> and is not affiliated with, endorsed by, or conducted on behalf of the Society for Social Work and Research. The views expressed here do not represent those of SSWR. All data were compiled exclusively from publicly available information in the SSWR Confex conference archive, accessible without authentication or access restrictions.</p>
+
+      <p>The project and its methods are fully described in the companion paper:</p>
+
+      <div class="card">
+        <p>Perron, B. E., Victor, B. G., &amp; Qi, Z. (in press). AI-assisted curation of conference scholarship: Compiling, structuring, and analyzing two decades of presentations at the Society for Social Work and Research (2005&ndash;2026). <em>Journal of the Society for Social Work and Research</em>.</p>
+        <p style="margin-bottom:0"><a href="https://arxiv.org/abs/2603.06814" class="btn btn--outline btn--sm">View on arXiv</a></p>
+      </div>
+
+      <p>See also our related work on AI-driven analysis of methodological and theoretical trends:</p>
+      <div class="card">
+        <p>Perron, B. E., &amp; Qi, Z. (2025). Theoretical and methodological shifts in social work research: An AI-driven analysis of postmodern and critical theory at the SSWR Annual Conference. <em>Research on Social Work Practice</em>. Advance online publication.</p>
+        <p style="margin-bottom:0"><a href="https://journals.sagepub.com/doi/10.1177/10497315251352838" class="btn btn--outline btn--sm">View Paper</a></p>
+      </div>
+
+      <hr>
+
+      <h2 id="citation">How to Cite</h2>
+      <p>If you use this dataset, please cite both the dataset and the companion paper.</p>
+
+      <h3>Paper (APA 7th Edition)</h3>
+      <div class="citation-block">
+        <button class="copy-btn">Copy</button>
+        <span class="cite-text">Perron, B. E., Victor, B. G., &amp; Qi, Z. (in press). AI-assisted curation of conference scholarship: Compiling, structuring, and analyzing two decades of presentations at the Society for Social Work and Research (2005&ndash;2026). Journal of the Society for Social Work and Research. https://doi.org/10.48550/arXiv.2603.06814</span>
+      </div>
+
+      <h3>Dataset</h3>
+      <div class="citation-block">
+        <button class="copy-btn">Copy</button>
+        <span class="cite-text">Perron, B. E., Victor, B. G., &amp; Qi, Z. (2026). SSWR Conference History Database, 2005&ndash;2026 [Dataset]. GitHub. https://github.com/beperron/SSWR-History</span>
+      </div>
+
+      <h3>BibTeX</h3>
+      <pre><code>@article{perron2026sswr,
+  author  = {Perron, Brian E. and Victor, Bryan G. and Qi, Zia},
+  title   = {AI-Assisted Curation of Conference Scholarship: Compiling,
+             Structuring, and Analyzing Two Decades of Presentations at
+             the Society for Social Work and Research (2005--2026)},
+  journal = {Journal of the Society for Social Work and Research},
+  year    = {2026},
+  note    = {In press},
+  doi     = {10.48550/arXiv.2603.06814}
+}
+
+@misc{perron2026sswrdata,
+  author    = {Perron, Brian E. and Victor, Bryan G. and Qi, Zia},
+  title     = {SSWR Conference History Database, 2005--2026},
+  year      = {2026},
+  publisher = {GitHub},
+  url       = {https://github.com/beperron/SSWR-History}
+}</code></pre>
+
+      <hr>
+
+      <h2 id="quality">Data Quality Statement</h2>
+      <p>The database was constructed through a multi-stage pipeline with iterative human review at each major processing step:</p>
+      <ul>
+        <li><strong>Web scraping validation:</strong> Extracted record counts were compared against conference program indices for each year to verify completeness.</li>
+        <li><strong>Affiliation parsing:</strong> A manual review of 200 randomly sampled parsed records found <strong>94% accuracy</strong> for institution extraction and <strong>91% accuracy</strong> for position extraction.</li>
+        <li><strong>Methodology classification:</strong> Inter-rater agreement between human and model classifications yielded <strong>Cohen&rsquo;s kappa = .83</strong> (almost perfect agreement). Accuracy varied by category: quantitative (100%), qualitative (100%), review (90%), mixed methods (80%), theoretical/other (75%).</li>
+        <li><strong>Entity resolution:</strong> Author deduplication clusters were manually reviewed for logical coherence. The process reduced 23,481 raw name variants to 20,779 canonical identities.</li>
+      </ul>
+
+      <div class="callout">
+        <p><strong>Reporting Errors:</strong> Despite these extensive quality assurance processes, we recognize that errors will exist in a dataset of this scale. We welcome and encourage the research community to report errors so that we can improve the data over time. Please use our <a href="https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml">error reporting form</a> to submit corrections. Reports with supporting evidence (e.g., links to published CVs, institutional pages, or the original Confex listing) are especially helpful.</p>
+      </div>
+
+      <hr>
+
+      <h2 id="limitations">Known Limitations</h2>
+      <ol>
+        <li><strong>Author disambiguation is imperfect.</strong> The blocking strategy groups names by first initial and last name, which may miss matches when names are recorded with different initials across presentations.</li>
+        <li><strong>Methodology classification is based on abstract content only</strong> and may not fully reflect the actual research methods employed in the underlying study.</li>
+        <li><strong>The database captures accepted presentations,</strong> not submitted proposals, preventing analysis of acceptance rates or selection bias.</li>
+        <li><strong>Presentation formats varied across conference years,</strong> complicating longitudinal comparison of format-specific trends, particularly during the virtual/hybrid conferences of 2020/2021.</li>
+        <li><strong>Coverage is limited to abstracts publicly available</strong> through the Confex archive at the time of data collection. Conference data prior to 2005 were not publicly available.</li>
+        <li><strong>Some withdrawn presentations may be included,</strong> as the database reflects published program content rather than actual delivery.</li>
+        <li><strong>External disruptions</strong> such as the COVID-19 pandemic and geopolitical tensions affecting the 2026 conference cannot be fully accounted for in participation analyses.</li>
+      </ol>
+
+      <hr>
+
+      <h2 id="authors">Authors</h2>
+
+      <div class="card">
+        <h3 style="margin-top:0">Brian E. Perron</h3>
+        <p>School of Social Work, University of Michigan<br>
+        <a href="mailto:beperron@umich.edu">beperron@umich.edu</a></p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Bryan G. Victor</h3>
+        <p>School of Social Work, Wayne State University</p>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Zia Qi</h3>
+        <p>School of Social Work, University of Michigan</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>SSWR History Database</h4>
+        <p>Companion dataset to Perron, Victor, &amp; Qi (in press).<br><em>Journal of the Society for Social Work and Research.</em></p>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="codebook.html">Codebook</a></li>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="about.html">About &amp; Citation</a></li>
+          <li><a href="https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml">Report an Error</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>Brian E. Perron<br>
+        <a href="mailto:beperron@umich.edu">beperron@umich.edu</a><br>
+        School of Social Work<br>
+        University of Michigan</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source data from the SSWR Confex archive.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

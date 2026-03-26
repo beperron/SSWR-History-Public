@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download | SSWR Conference History Database</title>
+  <meta name="description" content="Download the SSWR Conference History Database in CSV or JSON format.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-inner">
+      <a href="index.html" class="nav-brand">SSWR History</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="codebook.html">Codebook</a></li>
+        <li><a href="methodology.html">Methodology</a></li>
+        <li><a href="download.html" class="active">Download</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container--wide">
+      <h1>Download the Data</h1>
+      <p>The SSWR Conference History Database is available in CSV and JSON formats. All files are encoded in UTF-8. See the <a href="codebook.html">Codebook</a> for complete field documentation.</p>
+
+      <div class="callout">
+        <p><strong>License:</strong> This dataset is released under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 (CC BY 4.0)</a>. You are free to share and adapt the data for any purpose, provided you give appropriate credit. See <a href="about.html#citation">How to Cite</a>.</p>
+      </div>
+
+      <hr>
+
+      <h2>CSV Files (Recommended)</h2>
+      <p>Best for use with R, Python (pandas), Stata, SPSS, or spreadsheet software.</p>
+
+      <div class="download-grid">
+        <div class="download-card">
+          <h3>papers.csv</h3>
+          <p class="meta">23,793 presentations with titles, abstracts, and methodology classifications. All 8 fields from the papers table.</p>
+          <a href="https://github.com/beperron/SSWR-History/raw/main/data/csv/papers.csv" class="btn btn--primary">Download CSV</a>
+        </div>
+        <div class="download-card">
+          <h3>paper_authors.csv</h3>
+          <p class="meta">69,924 author&ndash;presentation records with names, affiliations, positions, institutions, and geographic information. All 21 fields from the paper_authors table.</p>
+          <a href="https://github.com/beperron/SSWR-History/raw/main/data/csv/paper_authors.csv" class="btn btn--primary">Download CSV</a>
+        </div>
+      </div>
+
+      <hr>
+
+      <h2>JSON Files</h2>
+      <p>Structured JSON format, useful for web applications and programmatic access.</p>
+
+      <div class="download-grid">
+        <div class="download-card">
+          <h3>Paper Authors (JSON)</h3>
+          <p class="meta">All 69,924 author records in a single JSON array.</p>
+          <a href="https://github.com/beperron/SSWR-History/raw/main/data/json/paper_authors.json" class="btn btn--outline">Download JSON</a>
+        </div>
+        <div class="download-card">
+          <h3>Metadata</h3>
+          <p class="meta">Summary statistics including presentations by year, methodology distributions, and collaboration metrics.</p>
+          <a href="https://github.com/beperron/SSWR-History/raw/main/data/json/metadata.json" class="btn btn--outline">Download JSON</a>
+        </div>
+        <div class="download-card">
+          <h3>Papers by Year (JSON)</h3>
+          <p class="meta">Per-year JSON files from <code>papers_2005.json</code> through <code>papers_2026.json</code> (1.4&ndash;7.4 MB each).</p>
+          <a href="https://github.com/beperron/SSWR-History/tree/main/data/json/papers" class="btn btn--outline">Browse Files</a>
+        </div>
+      </div>
+
+      <hr>
+
+      <h2>Quick Start</h2>
+
+      <h3>Python</h3>
+      <pre><code>import pandas as pd
+
+# Load the data
+papers = pd.read_csv('papers.csv')
+authors = pd.read_csv('paper_authors.csv')
+
+# Join tables
+merged = authors.merge(papers, left_on='paper_id', right_on='id', suffixes=('_author', '_paper'))
+
+# Example: methodology distribution
+print(papers['methodology'].value_counts())
+
+# Example: presentations per year
+print(papers.groupby('year').size())</code></pre>
+
+      <h3>R</h3>
+      <pre><code>library(readr)
+
+# Load the data
+papers &lt;- read_csv("papers.csv")
+authors &lt;- read_csv("paper_authors.csv")
+
+# Join tables
+merged &lt;- merge(authors, papers, by.x = "paper_id", by.y = "id")
+
+# Example: methodology distribution
+table(papers$methodology)
+
+# Example: top institutions
+sort(table(authors$institution_normalized), decreasing = TRUE)[1:20]</code></pre>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>SSWR History Database</h4>
+        <p>Companion dataset to Perron, Victor, &amp; Qi (in press).<br><em>Journal of the Society for Social Work and Research.</em></p>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="codebook.html">Codebook</a></li>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="about.html">About &amp; Citation</a></li>
+          <li><a href="https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml">Report an Error</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>Brian E. Perron<br>
+        <a href="mailto:beperron@umich.edu">beperron@umich.edu</a><br>
+        School of Social Work<br>
+        University of Michigan</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source data from the SSWR Confex archive.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codebook | SSWR Conference History Database</title>
+  <meta name="description" content="Complete variable documentation for the SSWR Conference History Database.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-inner">
+      <a href="index.html" class="nav-brand">SSWR History</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="codebook.html" class="active">Codebook</a></li>
+        <li><a href="methodology.html">Methodology</a></li>
+        <li><a href="download.html">Download</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container--wide">
+      <h1>Codebook</h1>
+      <p>Complete documentation for every field in the SSWR Conference History Database. The dataset consists of two relational tables linked by paper identifier. For methodology category definitions, see the <a href="methodology.html">Methodology</a> page.</p>
+
+      <div class="callout callout--blue">
+        <p><strong>Relational structure:</strong> The <code>papers</code> table contains one row per presentation. The <code>paper_authors</code> table contains one row per author&ndash;presentation association. Join on <code>papers.id = paper_authors.paper_id</code>. A single presentation may have multiple author records; a single researcher may appear across multiple presentations.</p>
+      </div>
+
+      <hr>
+
+      <!-- ============================================================ -->
+      <h2 id="papers">Papers Table</h2>
+      <p>23,793 records &middot; 8 fields &middot; One row per presentation</p>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">id</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Unique identifier for each presentation.</p>
+          <p>Format: <code>YYYY-L-NNNN</code> where YYYY is the conference year, L is a letter code indicating the source format, and NNNN is a sequential number.</p>
+          <div class="field-meta">
+            <span><strong>Example:</strong> <code>2019-P-0142</code></span>
+            <span><strong>Missing:</strong> 0%</span>
+            <span><strong>Unique:</strong> 23,793</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">year</span>
+          <span class="field-type">Integer</span>
+        </div>
+        <div class="field-body">
+          <p>Conference year in which the presentation was given. Ranges from the 9th Annual Conference (2005) through the 30th Annual Conference (2026).</p>
+          <div class="field-meta">
+            <span><strong>Range:</strong> 2005&ndash;2026</span>
+            <span><strong>Missing:</strong> 0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">title</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Presentation title as listed in the Confex conference program.</p>
+          <div class="field-meta">
+            <span><strong>Missing:</strong> 0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">abstract</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Full abstract text as submitted by the authors to the Confex system. May contain minor encoding artifacts from the original HTML source.</p>
+          <div class="field-meta">
+            <span><strong>Missing:</strong> 0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">author_count</span>
+          <span class="field-type">Integer</span>
+        </div>
+        <div class="field-body">
+          <p>Number of authors listed on the presentation. Derived from the count of associated records in the <code>paper_authors</code> table.</p>
+          <div class="field-meta">
+            <span><strong>Range:</strong> 1&ndash;20+</span>
+            <span><strong>Mean:</strong> 2.94</span>
+            <span><strong>Missing:</strong> 0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">methodology</span>
+          <span class="field-type">String &middot; Categorical</span>
+        </div>
+        <div class="field-body">
+          <p>Final consensus methodology classification for the presentation, based on abstract content. This is the primary methodology field recommended for analysis. See the <a href="methodology.html#classification">Methodology page</a> for full category definitions and the classification process.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Value</th><th>Count</th><th>%</th></tr></thead>
+              <tbody>
+                <tr><td>quantitative</td><td>14,542</td><td>61.1%</td></tr>
+                <tr><td>qualitative</td><td>5,565</td><td>23.4%</td></tr>
+                <tr><td>mixed_methods</td><td>2,172</td><td>9.1%</td></tr>
+                <tr><td>review</td><td>1,274</td><td>5.4%</td></tr>
+                <tr><td>other</td><td>240</td><td>1.0%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="field-meta">
+            <span><strong>Missing:</strong> 0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">methodology_evidence_gpt-oss-20b</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Free-text rationale provided by the gpt-oss-20b model explaining its methodology classification decision. Contains the evidence and reasoning behind the assigned category.</p>
+          <div class="field-meta">
+            <span><strong>Missing:</strong> 0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">original_paper_id</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Reference identifier from the original Confex data source, preserving the link to the source presentation page.</p>
+          <div class="field-meta">
+            <span><strong>Missing:</strong> 0%</span>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- ============================================================ -->
+      <h2 id="paper_authors">Paper Authors Table</h2>
+      <p>69,924 records &middot; 21 fields &middot; One row per author&ndash;presentation association</p>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">id</span>
+          <span class="field-type">Integer</span>
+        </div>
+        <div class="field-body">
+          <p>Unique identifier for each author&ndash;presentation record.</p>
+          <div class="field-meta">
+            <span><strong>Missing:</strong> 0%</span>
+            <span><strong>Unique:</strong> 69,924</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">paper_id</span>
+          <span class="field-type">String &middot; Foreign Key</span>
+        </div>
+        <div class="field-body">
+          <p>Foreign key linking to <code>papers.id</code>. Identifies the presentation this author record is associated with.</p>
+          <div class="field-meta">
+            <span><strong>Missing:</strong> 0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">author_order</span>
+          <span class="field-type">Integer</span>
+        </div>
+        <div class="field-body">
+          <p>Position of the author in the author list. A value of 1 indicates the first (presenting) author.</p>
+          <div class="field-meta">
+            <span><strong>Range:</strong> 1&ndash;20+</span>
+            <span><strong>Missing:</strong> 0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">name</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Author name as it appeared in the Confex system, preserving original casing and formatting.</p>
+          <div class="field-meta">
+            <span><strong>Example:</strong> <code>Brian E. Perron</code></span>
+            <span><strong>Missing:</strong> 0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">name_normalized</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Lowercased version of the author name with NFKD Unicode normalization applied. Accented characters are converted to ASCII equivalents (e.g., &ldquo;&eacute;&rdquo; &rarr; &ldquo;e&rdquo;), multiple spaces collapsed, and leading/trailing whitespace removed. Used for matching and deduplication.</p>
+          <div class="field-meta">
+            <span><strong>Missing:</strong> 0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">degree</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Academic degree(s) or credentials extracted from the author&rsquo;s affiliation string by the language model.</p>
+          <div class="field-meta">
+            <span><strong>Examples:</strong> <code>PhD</code>, <code>MSW</code>, <code>PhD, LCSW</code></span>
+            <span><strong>Missing:</strong> 10.7% (7,490 records)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">position</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Raw position or job title as extracted from the Confex affiliation text by the language model. This is the unprocessed text before normalization.</p>
+          <div class="field-meta">
+            <span><strong>Examples:</strong> <code>Assistant Professor</code>, <code>PhD Student</code>, <code>Associate Dean for Research</code></span>
+            <span><strong>Missing:</strong> ~8%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">position_normalized</span>
+          <span class="field-type">String &middot; Categorical</span>
+        </div>
+        <div class="field-body">
+          <p>Standardized position category assigned through keyword-based classification of the raw <code>position</code> field. See the <a href="methodology.html#positions">Methodology page</a> for the full taxonomy and classification rules.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Value</th><th>Count</th><th>%</th></tr></thead>
+              <tbody>
+                <tr><td>Assistant Professor</td><td>13,726</td><td>19.6%</td></tr>
+                <tr><td>Doctoral Student</td><td>13,312</td><td>19.0%</td></tr>
+                <tr><td>Associate Professor</td><td>9,182</td><td>13.1%</td></tr>
+                <tr><td>Research Staff</td><td>8,713</td><td>12.5%</td></tr>
+                <tr><td>Full Professor</td><td>8,569</td><td>12.3%</td></tr>
+                <tr><td>Unknown</td><td>5,686</td><td>8.1%</td></tr>
+                <tr><td>Masters Student</td><td>2,674</td><td>3.8%</td></tr>
+                <tr><td>Senior Leadership Practice</td><td>2,127</td><td>3.0%</td></tr>
+                <tr><td>Postdoctoral</td><td>1,473</td><td>2.1%</td></tr>
+                <tr><td>Research Faculty</td><td>1,151</td><td>1.6%</td></tr>
+                <tr><td>Practitioner</td><td>837</td><td>1.2%</td></tr>
+                <tr><td>Instructor</td><td>631</td><td>0.9%</td></tr>
+                <tr><td>Clinical Professor</td><td>616</td><td>0.9%</td></tr>
+                <tr><td>Senior Leadership Academic</td><td>545</td><td>0.8%</td></tr>
+                <tr><td>Adjunct Faculty</td><td>489</td><td>0.7%</td></tr>
+                <tr><td>Undergraduate Student</td><td>193</td><td>0.3%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="field-meta">
+            <span><strong>Missing:</strong> 0% (unknown values coded as &ldquo;Unknown&rdquo;)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">institution</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Cleaned institution name extracted by the language model. Represents the primary academic or organizational affiliation. Authors listing multiple affiliations were assigned to the first-listed institution.</p>
+          <div class="field-meta">
+            <span><strong>Example:</strong> <code>University of Michigan</code></span>
+            <span><strong>Missing:</strong> &lt;1%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">institution_raw</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Original institutional affiliation text as it appeared in the Confex system, before any processing or normalization.</p>
+          <div class="field-meta">
+            <span><strong>Example:</strong> <code>School of Social Work, University of Michigan, Ann Arbor, MI</code></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">institution_normalized</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Standardized institution name from a canonical mapping table. Variants such as &ldquo;University of Michigan,&rdquo; &ldquo;U. Michigan,&rdquo; &ldquo;U-M,&rdquo; and &ldquo;UM School of Social Work&rdquo; are consolidated to a single canonical form. Institutions without a canonical mapping retain their cleaned form.</p>
+          <div class="field-meta">
+            <span><strong>Unique values:</strong> 4,049</span>
+            <span><strong>Missing:</strong> 0.3% (229 records)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">institution_id</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Normalized institution identifier linking to the institution mapping table.</p>
+          <div class="field-meta">
+            <span><strong>Missing:</strong> ~2%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">city</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>City of the author&rsquo;s institution, as extracted from the affiliation text.</p>
+          <div class="field-meta">
+            <span><strong>Example:</strong> <code>Ann Arbor</code></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">state_province</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>State or province of the author&rsquo;s institution. U.S. state abbreviations and Canadian province abbreviations were expanded to full names (e.g., &ldquo;MI&rdquo; &rarr; &ldquo;Michigan,&rdquo; &ldquo;ON&rdquo; &rarr; &ldquo;Ontario&rdquo;).</p>
+          <div class="field-meta">
+            <span><strong>Example:</strong> <code>Michigan</code></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">country</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Country/region as extracted from the affiliation text or inferred from state/city information (e.g., &ldquo;Ann Arbor, MI&rdquo; mapped to USA).</p>
+          <div class="field-meta">
+            <span><strong>Missing:</strong> ~1%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">country_normalized</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Standardized country/region name using a mapping dictionary of over 80 variations. Examples: &ldquo;United States of America,&rdquo; &ldquo;US,&rdquo; &ldquo;U.S.,&rdquo; &ldquo;America&rdquo; all mapped to &ldquo;USA&rdquo;; &ldquo;Republic of Korea&rdquo; and &ldquo;Korea&rdquo; mapped to &ldquo;South Korea.&rdquo;</p>
+          <div class="field-meta">
+            <span><strong>Unique values:</strong> 93</span>
+            <span><strong>Missing:</strong> 1.0% (697 records)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">country_fixed</span>
+          <span class="field-type">Boolean</span>
+        </div>
+        <div class="field-body">
+          <p>Flag indicating whether the country assignment was manually corrected. Reserved for future use.</p>
+          <div class="field-meta">
+            <span><strong>Current status:</strong> All null</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">country_fix_from</span>
+          <span class="field-type">String</span>
+        </div>
+        <div class="field-body">
+          <p>Source or reason for a country correction, if applicable. Reserved for future use.</p>
+          <div class="field-meta">
+            <span><strong>Current status:</strong> All null</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">parsing_error</span>
+          <span class="field-type">Boolean</span>
+        </div>
+        <div class="field-body">
+          <p>Flag indicating whether the language model encountered errors while parsing the affiliation string for this author record.</p>
+          <div class="field-meta">
+            <span><strong>Values:</strong> <code>true</code>, <code>false</code>, or <code>null</code></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">author_id</span>
+          <span class="field-type">Integer</span>
+        </div>
+        <div class="field-body">
+          <p>Unique author identifier assigned during entity resolution. Each distinct name variant receives its own ID. Multiple records with the same <code>author_id</code> represent the same name string appearing across different presentations.</p>
+          <div class="field-meta">
+            <span><strong>Unique values:</strong> 23,481</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <div class="field-header">
+          <span class="field-name">canonical_author_id</span>
+          <span class="field-type">Integer</span>
+        </div>
+        <div class="field-body">
+          <p>Canonical author identifier after entity resolution and deduplication. Name variants determined to refer to the same individual (e.g., &ldquo;Michael S. Sherraden,&rdquo; &ldquo;Mike Sherraden,&rdquo; &ldquo;M. Sherraden&rdquo;) share the same <code>canonical_author_id</code>. Entity resolution reduced 23,481 raw name variants to 20,779 canonical identities.</p>
+          <div class="field-meta">
+            <span><strong>Unique values:</strong> 20,779</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>SSWR History Database</h4>
+        <p>Companion dataset to Perron, Victor, &amp; Qi (in press).<br><em>Journal of the Society for Social Work and Research.</em></p>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="codebook.html">Codebook</a></li>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="about.html">About &amp; Citation</a></li>
+          <li><a href="https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml">Report an Error</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>Brian E. Perron<br>
+        <a href="mailto:beperron@umich.edu">beperron@umich.edu</a><br>
+        School of Social Work<br>
+        University of Michigan</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source data from the SSWR Confex archive.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSWR Conference History Database</title>
+  <meta name="description" content="Comprehensive database of 23,793 presentations from the Society for Social Work and Research Annual Conference (2005-2026).">
+  <meta property="og:title" content="SSWR Conference History Database">
+  <meta property="og:description" content="Two decades of presentations at the Society for Social Work and Research, curated with AI-assisted methods.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-inner">
+      <a href="index.html" class="nav-brand">SSWR History</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="codebook.html">Codebook</a></li>
+        <li><a href="methodology.html">Methodology</a></li>
+        <li><a href="download.html">Download</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>SSWR Conference History Database</h1>
+      <p class="subtitle">A comprehensive, structured database of presentation abstracts from the Society for Social Work and Research Annual Conference, spanning two decades of scholarship (2005&ndash;2026).</p>
+      <span class="badge">Companion dataset to <a href="https://arxiv.org/abs/2603.06814">Perron, Victor, &amp; Qi (in press)</a></span>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="stat-card">
+      <span class="number">23,793</span>
+      <span class="label">Presentations</span>
+    </div>
+    <div class="stat-card">
+      <span class="number">69,924</span>
+      <span class="label">Author Records</span>
+    </div>
+    <div class="stat-card">
+      <span class="number">20,779</span>
+      <span class="label">Unique Researchers</span>
+    </div>
+    <div class="stat-card">
+      <span class="number">4,049</span>
+      <span class="label">Institutions</span>
+    </div>
+    <div class="stat-card">
+      <span class="number">93</span>
+      <span class="label">Countries</span>
+    </div>
+  </div>
+
+  <main>
+    <div class="container">
+      <section class="section">
+        <p class="section-label">Overview</p>
+        <h2>About the Database</h2>
+        <p>This database compiles metadata from all publicly available presentation abstracts at the <strong>SSWR Annual Conference</strong> from 2005 through 2026. It was constructed using a multi-stage pipeline combining web scraping from the Confex conference management system, AI-assisted extraction and classification using small language models (gpt-oss:20b and Qwen3-32B), and iterative human review.</p>
+        <p>The dataset is organized into two relational tables: <strong>papers</strong> (23,793 presentations with titles, abstracts, and methodology classifications) and <strong>paper_authors</strong> (69,924 author records with names, affiliations, positions, institutions, and geographic information). Records are linked by a shared paper identifier, enabling analyses at the presentation, author, institutional, and national levels.</p>
+        <p>The database is designed to serve as durable research infrastructure for the social work research community, supporting systematic analyses of research trends, methodological evolution, collaboration patterns, and institutional participation over time.</p>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Growth</p>
+        <h2>Conference Presentations by Year</h2>
+        <p>Annual presentations grew from 423 in 2005 to 1,935 in 2026, a compound annual growth rate (CAGR) of <strong>7.5%</strong>.</p>
+        <div style="margin: 1.5rem 0;">
+          <div class="year-bar"><span class="year">2005</span><div class="bar" style="width: calc(423 / 1935 * 100%)"></div><span class="count">423</span></div>
+          <div class="year-bar"><span class="year">2006</span><div class="bar" style="width: calc(401 / 1935 * 100%)"></div><span class="count">401</span></div>
+          <div class="year-bar"><span class="year">2007</span><div class="bar" style="width: calc(448 / 1935 * 100%)"></div><span class="count">448</span></div>
+          <div class="year-bar"><span class="year">2008</span><div class="bar" style="width: calc(444 / 1935 * 100%)"></div><span class="count">444</span></div>
+          <div class="year-bar"><span class="year">2009</span><div class="bar" style="width: calc(494 / 1935 * 100%)"></div><span class="count">494</span></div>
+          <div class="year-bar"><span class="year">2010</span><div class="bar" style="width: calc(550 / 1935 * 100%)"></div><span class="count">550</span></div>
+          <div class="year-bar"><span class="year">2011</span><div class="bar" style="width: calc(658 / 1935 * 100%)"></div><span class="count">658</span></div>
+          <div class="year-bar"><span class="year">2012</span><div class="bar" style="width: calc(631 / 1935 * 100%)"></div><span class="count">631</span></div>
+          <div class="year-bar"><span class="year">2013</span><div class="bar" style="width: calc(655 / 1935 * 100%)"></div><span class="count">655</span></div>
+          <div class="year-bar"><span class="year">2014</span><div class="bar" style="width: calc(801 / 1935 * 100%)"></div><span class="count">801</span></div>
+          <div class="year-bar"><span class="year">2015</span><div class="bar" style="width: calc(1166 / 1935 * 100%)"></div><span class="count">1,166</span></div>
+          <div class="year-bar"><span class="year">2016</span><div class="bar" style="width: calc(1466 / 1935 * 100%)"></div><span class="count">1,466</span></div>
+          <div class="year-bar"><span class="year">2017</span><div class="bar" style="width: calc(1454 / 1935 * 100%)"></div><span class="count">1,454</span></div>
+          <div class="year-bar"><span class="year">2018</span><div class="bar" style="width: calc(1620 / 1935 * 100%)"></div><span class="count">1,620</span></div>
+          <div class="year-bar"><span class="year">2019</span><div class="bar" style="width: calc(1541 / 1935 * 100%)"></div><span class="count">1,541</span></div>
+          <div class="year-bar"><span class="year">2020</span><div class="bar" style="width: calc(1550 / 1935 * 100%)"></div><span class="count">1,550</span></div>
+          <div class="year-bar"><span class="year">2021</span><div class="bar" style="width: calc(1364 / 1935 * 100%)"></div><span class="count">1,364</span></div>
+          <div class="year-bar"><span class="year">2022</span><div class="bar" style="width: calc(1415 / 1935 * 100%)"></div><span class="count">1,415</span></div>
+          <div class="year-bar"><span class="year">2023</span><div class="bar" style="width: calc(1514 / 1935 * 100%)"></div><span class="count">1,514</span></div>
+          <div class="year-bar"><span class="year">2024</span><div class="bar" style="width: calc(1516 / 1935 * 100%)"></div><span class="count">1,516</span></div>
+          <div class="year-bar"><span class="year">2025</span><div class="bar" style="width: calc(1747 / 1935 * 100%)"></div><span class="count">1,747</span></div>
+          <div class="year-bar"><span class="year">2026</span><div class="bar" style="width: 100%"></div><span class="count">1,935</span></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Data Quality</p>
+        <h2>Quality Assurance</h2>
+        <p>The database was constructed through an AI-assisted pipeline with human review at each major stage. Quality assurance included validation of web-scraped records against conference program indices, manual review of parsed affiliation fields (94% accuracy for institutions, 91% for positions in a 200-record sample), and inter-rater reliability testing for methodology classifications (Cohen&rsquo;s kappa = .83).</p>
+        <div class="callout">
+          <p><strong>Reporting Errors:</strong> Despite extensive quality assurance, we recognize that some errors will exist in a dataset of this scale. We welcome community contributions to improve data accuracy. If you identify an error, please submit a report through our <a href="https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml">data error reporting form</a>.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Quick Links</h2>
+        <div class="quick-links">
+          <a href="download.html" class="quick-link">
+            <span class="icon" aria-hidden="true">&#11015;</span>
+            <span class="ql-label">Download Data</span>
+          </a>
+          <a href="codebook.html" class="quick-link">
+            <span class="icon" aria-hidden="true">&#128214;</span>
+            <span class="ql-label">Codebook</span>
+          </a>
+          <a href="methodology.html" class="quick-link">
+            <span class="icon" aria-hidden="true">&#128300;</span>
+            <span class="ql-label">Methodology</span>
+          </a>
+          <a href="about.html#citation" class="quick-link">
+            <span class="icon" aria-hidden="true">&#128221;</span>
+            <span class="ql-label">Cite this Dataset</span>
+          </a>
+          <a href="https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml" class="quick-link">
+            <span class="icon" aria-hidden="true">&#9888;</span>
+            <span class="ql-label">Report an Error</span>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>SSWR History Database</h4>
+        <p>Companion dataset to Perron, Victor, &amp; Qi (in press).<br><em>Journal of the Society for Social Work and Research.</em></p>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="codebook.html">Codebook</a></li>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="about.html">About &amp; Citation</a></li>
+          <li><a href="https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml">Report an Error</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>Brian E. Perron<br>
+        <a href="mailto:beperron@umich.edu">beperron@umich.edu</a><br>
+        School of Social Work<br>
+        University of Michigan</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source data from the SSWR Confex archive.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Original monolithic JSON (too large for GitHub)
+sswr_complete_2005_2026.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

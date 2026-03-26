@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+title: "SSWR Conference History Database, 2005–2026"
+message: "If you use this dataset, please cite both the dataset and the accompanying paper."
+type: dataset
+authors:
+  - family-names: Perron
+    given-names: Brian E.
+    orcid: "https://orcid.org/0000-0002-0568-0150"
+    affiliation: "School of Social Work, University of Michigan"
+  - family-names: Victor
+    given-names: Bryan G.
+    affiliation: "School of Social Work, Wayne State University"
+  - family-names: Qi
+    given-names: Zia
+    affiliation: "School of Social Work, University of Michigan"
+date-released: "2026-03-25"
+license: CC-BY-4.0
+url: "https://github.com/beperron/SSWR-History"
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Perron
+      given-names: Brian E.
+    - family-names: Victor
+      given-names: Bryan G.
+    - family-names: Qi
+      given-names: Zia
+  title: "AI-Assisted Curation of Conference Scholarship: Compiling, Structuring, and Analyzing Two Decades of Presentations at the Society for Social Work and Research (2005–2026)"
+  journal: "Journal of the Society for Social Work and Research"
+  year: 2026
+  status: in-press
+  doi: "10.48550/arXiv.2603.06814"
+  url: "https://arxiv.org/abs/2603.06814"

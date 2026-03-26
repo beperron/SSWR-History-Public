@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Methodology &amp; Taxonomy | SSWR Conference History Database</title>
+  <meta name="description" content="Definitions for methodology classifications, position taxonomy, and presentation formats in the SSWR database.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-inner">
+      <a href="index.html" class="nav-brand">SSWR History</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="codebook.html">Codebook</a></li>
+        <li><a href="methodology.html" class="active">Methodology</a></li>
+        <li><a href="download.html">Download</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container--wide">
+      <h1>Methodology Classifications &amp; Taxonomy</h1>
+      <p>This page documents the classification systems used in the SSWR Conference History Database, including research methodology categories, academic position taxonomy, and presentation format definitions. For a full description of the classification process, see the <a href="https://arxiv.org/abs/2603.06814">companion paper</a>.</p>
+
+      <hr>
+
+      <h2 id="classification">Research Methodology Classification</h2>
+      <p>Each presentation&rsquo;s methodology was classified based on analysis of its abstract content using two small language models: gpt-oss-20b (primary) and Qwen3-32B (secondary). The classification prompt instructed the model to analyze each abstract for methodological indicators including data type descriptions, sample characteristics, analytical methods mentioned, and explicit methodology statements.</p>
+
+      <div class="callout callout--blue">
+        <p><strong>Validation:</strong> A random stratified sample of 60 abstracts (10 per category) was manually classified to calculate inter-rater agreement between human and model classifications. Cohen&rsquo;s kappa was <strong>.83</strong>, indicating almost perfect agreement. Accuracy varied by category: quantitative (100%), qualitative (100%), review (90%), mixed methods (80%), and theoretical/other (75%).</p>
+      </div>
+
+      <h3>Category Definitions</h3>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:20%">Category</th>
+              <th style="width:8%">Count</th>
+              <th style="width:6%">%</th>
+              <th>Definition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>quantitative</code></td>
+              <td>14,542</td>
+              <td>61.1%</td>
+              <td>Studies employing numerical data collection and statistical analysis methods, including surveys, administrative data analysis, experimental and quasi-experimental designs, and secondary data analysis.</td>
+            </tr>
+            <tr>
+              <td><code>qualitative</code></td>
+              <td>5,565</td>
+              <td>23.4%</td>
+              <td>Studies using non-numerical data collection and interpretive analytical approaches, including interviews, focus groups, ethnography, content analysis of textual or visual data, and observational methods.</td>
+            </tr>
+            <tr>
+              <td><code>mixed_methods</code></td>
+              <td>2,172</td>
+              <td>9.1%</td>
+              <td>Studies that explicitly integrate both quantitative and qualitative data collection and analysis methods. Classified only when the abstract explicitly describes integrating both approaches, not when multiple methods of the same type are used.</td>
+            </tr>
+            <tr>
+              <td><code>review</code></td>
+              <td>1,274</td>
+              <td>5.4%</td>
+              <td>Systematic reviews, scoping reviews, meta-analyses, and other review studies that synthesize existing literature. Includes all review subtypes.</td>
+            </tr>
+            <tr>
+              <td><code>other</code></td>
+              <td>240</td>
+              <td>1.0%</td>
+              <td>Presentations not fitting other categories, including conceptual and theoretical papers, program descriptions, pedagogical presentations, policy analyses without primary data, methodological discussions, implementation case studies, and historical analyses.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Classification Process</h3>
+      <p>Each abstract was classified by the gpt-oss-20b language model, which analyzed the text for methodological indicators including data type descriptions, sample characteristics, analytical methods, and explicit methodology statements. The model&rsquo;s classification rationale is preserved in the <code>methodology_evidence_gpt-oss-20b</code> field.</p>
+      <p>When the abstract mentioned multiple approaches, classification was based on the dominant methodology unless the abstract explicitly described integrating quantitative and qualitative components, which triggered a <code>mixed_methods</code> classification.</p>
+
+      <hr>
+
+      <h2 id="positions">Academic Position Taxonomy</h2>
+      <p>Author positions were extracted from Confex affiliation text by the gpt-oss-20b model, then normalized into 16 standardized categories using keyword-based classification with regular expression pattern matching. Position indicators were searched in priority order to handle records containing multiple position keywords.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:22%">Category</th>
+              <th style="width:8%">Count</th>
+              <th style="width:6%">%</th>
+              <th>Includes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Assistant Professor</td>
+              <td>13,726</td>
+              <td>19.6%</td>
+              <td>Tenure-track assistant professors</td>
+            </tr>
+            <tr>
+              <td>Doctoral Student</td>
+              <td>13,312</td>
+              <td>19.0%</td>
+              <td>PhD students, PhD candidates, DSW students, ABD designations, doctoral candidates</td>
+            </tr>
+            <tr>
+              <td>Associate Professor</td>
+              <td>9,182</td>
+              <td>13.1%</td>
+              <td>Tenured associate professors</td>
+            </tr>
+            <tr>
+              <td>Research Staff</td>
+              <td>8,713</td>
+              <td>12.5%</td>
+              <td>Research scientists, project coordinators, research associates, research assistants</td>
+            </tr>
+            <tr>
+              <td>Full Professor</td>
+              <td>8,569</td>
+              <td>12.3%</td>
+              <td>Full professors (without assistant/associate modifiers)</td>
+            </tr>
+            <tr>
+              <td>Unknown</td>
+              <td>5,686</td>
+              <td>8.1%</td>
+              <td>Position information was missing or could not be parsed</td>
+            </tr>
+            <tr>
+              <td>Masters Student</td>
+              <td>2,674</td>
+              <td>3.8%</td>
+              <td>MSW students, master&rsquo;s students, graduate students (without doctoral indicators)</td>
+            </tr>
+            <tr>
+              <td>Senior Leadership Practice</td>
+              <td>2,127</td>
+              <td>3.0%</td>
+              <td>Executive directors, program directors, agency administrators, vice presidents in practice settings</td>
+            </tr>
+            <tr>
+              <td>Postdoctoral</td>
+              <td>1,473</td>
+              <td>2.1%</td>
+              <td>Postdoctoral fellows, post-doctoral scholars, postdoc researchers</td>
+            </tr>
+            <tr>
+              <td>Research Faculty</td>
+              <td>1,151</td>
+              <td>1.6%</td>
+              <td>Research professors, research associate professors</td>
+            </tr>
+            <tr>
+              <td>Practitioner</td>
+              <td>837</td>
+              <td>1.2%</td>
+              <td>Licensed social workers, consultants, physicians, and other non-academic professionals</td>
+            </tr>
+            <tr>
+              <td>Instructor</td>
+              <td>631</td>
+              <td>0.9%</td>
+              <td>Lecturers, instructors, non-tenure-track teaching faculty</td>
+            </tr>
+            <tr>
+              <td>Clinical Professor</td>
+              <td>616</td>
+              <td>0.9%</td>
+              <td>Clinical professors, professors of practice, teaching professors</td>
+            </tr>
+            <tr>
+              <td>Senior Leadership Academic</td>
+              <td>545</td>
+              <td>0.8%</td>
+              <td>Deans, associate deans, department chairs, academic administrators</td>
+            </tr>
+            <tr>
+              <td>Adjunct Faculty</td>
+              <td>489</td>
+              <td>0.7%</td>
+              <td>Part-time faculty, adjunct instructors</td>
+            </tr>
+            <tr>
+              <td>Undergraduate Student</td>
+              <td>193</td>
+              <td>0.3%</td>
+              <td>BSW students, undergraduate researchers, bachelor&rsquo;s-level students</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr>
+
+      <h2 id="normalization">Normalization Procedures</h2>
+
+      <h3>Author Names</h3>
+      <p>Author names were normalized using NFKD (Normalization Form Compatibility Decomposition) from Python&rsquo;s <code>unicodedata</code> module. This process decomposes characters into base forms, removes combining marks, and converts accented characters to ASCII equivalents. Whitespace was collapsed and asterisks marking presenting authors were removed. The resulting normalized names are stored in <code>name_normalized</code> while preserving original casing in the <code>name</code> field.</p>
+
+      <h3>Institutions</h3>
+      <p>Institution names were normalized through a three-stage matching process: exact matching against canonical forms, substring matching for variants with department prefixes or suffixes, and pattern matching for common naming variations. A language model assisted in creating the mapping table of canonical institution names and their associated variants. The normalization pipeline first cleaned institution strings by removing embedded position titles and geographic suffixes.</p>
+
+      <h3>Countries/Regions</h3>
+      <p>Country/region names were standardized using a mapping dictionary addressing over 80 name variations. Assignment followed explicit mention in the affiliation text or inference from state/city information. State and province abbreviations within the United States and Canada were expanded to full names.</p>
+
+      <h3>Entity Resolution</h3>
+      <p>Unique researchers were identified using a graph-based entity resolution system combining fuzzy string similarity (RapidFuzz library), blocking by first initial and last name, and additional factors including matching middle initials, shared institutions, and logical career-stage progression. Name pairs with similarity scores of 90 or higher were connected in a NetworkX graph, and connected components identified author clusters. This process reduced 23,481 raw name variants to 20,779 canonical identities.</p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>SSWR History Database</h4>
+        <p>Companion dataset to Perron, Victor, &amp; Qi (in press).<br><em>Journal of the Society for Social Work and Research.</em></p>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="codebook.html">Codebook</a></li>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="about.html">About &amp; Citation</a></li>
+          <li><a href="https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml">Report an Error</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>Brian E. Perron<br>
+        <a href="mailto:beperron@umich.edu">beperron@umich.edu</a><br>
+        School of Social Work<br>
+        University of Michigan</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source data from the SSWR Confex archive.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -27,9 +27,11 @@ A comprehensive, structured database of every publicly available presentation ab
 
 ---
 
-### :zap: AI-First
+### :zap: AI-Ready Data Release
 
-There is no scholarly contribution in writing `pd.read_csv()`. We built this database to be queried through conversation — freeing you from routine code so you can focus on formulating questions, verifying results, and interpreting what they mean. **[Quick Start](https://beperron.github.io/SSWR-History-Public/quickstart.html)** — two copy-paste prompts, no code.
+This dataset was designed from the start with AI in mind. Rather than simply posting files and a codebook, we carefully considered how researchers will actually interact with data in 2026 and beyond — through AI assistants, not manual code. The result is an **AI-ready** release: the data ships with MCP connections, modular skill files, and vector embeddings that make it immediately queryable through natural language across every major AI platform.
+
+**Why AI-ready?** The scholarly contribution is never the code that loads a CSV. It's the question you ask and the interpretation you provide. AI-ready means the data comes pre-configured so researchers can skip the plumbing and focus on what matters: thinking about the research. **[Quick Start](https://beperron.github.io/SSWR-History-Public/quickstart.html)** — two prompts, no code.
 
 ### :electric_plug: MCP — Auto-configured
 

@@ -17,3 +17,5 @@ Thumbs.db
 *.db
 .DS_Store
 docs/.webui_secret_key
+*.docx
+scripts/generate_report.py

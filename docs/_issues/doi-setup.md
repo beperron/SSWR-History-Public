@@ -27,7 +27,7 @@ Zenodo is free, run by CERN, and integrates directly with GitHub. Every GitHub r
      - 69,924 author records with affiliations, positions, and geographic data
      - 20,779 unique researchers across 4,049 institutions in 93 countries
      - Vector embeddings via text-embedding-3-large and text-embedding-3-small
-     - REST API and MCP access for AI-native querying
+     - REST API and MCP access for AI-ready querying
 
      Data and documentation are under active review. Report errors via GitHub Issues.
 

@@ -53,6 +53,9 @@ def main():
                 p[field] = normalize_methodology(p[field])
         for field in drop_fields:
             p.pop(field, None)
+        # Rename evidence field to model-agnostic name
+        if "methodology_evidence_gpt-oss-20b" in p:
+            p["methodology_classification_rationale"] = p.pop("methodology_evidence_gpt-oss-20b")
 
     print(f"  Papers:  {len(papers):,}")
     print(f"  Authors: {len(authors):,}")
@@ -84,7 +87,7 @@ def main():
     # --- papers.csv ---
     paper_fields = [
         "id", "year", "title", "abstract", "author_count",
-        "methodology", "methodology_evidence_gpt-oss-20b",
+        "methodology", "methodology_classification_rationale",
         "original_paper_id",
     ]
     papers_csv = os.path.join(DATA_DIR, "csv", "papers.csv")
@@ -99,7 +102,7 @@ def main():
         "id", "paper_id", "author_order", "name", "name_normalized",
         "degree", "position", "institution", "institution_raw",
         "institution_id", "city", "state_province", "country",
-        "country_normalized", "country_fixed", "country_fix_from",
+        "country_normalized",
         "parsing_error", "author_id", "position_normalized",
         "canonical_author_id", "institution_normalized",
     ]

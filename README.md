@@ -124,7 +124,7 @@ papers (23,793 rows)
 ├── abstract                        full abstract text
 ├── author_count                    number of authors
 ├── methodology                     quantitative | qualitative | mixed_methods | review | other
-├── methodology_evidence_gpt-oss-20b   classification rationale
+├── methodology_classification_rationale   classification rationale
 └── original_paper_id               source reference ID
 
 paper_authors (69,924 rows)
@@ -137,7 +137,6 @@ paper_authors (69,924 rows)
 ├── institution / institution_raw / institution_normalized / institution_id
 ├── city / state_province
 ├── country / country_normalized
-├── country_fixed / country_fix_from   correction flags (reserved)
 ├── parsing_error                   LLM parsing error flag
 ├── author_id                       entity resolution ID (23,481 variants)
 └── canonical_author_id             deduplicated ID (20,779 identities)

@@ -38,43 +38,60 @@
 
       <hr>
 
-      <h2>CSV Files (Recommended)</h2>
-      <p>Best for use with R, Python (pandas), Stata, SPSS, or spreadsheet software.</p>
+      <h2>SQLite Database (Recommended)</h2>
+      <p>A single file with both tables, indexed and ready to query. Works with Python, R, DBeaver, or any SQLite client.</p>
 
       <div class="download-grid">
         <div class="download-card">
-          <h3>papers.csv</h3>
-          <p class="meta">23,793 presentations with titles, abstracts, and methodology classifications. All 8 fields from the papers table.</p>
-          <a href="https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/papers.csv" class="btn btn--primary">Download CSV</a>
+          <h3>sswr_history_0.9.0-beta.db.gz</h3>
+          <p class="meta">Complete database with papers and paper_authors tables, indexed on key fields. Decompress with <code>gunzip</code>.</p>
+          <a href="https://github.com/beperron/SSWR-History-Public/raw/main/data/sswr_history_0.9.0-beta.db.gz" class="btn btn--primary">Download SQLite (33 MB)</a>
+        </div>
+      </div>
+
+      <hr>
+
+      <h2>CSV Files</h2>
+      <p>For R, Python (pandas), Stata, SPSS, or spreadsheet software.</p>
+
+      <div class="download-grid">
+        <div class="download-card">
+          <h3>sswr_papers_0.9.0-beta.csv</h3>
+          <p class="meta">23,793 presentations with titles, abstracts, and methodology classifications. 8 fields.</p>
+          <a href="https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/sswr_papers_0.9.0-beta.csv" class="btn btn--primary">Download CSV (83 MB)</a>
         </div>
         <div class="download-card">
-          <h3>paper_authors.csv</h3>
-          <p class="meta">69,924 author&ndash;presentation records with names, affiliations, positions, institutions, and geographic information. All 21 fields from the paper_authors table.</p>
-          <a href="https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/paper_authors.csv" class="btn btn--primary">Download CSV</a>
+          <h3>sswr_paper_authors_0.9.0-beta.csv</h3>
+          <p class="meta">69,924 author&ndash;presentation records with names, affiliations, positions, institutions, and geographic information. 19 fields.</p>
+          <a href="https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/sswr_paper_authors_0.9.0-beta.csv" class="btn btn--primary">Download CSV (15 MB)</a>
         </div>
       </div>
 
       <hr>
 
       <h2>JSON Files</h2>
-      <p>Structured JSON format, useful for web applications and programmatic access.</p>
+      <p>Structured format for web applications and programmatic access. All JSON files include version metadata.</p>
 
       <div class="download-grid">
         <div class="download-card">
           <h3>Paper Authors (JSON)</h3>
-          <p class="meta">All 69,924 author records in a single JSON array.</p>
+          <p class="meta">All 69,924 author records.</p>
           <a href="https://github.com/beperron/SSWR-History-Public/raw/main/data/json/paper_authors.json" class="btn btn--outline">Download JSON</a>
         </div>
         <div class="download-card">
           <h3>Metadata</h3>
-          <p class="meta">Summary statistics including presentations by year, methodology distributions, and collaboration metrics.</p>
+          <p class="meta">Summary statistics, methodology distributions, collaboration metrics.</p>
           <a href="https://github.com/beperron/SSWR-History-Public/raw/main/data/json/metadata.json" class="btn btn--outline">Download JSON</a>
         </div>
         <div class="download-card">
           <h3>Papers by Year (JSON)</h3>
-          <p class="meta">Per-year JSON files from <code>papers_2005.json</code> through <code>papers_2026.json</code> (1.4&ndash;7.4 MB each).</p>
+          <p class="meta">22 per-year files (1.4&ndash;7.4 MB each).</p>
           <a href="https://github.com/beperron/SSWR-History-Public/tree/main/data/json/papers" class="btn btn--outline">Browse Files</a>
         </div>
+      </div>
+
+      <div class="callout callout--blue">
+        <p><strong>Vector embeddings</strong> are available through the <a href="#api">REST API</a> and <a href="mcp.html">MCP connection</a> only. They are not included in the downloadable files due to their size. Embeddings are intended for semantic similarity search against the database, not for direct download. See the <a href="#embeddings">embeddings section</a> below for usage.</p>
       </div>
 
       <hr>

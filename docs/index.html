@@ -66,17 +66,38 @@
 
   <main>
     <div class="container">
+
+      <!-- Table of Contents -->
+      <nav style="margin-bottom:2.5rem;padding:1.25rem 1.5rem;background:#f7f7f8;border-radius:8px;">
+        <strong style="font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;color:#666;">On this page</strong>
+        <ul style="margin:0.5rem 0 0;padding-left:1rem;font-size:0.88rem;line-height:2;">
+          <li><a href="#why">Why This Project</a></li>
+          <li><a href="#about">About the Database</a></li>
+          <li><a href="#growth">Conference Growth</a></li>
+          <li><a href="#schema">Data Structure</a></li>
+          <li><a href="#ai">AI-Native Access</a></li>
+          <li><a href="#quality">Quality Assurance</a></li>
+        </ul>
+      </nav>
+
+      <section class="section">
+        <p class="section-label">Motivation</p>
+        <h2 id="why">Why This Project</h2>
+        <p>Scientific conferences occupy a distinctive position in the research lifecycle. They are rarely the endpoint of scholarly work but often its first public articulation &mdash; where emerging ideas, methods, and findings are shared before formal peer-reviewed publication. Conference presentations provide an important indicator of where a discipline is investing its intellectual labor, who is participating, and where scholars might be innovating methodologically.</p>
+        <p>The SSWR Annual Conference is the primary research-focused conference for social work in North America. Yet unlike fields where conference proceedings are formally published and indexed, social work conference presentations are disseminated exclusively through conference programs designed for event navigation rather than analysis. Abstracts persist as unstructured digital records, with authors, affiliations, and methodological approaches embedded in free-text fields rather than standardized metadata.</p>
+        <p>This project transforms that informational archive into analyzable research infrastructure. Using AI-assisted methods, we extracted, structured, and classified two decades of conference data &mdash; creating a resource that supports systematic hypothesis testing about research priorities, methodological traditions, and how social work scholarship develops over time.</p>
+        <p style="font-size:0.88rem;color:#666;"><em>This is an <a href="about.html">independent research project</a>, not affiliated with or endorsed by the Society for Social Work and Research.</em></p>
+      </section>
+
       <section class="section">
         <p class="section-label">Overview</p>
-        <h2>About the Database</h2>
-        <p>This database compiles metadata from all publicly available presentation abstracts at the <strong>SSWR Annual Conference</strong> from 2005 through 2026. It was constructed using a multi-stage pipeline combining web scraping from the Confex conference management system, AI-assisted extraction and classification using a small language model (gpt-oss:20b), and iterative human review.</p>
+        <h2 id="about">About the Database</h2>
         <p>The dataset is organized into two relational tables: <strong>papers</strong> (23,793 presentations with titles, abstracts, and methodology classifications) and <strong>paper_authors</strong> (69,924 author records with names, affiliations, positions, institutions, and geographic information). Records are linked by a shared paper identifier, enabling analyses at the presentation, author, institutional, and national levels.</p>
-        <p>The database is designed to serve as durable research infrastructure for the social work research community, supporting systematic analyses of research trends, methodological evolution, collaboration patterns, and institutional participation over time.</p>
       </section>
 
       <section class="section">
         <p class="section-label">Growth</p>
-        <h2>Conference Presentations by Year</h2>
+        <h2 id="growth">Conference Presentations by Year</h2>
         <p>Annual presentations grew from 423 in 2005 to 1,935 in 2026, a compound annual growth rate (CAGR) of <strong>7.5%</strong>.</p>
 
         <!-- Tab navigation -->
@@ -103,7 +124,7 @@
 
       <section class="section">
         <p class="section-label">Data Structure</p>
-        <h2>Schema</h2>
+        <h2 id="schema">Schema</h2>
         <p>The database consists of two primary tables linked by paper identifier, plus a vector embeddings table for semantic search.</p>
         <div style="background:#f7f7f8;border:1px solid #e5e5e5;border-radius:8px;padding:2rem;margin:1.5rem 0;font-family:var(--font-mono);font-size:0.82rem;line-height:2;">
           <div style="display:flex;gap:3rem;flex-wrap:wrap;justify-content:center;align-items:flex-start;">
@@ -141,8 +162,21 @@
       </section>
 
       <section class="section">
+        <p class="section-label">Vision</p>
+        <h2 id="ai">Built for AI-Native Analysis</h2>
+        <p>This database is designed from the ground up to work with AI. Beyond traditional downloads, it offers:</p>
+        <ul>
+          <li><strong>MCP connection</strong> &mdash; query the live database through natural conversation with Claude, Cursor, OpenCode, or any MCP-compatible tool. <a href="mcp.html">Set up in 2 minutes</a>.</li>
+          <li><strong>Semantic search</strong> &mdash; vector embeddings for all 23,793 presentations enable similarity search across two decades of scholarship.</li>
+          <li><strong>Skill files</strong> &mdash; <code>CLAUDE.md</code> and <code>AGENTS.md</code> give AI assistants full schema context, query patterns, and data quality notes automatically.</li>
+          <li><strong>Local-first</strong> &mdash; works with local models via Ollama (tested with Qwen 3.5 27B). No cloud dependency required for analysis.</li>
+        </ul>
+        <p>We are actively building a lightweight AI layer to further facilitate access and analysis, with integrations for agentic workflows and automated research pipelines. The goal is small, local, agentic analysis &mdash; where researchers can ask complex questions of the data without writing code or leaving their preferred tools.</p>
+      </section>
+
+      <section class="section">
         <p class="section-label">Data Quality</p>
-        <h2>Quality Assurance</h2>
+        <h2 id="quality">Quality Assurance</h2>
         <p>The database was constructed through an AI-assisted pipeline with human review at each major stage. Quality assurance included validation of web-scraped records against conference program indices, manual review of parsed affiliation fields (94% accuracy for institutions, 91% for positions in a 200-record sample), and inter-rater reliability testing for methodology classifications (Cohen&rsquo;s kappa = .83).</p>
         <div class="callout">
           <p><strong>Reporting Errors:</strong> Despite extensive quality assurance, we recognize that some errors will exist in a dataset of this scale. We welcome community contributions to improve data accuracy. If you identify an error, please submit a report through our <a href="https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml">data error reporting form</a>.</p>

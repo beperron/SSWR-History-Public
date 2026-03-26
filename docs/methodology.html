@@ -29,8 +29,39 @@
 
   <main>
     <div class="container--wide">
-      <h1>Methodology Classifications &amp; Taxonomy</h1>
-      <p>This page documents the classification systems used in the SSWR Conference History Database, including research methodology categories, academic position taxonomy, and presentation format definitions. For a full description of the classification process, see the <a href="https://arxiv.org/abs/2603.06814">companion paper</a>.</p>
+      <h1>Methodology</h1>
+      <p>This page documents how the database was constructed, including data collection, variable extraction, methodology classification, and normalization procedures. For the full description, see the <a href="https://arxiv.org/abs/2603.06814">companion paper</a>.</p>
+
+      <hr>
+
+      <h2 id="collection">Data Collection</h2>
+
+      <p>Abstract metadata was compiled from the SSWR Confex conference management system for all available conference years, spanning the 9th Annual Conference (2005) through the 30th Annual Conference (2026). Abstracts prior to 2005 were not publicly available at the time of data collection.</p>
+
+      <h3>Web Scraping</h3>
+      <p>Data collection used a multi-stage pipeline combining web scraping and language model processing. Custom scraping scripts first retrieved conference program index pages listing all sessions, then systematically accessed individual presentation pages to extract titles, abstracts, and author information. The primary data source was the SSWR Confex archive, accessed via systematic HTTP requests. Web scraping was performed using Crawl4AI, with all data processing implemented in Python (version 3.11).</p>
+
+      <p>We compared extracted record counts against conference program indices for each year as an ongoing quality check and believe the database captures the full universe of publicly available abstracts in the Confex system.</p>
+
+      <h3>Year-Specific Challenges</h3>
+      <p>The HTML structure of conference pages evolved substantially across the 22-year observation period, requiring year-specific parsing logic:</p>
+      <ul>
+        <li><strong>2005&ndash;2008:</strong> Used a different URL structure and page layout than subsequent years, requiring specialized extraction procedures.</li>
+        <li><strong>2009&ndash;2026:</strong> More consistent HTML structure, but still showed variations in underlying formatting across years.</li>
+        <li><strong>2020&ndash;2021:</strong> Virtual/hybrid conference formats introduced additional formatting differences.</li>
+      </ul>
+      <p>HTML parsing was performed with BeautifulSoup4 (version 4.12) using the lxml parser backend. For each presentation, titles were extracted from header elements, abstracts from designated content divisions, and author information from affiliation blocks. Iterative validation compared extracted records against manually reviewed samples to ensure parsing accuracy across all conference years.</p>
+
+      <h3>Inclusion Criteria</h3>
+      <p>All presentation formats containing accompanying abstracts were retained, including oral presentations, poster sessions, symposia, and roundtable discussions. Individual presentations within symposia and roundtable sessions were included, though high-level overview descriptions for these sessions were excluded. Workshops and keynote lectures were excluded as they did not report original scholarship. Presentations lacking abstract text or with abstracts shorter than 50 characters (n&nbsp;=&nbsp;67) were also excluded.</p>
+
+      <hr>
+
+      <h2 id="extraction">Variable Extraction &amp; Normalization</h2>
+
+      <p>To extract structured metadata from unstructured affiliation text, we used the gpt-oss-20b language model deployed locally via llama.cpp. The model parsed raw affiliation strings into standardized fields: author name, academic degrees, position/title, institution name, department, city, state/province, and country/region.</p>
+
+      <p>Structured prompts directed the model to extract standardized fields from raw affiliation text, outputting results in JSON format. The prompt included few-shot examples demonstrating the expected output format for various affiliation string patterns common in academic social work contexts. The model was configured with a temperature of 0.1 to minimize output variability. To validate parsing accuracy, we manually reviewed a random sample of 200 parsed records and found that the model correctly extracted institutions in 94% of cases and positions in 91% of cases.</p>
 
       <hr>
 

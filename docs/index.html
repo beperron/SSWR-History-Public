@@ -28,16 +28,16 @@
   </header>
 
   <section class="hero">
-    <div class="container">
+    <div class="container--wide">
       <h1>SSWR Conference History Database</h1>
-      <p class="subtitle">A comprehensive, structured database of presentation abstracts from the Society for Social Work and Research Annual Conference, spanning two decades of scholarship (2005&ndash;2026).</p>
-      <span class="badge">v0.9.0-beta</span>
+      <p class="subtitle">A comprehensive, structured database of presentation abstracts from the Society for Social Work and Research Annual Conference, spanning two decades of scholarship (2005&ndash;2026). <span class="badge">v0.9.0-beta</span></p>
     </div>
   </section>
 
   <div class="container--wide" style="margin-top:2rem; margin-bottom:1rem;">
     <div class="card">
-      <p style="margin:0;">Perron, B. E., Victor, B. G., &amp; Qi, Z. (in press). AI-assisted curation of conference scholarship: Compiling, structuring, and analyzing two decades of presentations at the Society for Social Work and Research (2005&ndash;2026). <em>Journal of the Society for Social Work and Research</em>. <a href="https://arxiv.org/abs/2603.06814">arXiv:2603.06814</a></p>
+      <h3 style="margin-top:0;font-size:1.1rem;">Recent Publication</h3>
+      <p style="margin:0;">Perron, B. E., Victor, B. G., &amp; Qi, Z. (in press). AI-assisted curation of conference scholarship: Compiling, structuring, and analyzing two decades of presentations at the Society for Social Work and Research (2005&ndash;2026). <em>Journal of the Society for Social Work and Research</em>. <a href="https://arxiv.org/abs/2603.06814">arXiv:2603.06814</a>.</p>
     </div>
   </div>
 
@@ -62,19 +62,8 @@
 
   <main>
     <div class="container--wide">
-
-      <!-- Table of Contents -->
-      <nav style="margin-bottom:2.5rem;padding:1.25rem 1.5rem;background:#f7f7f8;border-radius:8px;">
-        <strong style="font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;color:#666;">On this page</strong>
-        <ul style="margin:0.5rem 0 0;padding-left:1rem;font-size:0.88rem;line-height:2;">
-          <li><a href="#why">Why This Project</a></li>
-          <li><a href="#about">About the Database</a></li>
-          <li><a href="#growth">Conference Growth</a></li>
-          <li><a href="#schema">Data Structure</a></li>
-          <li><a href="#ai">AI-Native Access</a></li>
-          <li><a href="#quality">Quality Assurance</a></li>
-        </ul>
-      </nav>
+      <div class="page-layout">
+      <div class="page-main">
 
       <section class="section">
         <p class="section-label">Motivation</p>
@@ -179,31 +168,24 @@
         </div>
       </section>
 
-      <section class="section">
-        <h2>Quick Links</h2>
-        <div class="quick-links">
-          <a href="quickstart.html" class="quick-link">
-            <span class="icon" aria-hidden="true">&#9889;</span>
-            <span class="ql-label">Quick Start</span>
-          </a>
-          <a href="quickstart.html#step1" class="quick-link">
-            <span class="icon" aria-hidden="true">&#9741;</span>
-            <span class="ql-label">MCP &amp; AI Access</span>
-          </a>
-          <a href="download.html" class="quick-link">
-            <span class="icon" aria-hidden="true">&#11015;</span>
-            <span class="ql-label">Download</span>
-          </a>
-          <a href="codebook.html" class="quick-link">
-            <span class="icon" aria-hidden="true">&#128214;</span>
-            <span class="ql-label">Codebook</span>
-          </a>
-          <a href="about.html#citation" class="quick-link">
-            <span class="icon" aria-hidden="true">&#128221;</span>
-            <span class="ql-label">Cite</span>
-          </a>
-        </div>
-      </section>
+      </div><!-- end page-main -->
+
+      <aside class="page-sidebar">
+        <nav class="sidebar-toc">
+          <strong>On This Page</strong>
+          <ul>
+            <li><a href="#why">Why This Project</a></li>
+            <li><a href="#about">About the Database</a></li>
+            <li><a href="#growth">Conference Growth</a></li>
+            <li><a href="#schema">Data Structure</a></li>
+            <li><a href="#ai">AI-Native Access</a></li>
+            <li><a href="#quality">Quality Assurance</a></li>
+          </ul>
+          <a href="#" class="back-top">Back to top</a>
+        </nav>
+      </aside>
+
+      </div><!-- end page-layout -->
     </div>
   </main>
 

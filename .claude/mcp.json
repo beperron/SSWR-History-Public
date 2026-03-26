@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "sswr-history": {
+      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database"
+    }
+  }
+}

@@ -128,7 +128,7 @@
       "command": "npx",
       "args": [
         "-y",
-        "@anthropic-ai/mcp-supabase@latest",
+        "@supabase/mcp-server-supabase@latest",
         "--supabase-url",
         "https://jomsksqqcpkbuhwytovo.supabase.co",
         "--supabase-key",
@@ -220,7 +220,7 @@ cd SSWR-History-Public</code></pre>
   <script src="js/main.js"></script>
   <script>
   document.getElementById('copy-config').addEventListener('click', function() {
-    var config = '{\n  "mcpServers": {\n    "sswr-history": {\n      "command": "npx",\n      "args": [\n        "-y",\n        "@anthropic-ai/mcp-supabase@latest",\n        "--supabase-url",\n        "https://jomsksqqcpkbuhwytovo.supabase.co",\n        "--supabase-key",\n        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",\n        "--read-only"\n      ]\n    }\n  }\n}';
+    var config = '{\n  "mcpServers": {\n    "sswr-history": {\n      "command": "npx",\n      "args": [\n        "-y",\n        "@supabase/mcp-server-supabase@latest",\n        "--supabase-url",\n        "https://jomsksqqcpkbuhwytovo.supabase.co",\n        "--supabase-key",\n        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",\n        "--read-only"\n      ]\n    }\n  }\n}';
     navigator.clipboard.writeText(config).then(function() {
       var btn = document.getElementById('copy-config');
       btn.textContent = 'Copied!';

@@ -98,7 +98,7 @@ Add this to your Claude Desktop or Claude Code MCP configuration:
       "command": "npx",
       "args": [
         "-y",
-        "@anthropic-ai/mcp-supabase@latest",
+        "@supabase/mcp-server-supabase@latest",
         "--supabase-url", "https://jomsksqqcpkbuhwytovo.supabase.co",
         "--supabase-key", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",
         "--read-only"

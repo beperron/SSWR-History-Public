@@ -42,7 +42,7 @@
       "command": [
         "npx",
         "-y",
-        "@anthropic-ai/mcp-supabase@latest",
+        "@supabase/mcp-server-supabase@latest",
         "--supabase-url",
         "https://jomsksqqcpkbuhwytovo.supabase.co",
         "--supabase-key",

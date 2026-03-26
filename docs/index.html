@@ -229,7 +229,7 @@
     var defaults = {
       responsive: true,
       interaction: { mode: 'index', intersect: false },
-      plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 11 }, usePointStyle: true, pointStyle: 'line' } } },
+      plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 11 }, usePointStyle: true, pointStyle: 'line' } }, tooltip: { callbacks: {} } },
       scales: {
         x: { grid: { display: false }, ticks: { font: { family: 'JetBrains Mono', size: 10 } } },
         y: { grid: { color: '#f0f0f0' }, ticks: { font: { family: 'JetBrains Mono', size: 10 } } }
@@ -253,7 +253,7 @@
           borderWidth: 2
         }]
       },
-      options: { ...defaults, plugins: { ...defaults.plugins, legend: { display: false } }, scales: { ...defaults.scales, y: { ...defaults.scales.y, title: { display: true, text: 'Number of Presentations', font: { family: 'Inter', size: 11 } } } } }
+      options: { ...defaults, plugins: { ...defaults.plugins, legend: { display: false }, tooltip: { callbacks: { label: function(c) { return c.parsed.y.toLocaleString() + ' presentations'; } } } }, scales: { ...defaults.scales, y: { ...defaults.scales.y, title: { display: true, text: 'Number of Presentations', font: { family: 'Inter', size: 11 } } } } }
     });
 
     // Methodology chart (percentages from paper)
@@ -268,7 +268,7 @@
           { label: 'Review', data: [2,2,2,1,2,2,2,2,2,4,5,5,5,6,7,7,8,7,8,7,8,8], borderColor: '#999', borderWidth: 2, tension: 0.2, pointRadius: 2, borderDash: [2,2] }
         ]
       },
-      options: { ...defaults, scales: { ...defaults.scales, y: { ...defaults.scales.y, title: { display: true, text: 'Percentage of Papers', font: { family: 'Inter', size: 11 } }, max: 80 } } }
+      options: { ...defaults, plugins: { ...defaults.plugins, tooltip: { callbacks: { label: function(c) { return c.dataset.label + ': ' + c.parsed.y + '%'; } } } }, scales: { ...defaults.scales, y: { ...defaults.scales.y, title: { display: true, text: 'Percentage of Papers', font: { family: 'Inter', size: 11 } }, max: 80 } } }
     });
 
     // Authors per paper chart
@@ -281,7 +281,7 @@
           { label: 'Median Authors', data: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3], borderColor: '#999', borderWidth: 2, tension: 0.2, pointRadius: 2, borderDash: [5,3] }
         ]
       },
-      options: { ...defaults, scales: { ...defaults.scales, y: { ...defaults.scales.y, title: { display: true, text: 'Number of Authors', font: { family: 'Inter', size: 11 } }, min: 1, max: 5 } } }
+      options: { ...defaults, plugins: { ...defaults.plugins, tooltip: { callbacks: { label: function(c) { return c.dataset.label + ': ' + c.parsed.y + ' authors per presentation'; } } } }, scales: { ...defaults.scales, y: { ...defaults.scales.y, title: { display: true, text: 'Number of Authors', font: { family: 'Inter', size: 11 } }, min: 1, max: 5 } } }
     });
 
     // International participation chart
@@ -294,7 +294,7 @@
           { label: 'Co-Author', data: [2.8,4.4,5.7,6.5,6.6,5.1,5.0,7.3,6.8,8.1,7.0,6.7,9.6,9.8,8.1,7.5,12.5,12.7,14.1,15.2,15.9,14.6], borderColor: '#999', borderWidth: 2, tension: 0.2, pointRadius: 2, borderDash: [5,3] }
         ]
       },
-      options: { ...defaults, scales: { ...defaults.scales, y: { ...defaults.scales.y, title: { display: true, text: '% International Authors', font: { family: 'Inter', size: 11 } }, max: 18 } } }
+      options: { ...defaults, plugins: { ...defaults.plugins, tooltip: { callbacks: { label: function(c) { return c.dataset.label + ': ' + c.parsed.y + '% international'; } } } }, scales: { ...defaults.scales, y: { ...defaults.scales.y, title: { display: true, text: '% International Authors', font: { family: 'Inter', size: 11 } }, max: 18 } } }
     });
 
     // Tab switching

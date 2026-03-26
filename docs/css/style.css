@@ -389,8 +389,6 @@ thead th {
   padding: 0.6rem 0.75rem;
   border-bottom: 2px solid var(--ink);
   background: var(--bg);
-  position: sticky;
-  top: 3.5rem;
 }
 tbody td {
   padding: 0.55rem 0.75rem;

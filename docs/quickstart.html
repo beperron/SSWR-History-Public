@@ -67,24 +67,71 @@
 
       <p><a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">Skills</a> are modular instruction files that give the AI specialized knowledge about this database &mdash; what the fields mean, how to write correct queries, how to run semantic search, and how to cite the data. Without them, the AI can still connect but won&rsquo;t know the schema details or best query patterns.</p>
 
-      <p>Copy this prompt and paste it into the same AI assistant:</p>
+      <p>Choose your tool and copy the prompt:</p>
 
-      <button class="btn btn--primary" id="copy-skill-prompt">Copy Skills Install Prompt</button>
-      <details style="margin-top:0.75rem;">
-        <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview what gets copied</summary>
-        <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.88rem;line-height:1.7;">
-          <p style="margin:0 0 0.75rem;">Please download and install the SSWR Conference History Database skills. Download each file and save it to the specified path:</p>
-          <ol style="margin:0 0 0.75rem;">
-            <li>Download https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-codebook/skill.md &rarr; save to .claude/skills/sswr-codebook/skill.md</li>
-            <li>Download https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-query/skill.md &rarr; save to .claude/skills/sswr-query/skill.md</li>
-            <li>Download https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-semantic-search/skill.md &rarr; save to .claude/skills/sswr-semantic-search/skill.md</li>
-            <li>Download https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-about/skill.md &rarr; save to .claude/skills/sswr-about/skill.md</li>
-            <li>Download https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/CLAUDE.md &rarr; save to CLAUDE.md in the project root</li>
-          </ol>
-          <p style="margin:0 0 0.75rem;">Confirm the skills are installed and list what tables are available in the database.</p>
-          <p style="margin:0;">For more information: <a href="https://beperron.github.io/SSWR-History-Public/quickstart.html">Quick Start guide</a> | <a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">What are skills?</a> | <a href="https://github.com/beperron/SSWR-History-Public">GitHub repository</a></p>
-        </div>
-      </details>
+      <!-- Tool tabs -->
+      <div style="display:flex;gap:0;border-bottom:2px solid #e5e5e5;margin-bottom:1rem;">
+        <button class="skill-tab active" data-tool="claude" style="background:none;border:none;padding:0.5rem 1rem;font-family:var(--font-sans);font-size:0.85rem;font-weight:600;color:#999;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;">Claude Code</button>
+        <button class="skill-tab" data-tool="cursor" style="background:none;border:none;padding:0.5rem 1rem;font-family:var(--font-sans);font-size:0.85rem;font-weight:600;color:#999;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;">Cursor</button>
+        <button class="skill-tab" data-tool="opencode" style="background:none;border:none;padding:0.5rem 1rem;font-family:var(--font-sans);font-size:0.85rem;font-weight:600;color:#999;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;">OpenCode</button>
+        <button class="skill-tab" data-tool="other" style="background:none;border:none;padding:0.5rem 1rem;font-family:var(--font-sans);font-size:0.85rem;font-weight:600;color:#999;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;">Other / Chat</button>
+      </div>
+
+      <!-- Claude Code panel -->
+      <div class="skill-panel" id="panel-claude">
+        <p>Claude Code reads skills from <code>.claude/skills/</code> automatically.</p>
+        <button class="btn btn--primary" id="copy-skill-claude">Copy Claude Code Prompt</button>
+        <details style="margin-top:0.75rem;">
+          <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview</summary>
+          <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.85rem;line-height:1.7;">
+            Download and install the SSWR skills. Save each file to the specified path:<br>
+            1. .claude/skills/sswr-codebook/skill.md (from github.com/beperron/SSWR-History-Public)<br>
+            2. .claude/skills/sswr-query/skill.md<br>
+            3. .claude/skills/sswr-semantic-search/skill.md<br>
+            4. .claude/skills/sswr-about/skill.md<br>
+            5. CLAUDE.md in project root<br>
+            Confirm installed and list available tables.
+          </div>
+        </details>
+      </div>
+
+      <!-- Cursor panel -->
+      <div class="skill-panel" id="panel-cursor" style="display:none;">
+        <p>Cursor reads skills from <code>.cursor/rules/</code>. The MCP config at <code>.cursor/mcp.json</code> is auto-discovered.</p>
+        <button class="btn btn--primary" id="copy-skill-cursor">Copy Cursor Prompt</button>
+        <details style="margin-top:0.75rem;">
+          <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview</summary>
+          <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.85rem;line-height:1.7;">
+            Download the SSWR database context files for Cursor. Save each to the project:<br>
+            1. Download CODEBOOK_LLM.md from github.com/beperron/SSWR-History-Public and save to .cursor/rules/sswr-codebook.md<br>
+            2. Download the MCP config: .cursor/mcp.json should contain {"mcpServers":{"sswr-history":{"url":"https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database"}}}<br>
+            Confirm the database is connected and list available tables.
+          </div>
+        </details>
+      </div>
+
+      <!-- OpenCode panel -->
+      <div class="skill-panel" id="panel-opencode" style="display:none;">
+        <p>OpenCode reads <code>AGENTS.md</code> automatically and uses <code>opencode.jsonc</code> for MCP config.</p>
+        <button class="btn btn--primary" id="copy-skill-opencode">Copy OpenCode Prompt</button>
+        <details style="margin-top:0.75rem;">
+          <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview</summary>
+          <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.85rem;line-height:1.7;">
+            Download the SSWR database context for OpenCode:<br>
+            1. Download AGENTS.md from github.com/beperron/SSWR-History-Public and save to AGENTS.md in the project root<br>
+            2. Download opencode.jsonc from the same repo and save to opencode.jsonc<br>
+            The AGENTS.md file gives you the database schema, and opencode.jsonc configures the MCP connection and local Ollama models.<br>
+            Read AGENTS.md and confirm the database context is loaded.
+          </div>
+        </details>
+      </div>
+
+      <!-- Other / Chat panel -->
+      <div class="skill-panel" id="panel-other" style="display:none;">
+        <p>For ChatGPT, Claude Desktop (without MCP), or any other chat interface:</p>
+        <p><a href="https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md" class="btn btn--primary">Download CODEBOOK_LLM.md</a></p>
+        <p>Open the file, copy its entire contents, and paste it into your first message. This gives the AI the full database schema, query patterns, and connection details in a single paste.</p>
+      </div>
 
       <p style="margin-top:1rem;">The four skills:</p>
       <div class="table-wrap">
@@ -173,13 +220,39 @@
       btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy Connection Prompt'; }, 2000);
     });
   });
-  document.getElementById('copy-skill-prompt').addEventListener('click', function() {
-    var p = 'Please download and install the SSWR Conference History Database skills. Download each file and save it to the specified path:\n\n1. https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-codebook/skill.md → save to .claude/skills/sswr-codebook/skill.md\n2. https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-query/skill.md → save to .claude/skills/sswr-query/skill.md\n3. https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-semantic-search/skill.md → save to .claude/skills/sswr-semantic-search/skill.md\n4. https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-about/skill.md → save to .claude/skills/sswr-about/skill.md\n5. https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/CLAUDE.md → save to CLAUDE.md in the project root\n\nConfirm the skills are installed and list what tables are available in the database.\n\nFor more info: https://beperron.github.io/SSWR-History-Public/quickstart.html';
-    navigator.clipboard.writeText(p).then(function() {
-      var btn = document.getElementById('copy-skill-prompt');
-      btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy Skills Install Prompt'; }, 2000);
+  // Skill tab switching
+  document.querySelectorAll('.skill-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.skill-tab').forEach(function(t) { t.classList.remove('active'); t.style.color='#999'; t.style.borderBottomColor='transparent'; });
+      tab.classList.add('active'); tab.style.color='#c20000'; tab.style.borderBottomColor='#c20000';
+      document.querySelectorAll('.skill-panel').forEach(function(p) { p.style.display='none'; });
+      document.getElementById('panel-' + tab.dataset.tool).style.display='block';
     });
   });
+  document.querySelector('.skill-tab.active').style.color='#c20000';
+  document.querySelector('.skill-tab.active').style.borderBottomColor='#c20000';
+
+  // Copy buttons for each tool
+  function copyBtn(id, text, label) {
+    document.getElementById(id).addEventListener('click', function() {
+      navigator.clipboard.writeText(text).then(function() {
+        var btn = document.getElementById(id);
+        btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = label; }, 2000);
+      });
+    });
+  }
+
+  copyBtn('copy-skill-claude',
+    'Please download and install the SSWR Conference History Database skills for Claude Code. Download each file from https://github.com/beperron/SSWR-History-Public and save to the specified path:\n\n1. .claude/skills/sswr-codebook/skill.md — schema, field definitions, categorical values\n2. .claude/skills/sswr-query/skill.md — 12 SQL query templates for analysis\n3. .claude/skills/sswr-semantic-search/skill.md — embedding search via OpenRouter\n4. .claude/skills/sswr-about/skill.md — citation, provenance, limitations\n5. CLAUDE.md in the project root — project context (read automatically)\n\nThe raw file URLs are at: https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/[skill-name]/skill.md\n\nConfirm the skills are installed and list what database tables are available.\n\nMore info: https://beperron.github.io/SSWR-History-Public/quickstart.html | https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents',
+    'Copy Claude Code Prompt');
+
+  copyBtn('copy-skill-cursor',
+    'Please set up the SSWR Conference History Database for Cursor.\n\n1. Download the codebook from https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/CODEBOOK_LLM.md and save it to .cursor/rules/sswr-codebook.md\n\n2. Ensure .cursor/mcp.json exists with this content:\n{"mcpServers":{"sswr-history":{"url":"https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database"}}}\n\nThis connects to a read-only database with 23,793 SSWR conference presentations (2005-2026).\n\nConfirm the MCP is connected and list the available tables.\n\nMore info: https://beperron.github.io/SSWR-History-Public/quickstart.html | https://beperron.substack.com/p/apis-and-mcps-essential-acronyms',
+    'Copy Cursor Prompt');
+
+  copyBtn('copy-skill-opencode',
+    'Please set up the SSWR Conference History Database for OpenCode.\n\n1. Download AGENTS.md from https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/AGENTS.md and save to AGENTS.md in the project root\n\n2. Download opencode.jsonc from https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/opencode.jsonc and save to opencode.jsonc\n\nAGENTS.md provides the database schema and critical rules. opencode.jsonc configures the MCP connection to a read-only Supabase database with 23,793 SSWR conference presentations (2005-2026) and local Ollama models.\n\nRead AGENTS.md and confirm the database context is loaded.\n\nMore info: https://beperron.github.io/SSWR-History-Public/quickstart.html | https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents',
+    'Copy OpenCode Prompt');
   </script>
 </body>
 </html>

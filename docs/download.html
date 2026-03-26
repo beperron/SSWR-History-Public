@@ -35,7 +35,7 @@
         <strong style="font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;color:#666;">On this page</strong>
         <ul style="margin:0.5rem 0 0;padding-left:1rem;font-size:0.88rem;line-height:2;columns:2;">
           <li><a href="#mcp">MCP Connection</a></li>
-          <li><a href="#skills">Skill Files</a></li>
+          <li><a href="#skills">Skills &amp; AI Context</a></li>
           <li><a href="#sqlite">SQLite Database</a></li>
           <li><a href="#csv">CSV Files</a></li>
           <li><a href="#json">JSON Files</a></li>
@@ -186,157 +186,28 @@ cd SSWR-History-Public</code></pre>
 
       <hr>
 
-      <h2>Quick Start</h2>
-
-      <h3>Python</h3>
-      <pre><code>import pandas as pd
-
-# Load the data
-papers = pd.read_csv('papers.csv')
-authors = pd.read_csv('paper_authors.csv')
-
-# Join tables
-merged = authors.merge(papers, left_on='paper_id', right_on='id', suffixes=('_author', '_paper'))
-
-# Example: methodology distribution
-print(papers['methodology'].value_counts())
-
-# Example: presentations per year
-print(papers.groupby('year').size())</code></pre>
-
-      <h3>R</h3>
-      <pre><code>library(readr)
-
-# Load the data
-papers &lt;- read_csv("papers.csv")
-authors &lt;- read_csv("paper_authors.csv")
-
-# Join tables
-merged &lt;- merge(authors, papers, by.x = "paper_id", by.y = "id")
-
-# Example: methodology distribution
-table(papers$methodology)
-
-# Example: top institutions
-sort(table(authors$institution_normalized), decreasing = TRUE)[1:20]</code></pre>
-
-      <hr>
-
-      <h2 id="api">REST API Access</h2>
-      <p>Query the live database directly via the Supabase PostgREST API without downloading any files. The API provides read-only access to all three tables: <code>papers</code>, <code>paper_authors</code>, and <code>paper_embeddings</code>.</p>
-
-      <h3>Connection Details</h3>
-      <div class="table-wrap">
-        <table>
-          <tbody>
-            <tr><td><strong>Project URL</strong></td><td><code>https://jomsksqqcpkbuhwytovo.supabase.co</code></td></tr>
-            <tr><td><strong>API Key (anon)</strong></td><td><code style="font-size:0.75em;word-break:break-all">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg</code></td></tr>
-            <tr><td><strong>Access</strong></td><td>Read-only (SELECT on papers, paper_authors, paper_embeddings)</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Example: curl</h3>
-      <pre><code># Get all 2026 presentations
-curl "https://jomsksqqcpkbuhwytovo.supabase.co/rest/v1/papers?year=eq.2026&amp;select=id,title,methodology" \
-  -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg"</code></pre>
-
-      <h3>Example: Python (supabase-py)</h3>
-      <pre><code>from supabase import create_client
-
-url = "https://jomsksqqcpkbuhwytovo.supabase.co"
-key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg"
-db = create_client(url, key)
-
-# Qualitative presentations from 2020 onward
-result = db.table("papers") \
-    .select("id, title, year") \
-    .eq("methodology", "qualitative") \
-    .gte("year", 2020) \
-    .execute()</code></pre>
+      <h2 id="api">REST API</h2>
+      <p>The database is also accessible via the Supabase PostgREST API for programmatic access. The <strong>sswr-query</strong> skill handles this automatically &mdash; just ask your AI assistant to query the API. Connection details are in the <a href="https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md">CODEBOOK_LLM.md</a> portable reference.</p>
 
       <hr>
 
       <h2 id="embeddings">Vector Embeddings</h2>
-      <p>Pre-computed vector embeddings are available for all 23,793 presentations via the API. These encode the semantic content of each title and abstract, enabling similarity search, clustering, and other vector-based analyses.</p>
-
-      <div class="callout">
-        <p><strong>Two models available:</strong> <code>text-embedding-3-large</code> (3,072 dims, higher quality) and <code>text-embedding-3-small</code> (1,536 dims, faster/cheaper). Your query <strong>must use the exact same model</strong> as the embeddings you search against.</p>
-      </div>
+      <p>Pre-computed vector embeddings are available for all 23,793 presentations, enabling semantic similarity search &mdash; finding presentations by meaning, not just keywords.</p>
 
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Model</th><th>Dims</th><th>RPC Function</th><th>Best For</th></tr></thead>
+          <thead><tr><th>Model</th><th>Dimensions</th><th>Best For</th></tr></thead>
           <tbody>
-            <tr><td><code>text-embedding-3-large</code></td><td>3,072</td><td><code>match_papers</code></td><td>Precision-critical search, clustering</td></tr>
-            <tr><td><code>text-embedding-3-small</code></td><td>1,536</td><td><code>match_papers_small</code></td><td>General similarity search (faster, cheaper)</td></tr>
+            <tr><td><code>text-embedding-3-large</code></td><td>3,072</td><td>Higher precision search and clustering</td></tr>
+            <tr><td><code>text-embedding-3-small</code></td><td>1,536</td><td>General similarity search (faster, cheaper)</td></tr>
           </tbody>
         </table>
       </div>
 
-      <p>We recommend <a href="https://openrouter.ai/">OpenRouter</a> for generating query embeddings. OpenRouter provides a unified API that gives you access to both models alongside hundreds of others from OpenAI, Anthropic, Google, Meta, and more &mdash; all through a single API key.</p>
+      <p>Embeddings are not available for direct download. To run a similarity search, use the <strong>sswr-semantic-search</strong> skill &mdash; it handles the entire workflow including embedding generation via <a href="https://openrouter.ai/">OpenRouter</a> and the Supabase RPC call. Install the skills via the <a href="quickstart.html#step2">Quick Start</a>.</p>
 
-      <h3>Setup (OpenRouter)</h3>
-      <ol>
-        <li>Create a free account at <a href="https://openrouter.ai/">openrouter.ai</a></li>
-        <li>Generate an API key from your <a href="https://openrouter.ai/keys">dashboard</a></li>
-        <li>Install the OpenAI Python package: <code>pip install openai supabase</code></li>
-      </ol>
-
-      <h3>Similarity Search</h3>
-      <pre><code>import openai
-from supabase import create_client
-
-# --- Your keys (only thing you need to provide) ---
-OPENROUTER_KEY = "sk-or-..."   # from openrouter.ai/keys
-SUPABASE_KEY   = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg"
-
-# --- 1. Generate a query embedding via OpenRouter ---
-client = openai.OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key=OPENROUTER_KEY,
-)
-
-## --- Option A: text-embedding-3-large (higher quality) ---
-response = client.embeddings.create(
-    model="openai/text-embedding-3-large",
-    input="child welfare interventions for foster youth"
-)
-query_vector = response.data[0].embedding  # 3,072 dims
-
-db = create_client("https://jomsksqqcpkbuhwytovo.supabase.co", SUPABASE_KEY)
-result = db.rpc("match_papers", {
-    "query_embedding": query_vector,
-    "match_threshold": 0.3,
-    "match_count": 10
-}).execute()
-
-## --- Option B: text-embedding-3-small (faster, cheaper) ---
-# response = client.embeddings.create(
-#     model="openai/text-embedding-3-small",
-#     input="child welfare interventions for foster youth"
-# )
-# result = db.rpc("match_papers_small", {  # note: different function
-#     "query_embedding": response.data[0].embedding,
-#     "match_threshold": 0.3,
-#     "match_count": 10
-# }).execute()
-
-for paper in result.data:
-    print(f"{paper['year']} | sim={paper['similarity']:.3f} | {paper['title']}")</code></pre>
-
-      <h3>Using OpenAI Directly</h3>
-      <p>If you already have an OpenAI API key, the only difference is the client setup:</p>
-      <pre><code>client = openai.OpenAI(api_key="sk-...")  # your OpenAI key
-
-# Use the model name without the "openai/" prefix
-response = client.embeddings.create(
-    model="text-embedding-3-large",       # or "text-embedding-3-small"
-    input="your search query here"
-)</code></pre>
-
-      <div class="callout callout--blue">
-        <p><strong>Explore further:</strong> <a href="https://openrouter.ai/">OpenRouter</a> gives you access to models from every major provider through one API. Beyond embeddings, you can use it to run analyses, generate summaries, or build applications on top of this dataset using models from OpenAI, Anthropic, Google, Meta, Mistral, and many others.</p>
+      <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
+        <p style="margin:0;font-style:italic;">Example: &ldquo;Find presentations similar to &lsquo;racial disparities in mental health treatment&rsquo;&rdquo;</p>
       </div>
 
       <hr>

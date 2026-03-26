@@ -4,7 +4,7 @@
 
 **Two Decades of Scholarship at the Society for Social Work and Research**
 
-`2005 — 2026`
+`2005 — 2026` · `v0.9.0-beta`
 
 ---
 
@@ -157,6 +157,10 @@ paper_authors (69,924 rows)
 Despite extensive quality assurance, errors will exist in a dataset of this scale. **[Report errors here](https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml)** — corrections with evidence are especially valuable.
 
 ---
+
+## Release Status
+
+**v0.9.0-beta** — This is a beta release. Data and documentation are under active review. We welcome error reports and feedback via [GitHub Issues](https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml). Version numbers follow [Semantic Versioning](https://semver.org/). The `v1.0.0` release will follow community review.
 
 ## License
 

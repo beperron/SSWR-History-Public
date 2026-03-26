@@ -1,5 +1,7 @@
 # SSWR Conference History Database — Analysis Guide
 
+**Version: 0.9.0-beta** (2026-03-25) — Data and documentation under active review.
+
 This file helps AI assistants and researchers work effectively with the SSWR Conference History Database, whether accessing data through MCP (Supabase), the REST API, or local CSV/JSON files.
 
 ## Dataset Overview

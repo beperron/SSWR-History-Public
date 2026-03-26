@@ -6,6 +6,9 @@ import json
 import os
 import sys
 
+VERSION = "0.9.0-beta"
+RELEASE_DATE = "2026-03-25"
+
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOURCE = os.path.join(REPO_ROOT, "sswr_complete_2005_2026.json")
 DATA_DIR = os.path.join(REPO_ROOT, "data")
@@ -60,7 +63,16 @@ def main():
     print(f"  Papers:  {len(papers):,}")
     print(f"  Authors: {len(authors):,}")
 
+    # Version envelope for all JSON output
+    version_info = {
+        "version": VERSION,
+        "release_date": RELEASE_DATE,
+        "status": "beta",
+        "citation": "Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship. Journal of the Society for Social Work and Research. https://doi.org/10.48550/arXiv.2603.06814",
+    }
+
     # --- metadata.json ---
+    metadata["version"] = version_info
     meta_path = os.path.join(DATA_DIR, "json", "metadata.json")
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(metadata, f, indent=2, ensure_ascii=False)
@@ -74,15 +86,23 @@ def main():
 
     for yr in sorted(papers_by_year):
         path = os.path.join(DATA_DIR, "json", "papers", f"papers_{yr}.json")
+        envelope = {**version_info, "year": yr, "count": len(papers_by_year[yr]), "data": papers_by_year[yr]}
         with open(path, "w", encoding="utf-8") as f:
-            json.dump(papers_by_year[yr], f, indent=2, ensure_ascii=False)
+            json.dump(envelope, f, indent=2, ensure_ascii=False)
         print(f"  {path}  ({len(papers_by_year[yr]):,} records)")
 
     # --- paper_authors.json ---
     authors_path = os.path.join(DATA_DIR, "json", "paper_authors.json")
+    envelope = {**version_info, "count": len(authors), "data": authors}
     with open(authors_path, "w", encoding="utf-8") as f:
-        json.dump(authors, f, indent=2, ensure_ascii=False)
+        json.dump(envelope, f, indent=2, ensure_ascii=False)
     print(f"Wrote {authors_path}")
+
+    # --- VERSION.json (standalone version file for CSV users) ---
+    version_path = os.path.join(DATA_DIR, "VERSION.json")
+    with open(version_path, "w", encoding="utf-8") as f:
+        json.dump(version_info, f, indent=2, ensure_ascii=False)
+    print(f"Wrote {version_path}")
 
     # --- papers.csv ---
     paper_fields = [

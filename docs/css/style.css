@@ -112,6 +112,19 @@ hr {
   margin: var(--section-gap) 0;
 }
 
+/* ---- Beta Banner ---- */
+.beta-banner {
+  background: var(--ink);
+  color: rgba(233,228,220,.7);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-align: center;
+  padding: 0.4rem 1rem;
+  letter-spacing: 0.04em;
+}
+.beta-banner a { color: var(--vermillion-soft); }
+.beta-banner strong { color: rgba(233,228,220,.9); }
+
 /* ---- Layout ---- */
 .container       { max-width: var(--max-prose); margin: 0 auto; padding: 0 1.5rem; }
 .container--wide { max-width: var(--max-wide); margin: 0 auto; padding: 0 1.5rem; }

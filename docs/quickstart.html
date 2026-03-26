@@ -29,8 +29,9 @@
       <h1>Quick Start</h1>
 
       <h2 id="philosophy">Why AI-first?</h2>
-      <p>This database is designed to be queried through conversation, not code. We are not encouraging researchers to hand off analysis to AI. The opposite: we want to <strong>free you from boilerplate</strong> so you can focus entirely on thinking about your research questions, interpreting results, and understanding the data.</p>
-      <p>Writing <code>pd.read_csv()</code> or <code>library(readr)</code> is not a scholarly contribution. It&rsquo;s plumbing. The intellectual work is deciding <em>what to ask</em>, <em>how to interpret</em>, and <em>what it means</em>. AI handles the plumbing. You do the thinking.</p>
+      <p>There is no scholarly contribution in writing <code>pd.read_csv()</code>. There is no intellectual value in debugging a merge statement or googling the syntax for a grouped bar chart. This is routine analytic code &mdash; plumbing that every researcher writes from memory, fixes from Stack Overflow, and forgets by next week.</p>
+      <p>We are not encouraging researchers to hand off analysis to AI. The opposite: we want to <strong>free you from the plumbing</strong> so you can invest your time where it actually matters &mdash; formulating research questions, reviewing the generated code for correctness, verifying that outcomes make sense, and interpreting what the results mean for the field.</p>
+      <p>AI handles the code generation. You handle the thinking, the verification, and the scholarship. Your contribution is the question you ask and the interpretation you provide, not the twenty lines of boilerplate that got you there.</p>
 
       <hr>
 
@@ -49,16 +50,31 @@
 
       <hr>
 
-      <h2 id="step2">Step 2 &mdash; Load the <a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents" style="text-decoration-color:#c20000;">Skill File</a></h2>
-      <p><a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">Skill files</a> give the AI complete context about the database &mdash; schema, query patterns, categorical values, and semantic search instructions. Copy this prompt and give it to the same AI assistant:</p>
+      <h2 id="step2">Step 2 &mdash; Install the <a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents" style="text-decoration-color:#c20000;">Skills</a></h2>
+      <p>The repository includes four modular <a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">skills</a> that give the AI specialized capabilities for working with this database. Copy this prompt:</p>
 
-      <button class="btn btn--primary" id="copy-skill-prompt">Copy Skill File Prompt</button>
+      <button class="btn btn--primary" id="copy-skill-prompt">Copy Skills Install Prompt</button>
       <details style="margin-top:0.75rem;">
         <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview</summary>
         <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.85rem;line-height:1.6;font-style:italic;">
-          Please download the SSWR skill file from https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md and read it. This contains the complete database schema, query patterns, categorical values, data quality notes, and semantic search instructions. Confirm you have the context loaded and summarize what tables are available.
+          Please clone the SSWR Conference History Database repository from github.com/beperron/SSWR-History-Public. This repo includes MCP configs (.claude/mcp.json, .cursor/mcp.json) and four skills in .claude/skills/ — sswr-codebook (schema reference), sswr-query (SQL patterns), sswr-semantic-search (embedding search via OpenRouter), and sswr-about (citation and limitations). Read the CLAUDE.md project context and confirm the skills are available.
         </div>
       </details>
+
+      <p style="margin-top:1rem;">The skills are:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Skill</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td><strong>sswr-codebook</strong></td><td>Schema, field definitions, categorical values, relationships</td></tr>
+            <tr><td><strong>sswr-query</strong></td><td>12 SQL query templates for analysis (trends, institutions, methodology, etc.)</td></tr>
+            <tr><td><strong>sswr-semantic-search</strong></td><td>Embedding-based similarity search via OpenRouter</td></tr>
+            <tr><td><strong>sswr-about</strong></td><td>Citation, provenance, limitations, error reporting</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Using a chat interface without file access? Download <a href="https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md">CODEBOOK_LLM.md</a> (portable reference) and paste it into your first message.</p>
 
       <hr>
 
@@ -131,10 +147,10 @@
     });
   });
   document.getElementById('copy-skill-prompt').addEventListener('click', function() {
-    var p = 'Please download the SSWR skill file from https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md and read it. This contains the complete database schema, query patterns, categorical values, data quality notes, and semantic search instructions. Confirm you have the context loaded and summarize what tables are available.';
+    var p = 'Please clone the SSWR Conference History Database repository from github.com/beperron/SSWR-History-Public. This repo includes MCP configs (.claude/mcp.json, .cursor/mcp.json) and four modular skills in .claude/skills/:\n\n- sswr-codebook: schema, field definitions, categorical values\n- sswr-query: SQL patterns for analysis\n- sswr-semantic-search: embedding search via OpenRouter\n- sswr-about: citation, provenance, limitations\n\nRead the CLAUDE.md project context and confirm the skills are available.';
     navigator.clipboard.writeText(p).then(function() {
       var btn = document.getElementById('copy-skill-prompt');
-      btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy Skill File Prompt'; }, 2000);
+      btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy Skills Install Prompt'; }, 2000);
     });
   });
   </script>

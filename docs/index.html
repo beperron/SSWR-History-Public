@@ -151,9 +151,9 @@
         <h2 id="ai">Built for AI-Native Analysis</h2>
         <p>This database is designed from the ground up to work with AI. Beyond traditional downloads, it offers:</p>
         <ul>
-          <li><strong>MCP connection</strong> &mdash; query the live database through natural conversation with Claude, Cursor, OpenCode, or any MCP-compatible tool. <a href="quickstart.html#step1">Set up in 2 minutes</a>.</li>
-          <li><strong>Semantic search</strong> &mdash; vector embeddings for all 23,793 presentations enable similarity search across two decades of scholarship.</li>
-          <li><strong>Skill files</strong> &mdash; <code>CLAUDE.md</code> and <code>AGENTS.md</code> give AI assistants full schema context, query patterns, and data quality notes automatically.</li>
+          <li><strong>MCP connection</strong> &mdash; query the live database through natural conversation with Claude, Cursor, OpenCode, or any MCP-compatible tool. Auto-configured via <code>.claude/mcp.json</code> and <code>.cursor/mcp.json</code>. <a href="quickstart.html#step1">Set up in 2 minutes</a>.</li>
+          <li><strong>Four modular skills</strong> &mdash; codebook, query patterns, semantic search, and citation/provenance. Located in <code>.claude/skills/</code> and loaded automatically.</li>
+          <li><strong>Semantic search</strong> &mdash; vector embeddings for all 23,793 presentations enable similarity search via OpenRouter. Dedicated skill handles the full workflow.</li>
           <li><strong>Local-first</strong> &mdash; works with local models via Ollama (tested with Qwen 3.5 27B). No cloud dependency required for analysis.</li>
         </ul>
         <p>We are actively building a lightweight AI layer to further facilitate access and analysis, with integrations for agentic workflows and automated research pipelines. The goal is small, local, agentic analysis &mdash; where researchers can ask complex questions of the data without writing code or leaving their preferred tools.</p>

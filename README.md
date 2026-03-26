@@ -29,27 +29,28 @@ A comprehensive, structured database of every publicly available presentation ab
 
 ### :zap: AI-First
 
-This database is built for AI-native access. Query through conversation, not code. We are actively building a lightweight AI layer for agentic analysis — the goal is to free you from boilerplate so you can focus on thinking about your research.
+There is no scholarly contribution in writing `pd.read_csv()`. We built this database to be queried through conversation — freeing you from routine code so you can focus on formulating questions, verifying results, and interpreting what they mean. **[Quick Start](https://beperron.github.io/SSWR-History-Public/quickstart.html)** — two copy-paste prompts, no code.
 
-### :electric_plug: MCP — Natural language queries
+### :electric_plug: MCP — Auto-configured
 
-Connect any MCP-compatible assistant (Claude, Cursor, OpenCode) to the live database. Two copy-paste prompts, no code. **[Quick Start](https://beperron.github.io/SSWR-History-Public/quickstart.html)**
+Clone the repo and the MCP connection is ready. `.claude/mcp.json` and `.cursor/mcp.json` are auto-discovered by Claude Code and Cursor. OpenCode uses `opencode.jsonc`. All connect to the same live Supabase database, read-only.
 
-### :brain: Skill Files — Full database context
+### :brain: Four Skills — Modular, specialized
 
-AI assistants read these automatically for schema, query patterns, and semantic search instructions.
+Skills in `.claude/skills/` give AI assistants specialized capabilities beyond raw data access:
 
-| | File | For |
-|---|------|-----|
-| :clipboard: | `CLAUDE.md` | Claude Code |
-| :clipboard: | `AGENTS.md` | OpenCode |
-| :clipboard: | `CODEBOOK_LLM.md` | Any LLM (paste into chat) |
+| | Skill | What it does |
+|---|-------|-------------|
+| :book: | **sswr-codebook** | Schema, field definitions, categorical values, relationships |
+| :bar_chart: | **sswr-query** | 12 SQL query templates (trends, institutions, methodology, collaboration) |
+| :mag: | **sswr-semantic-search** | Embedding similarity search via OpenRouter (text-embedding-3-large + small) |
+| :bookmark: | **sswr-about** | Citation, provenance, limitations, error reporting |
 
-### :mag: Embeddings — Semantic search
+### :page_facing_up: Portable Context
 
-Pre-computed vectors for all 23,793 presentations. `text-embedding-3-large` (3,072d) and `text-embedding-3-small` (1,536d) via OpenRouter or OpenAI.
+For tools without skill support (ChatGPT, Claude Desktop without MCP), download [`CODEBOOK_LLM.md`](https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md) and paste it into your first message.
 
-> :construction: MCP and skill file integrations are under active development.
+> :construction: Skills and MCP integrations are under active development.
 
 ---
 

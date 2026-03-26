@@ -71,26 +71,33 @@
 
       <hr>
 
-      <h2 id="skills">Skill Files</h2>
-      <p><a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">Skill files</a> give AI assistants complete context about the database &mdash; schema, query patterns, categorical values, data quality notes, and semantic search instructions. They are read automatically when you work from the cloned repository.</p>
+      <h2 id="skills">Skills &amp; AI Context</h2>
+      <p>The repository includes modular <a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">skills</a> that give AI assistants specialized capabilities for this database. Clone the repo and they&rsquo;re loaded automatically by Claude Code, Cursor, and OpenCode.</p>
 
       <pre><code>git clone https://github.com/beperron/SSWR-History-Public.git
 cd SSWR-History-Public</code></pre>
 
+      <h3>What gets installed</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Component</th><th>Path</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td><strong>MCP config</strong></td><td><code>.claude/mcp.json</code><br><code>.cursor/mcp.json</code></td><td>Auto-connects to the live database (Claude Code and Cursor discover these automatically)</td></tr>
+            <tr><td><strong>sswr-codebook</strong></td><td><code>.claude/skills/sswr-codebook/</code></td><td>Schema, field definitions, categorical values, table relationships</td></tr>
+            <tr><td><strong>sswr-query</strong></td><td><code>.claude/skills/sswr-query/</code></td><td>12 SQL query templates for trends, institutions, methodology, collaboration</td></tr>
+            <tr><td><strong>sswr-semantic-search</strong></td><td><code>.claude/skills/sswr-semantic-search/</code></td><td>Embedding-based similarity search via OpenRouter (requires API key)</td></tr>
+            <tr><td><strong>sswr-about</strong></td><td><code>.claude/skills/sswr-about/</code></td><td>Citation, provenance, known limitations, error reporting</td></tr>
+            <tr><td><strong>Project context</strong></td><td><code>CLAUDE.md</code> / <code>AGENTS.md</code></td><td>Slim orientation file read automatically (24 lines, points to skills)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>For other tools (ChatGPT, Claude Desktop without MCP, etc.)</h3>
+      <p>Download the portable reference and paste its contents into your first message:</p>
       <div class="download-grid">
         <div class="download-card">
-          <h3>CLAUDE.md</h3>
-          <p class="meta">For Claude Code. Read automatically. Full schema, queries, embeddings.</p>
-          <a href="https://github.com/beperron/SSWR-History-Public/raw/main/CLAUDE.md" class="btn btn--primary">Download</a>
-        </div>
-        <div class="download-card">
-          <h3>AGENTS.md</h3>
-          <p class="meta">For OpenCode. Same content, read automatically by OpenCode&rsquo;s agent system.</p>
-          <a href="https://github.com/beperron/SSWR-History-Public/raw/main/AGENTS.md" class="btn btn--primary">Download</a>
-        </div>
-        <div class="download-card">
           <h3>CODEBOOK_LLM.md</h3>
-          <p class="meta">For any LLM. Compact, token-efficient. Paste into any AI chat for instant context.</p>
+          <p class="meta">Compact, token-efficient reference with schema, queries, and MCP config. Works in any AI chat window.</p>
           <a href="https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md" class="btn btn--primary">Download</a>
         </div>
       </div>

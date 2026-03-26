@@ -13,3 +13,4 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+.webui_secret_key

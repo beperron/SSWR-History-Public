@@ -27,42 +27,28 @@
   <main>
     <div class="container">
       <h1>Quick Start</h1>
-      <p>Three ways to access the data, from simplest to most powerful. Pick whichever fits your workflow.</p>
+      <p>Three ways to access the data. Pick whichever fits how you work.</p>
 
       <hr>
 
       <h2>Option 1 &mdash; Ask an AI (no code)</h2>
-      <p>Connect Claude to the live database using MCP. Ask questions in plain language and get answers instantly.</p>
-      <ol>
-        <li>Install <a href="https://claude.ai/download">Claude Desktop</a> and <a href="https://nodejs.org/">Node.js 18+</a></li>
-        <li>Open your config file:
-          <ul>
-            <li>macOS: <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li>
-            <li>Windows: <code>%APPDATA%\Claude\claude_desktop_config.json</code></li>
-          </ul>
-        </li>
-        <li>Paste this configuration:
-      <pre><code>{
-  "mcpServers": {
-    "sswr-history": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@anthropic-ai/mcp-supabase@latest",
-        "--supabase-url",
-        "https://jomsksqqcpkbuhwytovo.supabase.co",
-        "--supabase-key",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",
-        "--read-only"
-      ]
-    }
-  }
-}</code></pre>
-        </li>
-        <li>Restart Claude Desktop</li>
-        <li>Try asking: <em>&ldquo;How many presentations were at SSWR in 2026?&rdquo;</em></li>
-      </ol>
-      <p>For the full guide, see <a href="mcp.html">MCP &amp; Skill File</a>.</p>
+      <p>Connect any MCP-compatible AI assistant (Claude Desktop, Claude Code, Cursor, OpenCode, etc.) to the live SSWR database. No SQL, no downloads &mdash; ask questions in plain language.</p>
+
+      <h3>New to MCP? Give this prompt to your AI assistant:</h3>
+      <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
+        <p style="font-style:italic;margin:0;">I want to connect to the SSWR Conference History Database via MCP. The connection details are:</p>
+        <ul style="margin:0.75rem 0 0;">
+          <li>Package: <code>@anthropic-ai/mcp-supabase@latest</code></li>
+          <li>URL: <code>https://jomsksqqcpkbuhwytovo.supabase.co</code></li>
+          <li>Key: <code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg</code></li>
+          <li>Mode: read-only</li>
+        </ul>
+        <p style="margin:0.75rem 0 0;font-style:italic;">Please help me set this up as an MCP server in my configuration file, then verify it works by listing the available tables.</p>
+      </div>
+      <p>Paste this prompt into Claude Code, Cursor, or any MCP-capable tool. The AI will find your config file, add the connection, and walk you through restarting.</p>
+
+      <h3>Already familiar with MCP?</h3>
+      <p>Add <code>sswr-history</code> to your MCP config using the Supabase MCP package. Full config and details on the <a href="mcp.html">MCP page</a>.</p>
 
       <hr>
 

@@ -50,17 +50,15 @@
       <hr>
 
       <h2 id="step2">Step 2 &mdash; Load the <a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents" style="text-decoration-color:#c20000;">Skill File</a></h2>
-      <p><a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">Skill files</a> give the AI complete context about the database &mdash; schema, query patterns, categorical values, and semantic search instructions. Copy this prompt:</p>
+      <p><a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">Skill files</a> give the AI complete context about the database &mdash; schema, query patterns, categorical values, and semantic search instructions. Copy this prompt and give it to the same AI assistant:</p>
 
       <button class="btn btn--primary" id="copy-skill-prompt">Copy Skill File Prompt</button>
       <details style="margin-top:0.75rem;">
         <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview</summary>
         <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.85rem;line-height:1.6;font-style:italic;">
-          Please clone the SSWR Conference History Database repository from github.com/beperron/SSWR-History-Public. Read the CLAUDE.md skill file (or AGENTS.md if using OpenCode). This gives you the full database schema, query patterns, data quality notes, and semantic search instructions. Confirm you have the context loaded.
+          Please download the SSWR skill file from https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md and read it. This contains the complete database schema, query patterns, categorical values, data quality notes, and semantic search instructions. Confirm you have the context loaded and summarize what tables are available.
         </div>
       </details>
-
-      <p style="margin-top:1rem;">Using a chat interface without file access? Download <a href="https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md">CODEBOOK_LLM.md</a> and paste its contents into your first message.</p>
 
       <hr>
 
@@ -133,7 +131,7 @@
     });
   });
   document.getElementById('copy-skill-prompt').addEventListener('click', function() {
-    var p = 'Please clone the SSWR Conference History Database repository from github.com/beperron/SSWR-History-Public. Read the CLAUDE.md skill file (or AGENTS.md if using OpenCode). This gives you the full database schema, query patterns, data quality notes, and semantic search instructions. Confirm you have the context loaded.';
+    var p = 'Please download the SSWR skill file from https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md and read it. This contains the complete database schema, query patterns, categorical values, data quality notes, and semantic search instructions. Confirm you have the context loaded and summarize what tables are available.';
     navigator.clipboard.writeText(p).then(function() {
       var btn = document.getElementById('copy-skill-prompt');
       btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy Skill File Prompt'; }, 2000);

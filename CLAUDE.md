@@ -57,10 +57,16 @@ Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of confe
 | Field | Type | Description |
 |-------|------|-------------|
 | `paper_id` | text FK → papers.id | Links to presentation |
-| `embedding` | vector(3072) | text-embedding-3-large vector |
+| `embedding_large` | vector(3072) | text-embedding-3-large vector |
+| `embedding_small` | vector(1536) | text-embedding-3-small vector |
 | `created_at` | timestamptz | Generation timestamp |
 
-**Embedding model: `text-embedding-3-large` (OpenAI, 3,072 dimensions).** Query embeddings MUST use the same model. Incompatible models will produce meaningless similarity scores.
+**Two embedding models are available.** Query embeddings MUST use the exact same model as the column being searched. Mismatched models produce meaningless results.
+
+| Model | Dimensions | RPC Function | OpenRouter Model ID |
+|-------|-----------|--------------|---------------------|
+| text-embedding-3-large | 3,072 | `match_papers` | `openai/text-embedding-3-large` |
+| text-embedding-3-small | 1,536 | `match_papers_small` | `openai/text-embedding-3-small` |
 
 **Generating query embeddings via OpenRouter (recommended):**
 ```python
@@ -71,14 +77,22 @@ client = openai.OpenAI(
     api_key="sk-or-..."  # user provides their OpenRouter key
 )
 
+# For match_papers (large)
 response = client.embeddings.create(
     model="openai/text-embedding-3-large",
     input="your search query"
 )
+
+# For match_papers_small (small)
+# response = client.embeddings.create(
+#     model="openai/text-embedding-3-small",
+#     input="your search query"
+# )
+
 query_vector = response.data[0].embedding
 ```
 
-OpenRouter provides access to text-embedding-3-large alongside hundreds of other models through a single API key. Users can sign up at https://openrouter.ai and generate a key from their dashboard.
+OpenRouter provides access to both models alongside hundreds of others through a single API key. Users can sign up at https://openrouter.ai and generate a key from their dashboard.
 
 ## Categorical Values
 

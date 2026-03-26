@@ -154,10 +154,20 @@ result = db.table("papers") \
       <p>Pre-computed vector embeddings are available for all 23,793 presentations via the API. These encode the semantic content of each title and abstract, enabling similarity search, clustering, and other vector-based analyses.</p>
 
       <div class="callout">
-        <p><strong>Embedding model:</strong> All vectors were generated using OpenAI&rsquo;s <code>text-embedding-3-large</code> model (3,072 dimensions). Any query embedding <strong>must be generated with the same model</strong> for meaningful similarity comparisons.</p>
+        <p><strong>Two models available:</strong> <code>text-embedding-3-large</code> (3,072 dims, higher quality) and <code>text-embedding-3-small</code> (1,536 dims, faster/cheaper). Your query <strong>must use the exact same model</strong> as the embeddings you search against.</p>
       </div>
 
-      <p>We recommend <a href="https://openrouter.ai/">OpenRouter</a> for generating query embeddings. OpenRouter provides a unified API that gives you access to <code>text-embedding-3-large</code> alongside hundreds of other models from OpenAI, Anthropic, Google, Meta, and more &mdash; all through a single API key. It&rsquo;s a great way to explore the expanding landscape of AI models beyond embeddings.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Model</th><th>Dims</th><th>RPC Function</th><th>Best For</th></tr></thead>
+          <tbody>
+            <tr><td><code>text-embedding-3-large</code></td><td>3,072</td><td><code>match_papers</code></td><td>Precision-critical search, clustering</td></tr>
+            <tr><td><code>text-embedding-3-small</code></td><td>1,536</td><td><code>match_papers_small</code></td><td>General similarity search (faster, cheaper)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>We recommend <a href="https://openrouter.ai/">OpenRouter</a> for generating query embeddings. OpenRouter provides a unified API that gives you access to both models alongside hundreds of others from OpenAI, Anthropic, Google, Meta, and more &mdash; all through a single API key.</p>
 
       <h3>Setup (OpenRouter)</h3>
       <ol>
@@ -180,34 +190,41 @@ client = openai.OpenAI(
     api_key=OPENROUTER_KEY,
 )
 
+## --- Option A: text-embedding-3-large (higher quality) ---
 response = client.embeddings.create(
     model="openai/text-embedding-3-large",
     input="child welfare interventions for foster youth"
 )
-query_vector = response.data[0].embedding
+query_vector = response.data[0].embedding  # 3,072 dims
 
-# --- 2. Find similar presentations ---
-db = create_client(
-    "https://jomsksqqcpkbuhwytovo.supabase.co",
-    SUPABASE_KEY
-)
-
+db = create_client("https://jomsksqqcpkbuhwytovo.supabase.co", SUPABASE_KEY)
 result = db.rpc("match_papers", {
     "query_embedding": query_vector,
-    "match_threshold": 0.7,
+    "match_threshold": 0.3,
     "match_count": 10
 }).execute()
 
+## --- Option B: text-embedding-3-small (faster, cheaper) ---
+# response = client.embeddings.create(
+#     model="openai/text-embedding-3-small",
+#     input="child welfare interventions for foster youth"
+# )
+# result = db.rpc("match_papers_small", {  # note: different function
+#     "query_embedding": response.data[0].embedding,
+#     "match_threshold": 0.3,
+#     "match_count": 10
+# }).execute()
+
 for paper in result.data:
-    print(f"{paper['year']} | {paper['title']}")</code></pre>
+    print(f"{paper['year']} | sim={paper['similarity']:.3f} | {paper['title']}")</code></pre>
 
       <h3>Using OpenAI Directly</h3>
       <p>If you already have an OpenAI API key, the only difference is the client setup:</p>
-      <pre><code># Replace the OpenRouter client with:
-client = openai.OpenAI(api_key="sk-...")  # your OpenAI key
+      <pre><code>client = openai.OpenAI(api_key="sk-...")  # your OpenAI key
 
+# Use the model name without the "openai/" prefix
 response = client.embeddings.create(
-    model="text-embedding-3-large",       # same model, no prefix
+    model="text-embedding-3-large",       # or "text-embedding-3-small"
     input="your search query here"
 )</code></pre>
 

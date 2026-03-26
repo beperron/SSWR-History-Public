@@ -149,36 +149,69 @@ result = db.table("papers") \
       <hr>
 
       <h2 id="embeddings">Vector Embeddings</h2>
-      <p>Pre-computed vector embeddings are available for all 23,793 presentations via the API. These encode the semantic content of each presentation&rsquo;s title and abstract, enabling similarity search, clustering, and other vector-based analyses.</p>
+      <p>Pre-computed vector embeddings are available for all 23,793 presentations via the API. These encode the semantic content of each title and abstract, enabling similarity search, clustering, and other vector-based analyses.</p>
 
       <div class="callout">
-        <p><strong>Embedding model:</strong> All vectors were generated using OpenAI&rsquo;s <code>text-embedding-3-large</code> model (3,072 dimensions). Any query embedding <strong>must be generated with the same model</strong> for meaningful similarity comparisons. The model is available through <a href="https://platform.openai.com/">OpenAI</a> or <a href="https://openrouter.ai/">OpenRouter</a>.</p>
+        <p><strong>Embedding model:</strong> All vectors were generated using OpenAI&rsquo;s <code>text-embedding-3-large</code> model (3,072 dimensions). Any query embedding <strong>must be generated with the same model</strong> for meaningful similarity comparisons.</p>
       </div>
 
-      <h3>Similarity Search Example</h3>
+      <p>We recommend <a href="https://openrouter.ai/">OpenRouter</a> for generating query embeddings. OpenRouter provides a unified API that gives you access to <code>text-embedding-3-large</code> alongside hundreds of other models from OpenAI, Anthropic, Google, Meta, and more &mdash; all through a single API key. It&rsquo;s a great way to explore the expanding landscape of AI models beyond embeddings.</p>
+
+      <h3>Setup (OpenRouter)</h3>
+      <ol>
+        <li>Create a free account at <a href="https://openrouter.ai/">openrouter.ai</a></li>
+        <li>Generate an API key from your <a href="https://openrouter.ai/keys">dashboard</a></li>
+        <li>Install the OpenAI Python package: <code>pip install openai supabase</code></li>
+      </ol>
+
+      <h3>Similarity Search</h3>
       <pre><code>import openai
 from supabase import create_client
 
-# 1. Generate a query embedding using the SAME model
-client = openai.OpenAI()  # or use OpenRouter
+# --- Your keys (only thing you need to provide) ---
+OPENROUTER_KEY = "sk-or-..."   # from openrouter.ai/keys
+SUPABASE_KEY   = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg"
+
+# --- 1. Generate a query embedding via OpenRouter ---
+client = openai.OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key=OPENROUTER_KEY,
+)
+
 response = client.embeddings.create(
-    model="text-embedding-3-large",
+    model="openai/text-embedding-3-large",
     input="child welfare interventions for foster youth"
 )
 query_vector = response.data[0].embedding
 
-# 2. Search for similar presentations via Supabase RPC
+# --- 2. Find similar presentations ---
 db = create_client(
     "https://jomsksqqcpkbuhwytovo.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."  # anon key
+    SUPABASE_KEY
 )
 
-# Use the match_papers function or query directly
 result = db.rpc("match_papers", {
     "query_embedding": query_vector,
     "match_threshold": 0.7,
     "match_count": 10
-}).execute()</code></pre>
+}).execute()
+
+for paper in result.data:
+    print(f"{paper['year']} | {paper['title']}")</code></pre>
+
+      <h3>Using OpenAI Directly</h3>
+      <p>If you already have an OpenAI API key, the only difference is the client setup:</p>
+      <pre><code># Replace the OpenRouter client with:
+client = openai.OpenAI(api_key="sk-...")  # your OpenAI key
+
+response = client.embeddings.create(
+    model="text-embedding-3-large",       # same model, no prefix
+    input="your search query here"
+)</code></pre>
+
+      <div class="callout callout--blue">
+        <p><strong>Explore further:</strong> <a href="https://openrouter.ai/">OpenRouter</a> gives you access to models from every major provider through one API. Beyond embeddings, you can use it to run analyses, generate summaries, or build applications on top of this dataset using models from OpenAI, Anthropic, Google, Meta, Mistral, and many others.</p>
+      </div>
 
       <hr>
 

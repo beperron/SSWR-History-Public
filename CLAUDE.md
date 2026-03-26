@@ -58,7 +58,25 @@ Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of confe
 | `embedding` | vector(3072) | text-embedding-3-large vector |
 | `created_at` | timestamptz | Generation timestamp |
 
-**Embedding model: `text-embedding-3-large` (OpenAI, 3,072 dimensions).** Query embeddings MUST use the same model via OpenAI or OpenRouter. Incompatible models will produce meaningless similarity scores.
+**Embedding model: `text-embedding-3-large` (OpenAI, 3,072 dimensions).** Query embeddings MUST use the same model. Incompatible models will produce meaningless similarity scores.
+
+**Generating query embeddings via OpenRouter (recommended):**
+```python
+import openai
+
+client = openai.OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key="sk-or-..."  # user provides their OpenRouter key
+)
+
+response = client.embeddings.create(
+    model="openai/text-embedding-3-large",
+    input="your search query"
+)
+query_vector = response.data[0].embedding
+```
+
+OpenRouter provides access to text-embedding-3-large alongside hundreds of other models through a single API key. Users can sign up at https://openrouter.ai and generate a key from their dashboard.
 
 ## Categorical Values
 

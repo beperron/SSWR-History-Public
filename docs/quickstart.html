@@ -36,45 +36,72 @@
       <hr>
 
       <h2 id="step1">Step 1 &mdash; Connect to the Database</h2>
-      <p>Give your AI assistant access to the live SSWR database via <a href="https://beperron.substack.com/p/apis-and-mcps-essential-acronyms?r=1nnr07">MCP</a>. Copy this prompt and paste it into <a href="https://claude.ai/download">Claude Desktop</a>, <a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a>, <a href="https://cursor.com">Cursor</a>, or <a href="https://github.com/anomalyco/opencode">OpenCode</a>:</p>
+
+      <p><a href="https://beperron.substack.com/p/apis-and-mcps-essential-acronyms?r=1nnr07">MCP (Model Context Protocol)</a> lets your AI assistant query the live SSWR database directly. It works with <a href="https://claude.ai/download">Claude Desktop</a>, <a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a>, <a href="https://cursor.com">Cursor</a>, <a href="https://github.com/anomalyco/opencode">OpenCode</a>, and other MCP-compatible tools.</p>
+
+      <p>Copy this prompt and paste it into your AI assistant:</p>
 
       <button class="btn btn--primary" id="copy-prompt">Copy Connection Prompt</button>
       <details style="margin-top:0.75rem;">
-        <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview</summary>
-        <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.85rem;line-height:1.6;font-style:italic;">
-          I want to connect to the SSWR Conference History Database via MCP. The server name is &ldquo;sswr-history&rdquo; and the URL is https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database. Please add this to my MCP configuration, help me restart, and verify it works by listing the available tables.
+        <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview what gets copied</summary>
+        <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.88rem;line-height:1.7;">
+          <p style="margin:0 0 0.75rem;">I want to connect to the SSWR Conference History Database using MCP (Model Context Protocol). This is a read-only research database containing 23,793 conference presentations from 2005&ndash;2026.</p>
+          <p style="margin:0 0 0.75rem;">Please add an MCP server called &ldquo;sswr-history&rdquo; with this URL:<br>
+          <code style="word-break:break-all;">https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database</code></p>
+          <p style="margin:0 0 0.75rem;">Steps:</p>
+          <ol style="margin:0 0 0.75rem;">
+            <li>Find my MCP configuration file (claude_desktop_config.json for Claude Desktop, .claude/mcp.json for Claude Code, .cursor/mcp.json for Cursor)</li>
+            <li>Add the sswr-history server to the mcpServers section</li>
+            <li>Help me restart the application</li>
+            <li>Verify the connection by listing the available tables</li>
+          </ol>
+          <p style="margin:0;">If you need help, see: <a href="https://beperron.github.io/SSWR-History-Public/quickstart.html">beperron.github.io/SSWR-History-Public/quickstart.html</a> and <a href="https://beperron.substack.com/p/apis-and-mcps-essential-acronyms">What is MCP?</a></p>
         </div>
       </details>
 
-      <p style="margin-top:1rem;">Already know MCP? The config details are on the <a href="download.html#mcp">Download page</a>.</p>
+      <p style="margin-top:1rem;">Already know MCP? The raw JSON config is on the <a href="download.html#mcp">Download page</a>.</p>
 
       <hr>
 
       <h2 id="step2">Step 2 &mdash; Install the <a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents" style="text-decoration-color:#c20000;">Skills</a></h2>
-      <p>The repository includes four modular <a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">skills</a> that give the AI specialized capabilities for working with this database. Copy this prompt:</p>
+
+      <p><a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">Skills</a> are modular instruction files that give the AI specialized knowledge about this database &mdash; what the fields mean, how to write correct queries, how to run semantic search, and how to cite the data. Without them, the AI can still connect but won&rsquo;t know the schema details or best query patterns.</p>
+
+      <p>Copy this prompt and paste it into the same AI assistant:</p>
 
       <button class="btn btn--primary" id="copy-skill-prompt">Copy Skills Install Prompt</button>
       <details style="margin-top:0.75rem;">
-        <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview</summary>
-        <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.85rem;line-height:1.6;font-style:italic;">
-          Please clone the SSWR Conference History Database repository from github.com/beperron/SSWR-History-Public. This repo includes MCP configs (.claude/mcp.json, .cursor/mcp.json) and four skills in .claude/skills/ — sswr-codebook (schema reference), sswr-query (SQL patterns), sswr-semantic-search (embedding search via OpenRouter), and sswr-about (citation and limitations). Read the CLAUDE.md project context and confirm the skills are available.
+        <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview what gets copied</summary>
+        <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.88rem;line-height:1.7;">
+          <p style="margin:0 0 0.75rem;">Please download and install the SSWR Conference History Database skills. Download each file and save it to the specified path:</p>
+          <ol style="margin:0 0 0.75rem;">
+            <li>Download https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-codebook/skill.md &rarr; save to .claude/skills/sswr-codebook/skill.md</li>
+            <li>Download https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-query/skill.md &rarr; save to .claude/skills/sswr-query/skill.md</li>
+            <li>Download https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-semantic-search/skill.md &rarr; save to .claude/skills/sswr-semantic-search/skill.md</li>
+            <li>Download https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-about/skill.md &rarr; save to .claude/skills/sswr-about/skill.md</li>
+            <li>Download https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/CLAUDE.md &rarr; save to CLAUDE.md in the project root</li>
+          </ol>
+          <p style="margin:0 0 0.75rem;">Confirm the skills are installed and list what tables are available in the database.</p>
+          <p style="margin:0;">For more information: <a href="https://beperron.github.io/SSWR-History-Public/quickstart.html">Quick Start guide</a> | <a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">What are skills?</a> | <a href="https://github.com/beperron/SSWR-History-Public">GitHub repository</a></p>
         </div>
       </details>
 
-      <p style="margin-top:1rem;">The skills are:</p>
+      <p style="margin-top:1rem;">The four skills:</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Skill</th><th>Purpose</th></tr></thead>
+          <thead><tr><th>Skill</th><th>What it does</th><th>When to use</th></tr></thead>
           <tbody>
-            <tr><td><strong>sswr-codebook</strong></td><td>Schema, field definitions, categorical values, relationships</td></tr>
-            <tr><td><strong>sswr-query</strong></td><td>12 SQL query templates for analysis (trends, institutions, methodology, etc.)</td></tr>
-            <tr><td><strong>sswr-semantic-search</strong></td><td>Embedding-based similarity search via OpenRouter</td></tr>
-            <tr><td><strong>sswr-about</strong></td><td>Citation, provenance, limitations, error reporting</td></tr>
+            <tr><td><strong>sswr-codebook</strong></td><td>Schema, field definitions, categorical values, relationships</td><td>&ldquo;What fields are in the paper_authors table?&rdquo;</td></tr>
+            <tr><td><strong>sswr-query</strong></td><td>12 SQL query templates for trends, institutions, methodology</td><td>&ldquo;Show presentations by year&rdquo;</td></tr>
+            <tr><td><strong>sswr-semantic-search</strong></td><td>Embedding similarity search via <a href="https://openrouter.ai/">OpenRouter</a></td><td>&ldquo;Find papers similar to child welfare interventions&rdquo;</td></tr>
+            <tr><td><strong>sswr-about</strong></td><td>Citation, provenance, limitations, <a href="https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml">error reporting</a></td><td>&ldquo;How should I cite this?&rdquo;</td></tr>
           </tbody>
         </table>
       </div>
 
-      <p>Using a chat interface without file access? Download <a href="https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md">CODEBOOK_LLM.md</a> (portable reference) and paste it into your first message.</p>
+      <div class="callout callout--blue">
+        <p><strong>No coding tool?</strong> If you&rsquo;re using a chat interface like Claude Desktop or ChatGPT without file access, download <a href="https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md">CODEBOOK_LLM.md</a> and paste its contents into your first message. This gives the AI a portable version of the schema and query patterns.</p>
+      </div>
 
       <hr>
 
@@ -147,7 +174,7 @@
     });
   });
   document.getElementById('copy-skill-prompt').addEventListener('click', function() {
-    var p = 'Please clone the SSWR Conference History Database repository from github.com/beperron/SSWR-History-Public. This repo includes MCP configs (.claude/mcp.json, .cursor/mcp.json) and four modular skills in .claude/skills/:\n\n- sswr-codebook: schema, field definitions, categorical values\n- sswr-query: SQL patterns for analysis\n- sswr-semantic-search: embedding search via OpenRouter\n- sswr-about: citation, provenance, limitations\n\nRead the CLAUDE.md project context and confirm the skills are available.';
+    var p = 'Please download and install the SSWR Conference History Database skills. Download each file and save it to the specified path:\n\n1. https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-codebook/skill.md → save to .claude/skills/sswr-codebook/skill.md\n2. https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-query/skill.md → save to .claude/skills/sswr-query/skill.md\n3. https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-semantic-search/skill.md → save to .claude/skills/sswr-semantic-search/skill.md\n4. https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/.claude/skills/sswr-about/skill.md → save to .claude/skills/sswr-about/skill.md\n5. https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/CLAUDE.md → save to CLAUDE.md in the project root\n\nConfirm the skills are installed and list what tables are available in the database.\n\nFor more info: https://beperron.github.io/SSWR-History-Public/quickstart.html';
     navigator.clipboard.writeText(p).then(function() {
       var btn = document.getElementById('copy-skill-prompt');
       btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy Skills Install Prompt'; }, 2000);

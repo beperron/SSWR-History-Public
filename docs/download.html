@@ -111,6 +111,148 @@ table(papers$methodology)
 # Example: top institutions
 sort(table(authors$institution_normalized), decreasing = TRUE)[1:20]</code></pre>
 
+      <hr>
+
+      <h2 id="api">REST API Access</h2>
+      <p>Query the live database directly via the Supabase PostgREST API without downloading any files. The API provides read-only access to all three tables: <code>papers</code>, <code>paper_authors</code>, and <code>paper_embeddings</code>.</p>
+
+      <h3>Connection Details</h3>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+            <tr><td><strong>Project URL</strong></td><td><code>https://jomsksqqcpkbuhwytovo.supabase.co</code></td></tr>
+            <tr><td><strong>API Key (anon)</strong></td><td><code style="font-size:0.75em;word-break:break-all">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg</code></td></tr>
+            <tr><td><strong>Access</strong></td><td>Read-only (SELECT on papers, paper_authors, paper_embeddings)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Example: curl</h3>
+      <pre><code># Get all 2026 presentations
+curl "https://jomsksqqcpkbuhwytovo.supabase.co/rest/v1/papers?year=eq.2026&amp;select=id,title,methodology" \
+  -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg"</code></pre>
+
+      <h3>Example: Python (supabase-py)</h3>
+      <pre><code>from supabase import create_client
+
+url = "https://jomsksqqcpkbuhwytovo.supabase.co"
+key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg"
+db = create_client(url, key)
+
+# Qualitative presentations from 2020 onward
+result = db.table("papers") \
+    .select("id, title, year") \
+    .eq("methodology", "qualitative") \
+    .gte("year", 2020) \
+    .execute()</code></pre>
+
+      <hr>
+
+      <h2 id="embeddings">Vector Embeddings</h2>
+      <p>Pre-computed vector embeddings are available for all 23,793 presentations via the API. These encode the semantic content of each presentation&rsquo;s title and abstract, enabling similarity search, clustering, and other vector-based analyses.</p>
+
+      <div class="callout">
+        <p><strong>Embedding model:</strong> All vectors were generated using OpenAI&rsquo;s <code>text-embedding-3-large</code> model (3,072 dimensions). Any query embedding <strong>must be generated with the same model</strong> for meaningful similarity comparisons. The model is available through <a href="https://platform.openai.com/">OpenAI</a> or <a href="https://openrouter.ai/">OpenRouter</a>.</p>
+      </div>
+
+      <h3>Similarity Search Example</h3>
+      <pre><code>import openai
+from supabase import create_client
+
+# 1. Generate a query embedding using the SAME model
+client = openai.OpenAI()  # or use OpenRouter
+response = client.embeddings.create(
+    model="text-embedding-3-large",
+    input="child welfare interventions for foster youth"
+)
+query_vector = response.data[0].embedding
+
+# 2. Search for similar presentations via Supabase RPC
+db = create_client(
+    "https://jomsksqqcpkbuhwytovo.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."  # anon key
+)
+
+# Use the match_papers function or query directly
+result = db.rpc("match_papers", {
+    "query_embedding": query_vector,
+    "match_threshold": 0.7,
+    "match_count": 10
+}).execute()</code></pre>
+
+      <hr>
+
+      <h2 id="mcp">AI-Native Access via MCP</h2>
+      <p>The database is available as a <strong>Model Context Protocol (MCP)</strong> resource. MCP allows AI assistants like Claude to query the database directly through natural conversation &mdash; no code required. You ask a question in plain language, and the AI formulates the query, executes it, and interprets the results.</p>
+
+      <h3>What You Can Do</h3>
+      <ul>
+        <li>Ask questions like <em>&ldquo;What percentage of presentations used qualitative methods in 2025?&rdquo;</em></li>
+        <li>Run complex analyses: <em>&ldquo;Which institutions had the most first-authored presentations over the last five years?&rdquo;</em></li>
+        <li>Explore trends: <em>&ldquo;How has international participation changed since 2010?&rdquo;</em></li>
+        <li>Cross-reference tables: <em>&ldquo;What are the most common positions among qualitative researchers?&rdquo;</em></li>
+      </ul>
+
+      <h3>Step-by-Step Setup</h3>
+
+      <h4>Prerequisites</h4>
+      <ul>
+        <li><a href="https://nodejs.org/">Node.js</a> (version 18 or later) installed on your system</li>
+        <li><a href="https://claude.ai/download">Claude Desktop</a> or <a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a> installed</li>
+      </ul>
+
+      <h4>1. Locate your MCP configuration file</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Application</th><th>Config File Location</th></tr></thead>
+          <tbody>
+            <tr><td>Claude Desktop (macOS)</td><td><code>~/Library/Application Support/Claude/claude_desktop_config.json</code></td></tr>
+            <tr><td>Claude Desktop (Windows)</td><td><code>%APPDATA%\Claude\claude_desktop_config.json</code></td></tr>
+            <tr><td>Claude Code</td><td><code>~/.claude/settings.json</code> (under <code>mcpServers</code>)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>2. Add the SSWR database connection</h4>
+      <p>Open the configuration file and add the following inside the <code>mcpServers</code> object. Create the file or the <code>mcpServers</code> key if it does not exist.</p>
+
+      <pre><code>{
+  "mcpServers": {
+    "sswr-history": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic-ai/mcp-supabase@latest",
+        "--supabase-url",
+        "https://jomsksqqcpkbuhwytovo.supabase.co",
+        "--supabase-key",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",
+        "--read-only"
+      ]
+    }
+  }
+}</code></pre>
+
+      <h4>3. Restart the application</h4>
+      <p>Close and reopen Claude Desktop or restart Claude Code. The MCP server will start automatically when the application launches.</p>
+
+      <h4>4. Verify the connection</h4>
+      <p>In Claude Desktop, look for the MCP server icon (hammer icon) in the bottom-left of the chat window. In Claude Code, the server will appear in the tool list. You can verify by asking:</p>
+      <blockquote><em>&ldquo;List the tables available in the SSWR database and show me how many rows each has.&rdquo;</em></blockquote>
+
+      <h4>5. Start asking questions</h4>
+      <p>Once connected, you can query the database in plain language. Claude will translate your questions into SQL, run them against the live database, and return interpreted results. Example prompts:</p>
+      <ul>
+        <li><em>&ldquo;Show me the top 20 institutions by number of presentations&rdquo;</em></li>
+        <li><em>&ldquo;What is the year-over-year growth in mixed methods research?&rdquo;</em></li>
+        <li><em>&ldquo;How many unique countries are represented in each year?&rdquo;</em></li>
+        <li><em>&ldquo;Find all presentations by researchers from the University of Michigan in 2024&rdquo;</em></li>
+      </ul>
+
+      <div class="callout callout--blue">
+        <p><strong>Read-only access:</strong> The <code>--read-only</code> flag ensures the AI can only query data &mdash; it cannot modify, insert, or delete any records. The anon API key provides the same protection at the database level via row-level security policies.</p>
+      </div>
+
     </div>
   </main>
 

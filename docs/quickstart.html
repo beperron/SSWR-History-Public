@@ -35,92 +35,61 @@
       <hr>
 
       <h2 id="step1">Step 1 &mdash; Connect to the Database</h2>
-      <p>Add the SSWR database to your AI tool&rsquo;s <a href="https://beperron.substack.com/p/apis-and-mcps-essential-acronyms?r=1nnr07">MCP</a> configuration. This gives your AI assistant direct, read-only access to the live database.</p>
+      <p>Give your AI assistant access to the live SSWR database via <a href="https://beperron.substack.com/p/apis-and-mcps-essential-acronyms?r=1nnr07">MCP</a>. Copy this prompt and paste it into <a href="https://claude.ai/download">Claude Desktop</a>, <a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a>, <a href="https://cursor.com">Cursor</a>, or <a href="https://github.com/anomalyco/opencode">OpenCode</a>:</p>
 
-      <h3>Option A: Let your AI set it up</h3>
-      <p>Copy this prompt and paste it into <a href="https://claude.ai/download">Claude Desktop</a>, <a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a>, <a href="https://cursor.com">Cursor</a>, or <a href="https://github.com/anomalyco/opencode">OpenCode</a>:</p>
-      <button class="btn btn--primary" id="copy-prompt">Copy Setup Prompt</button>
+      <button class="btn btn--primary" id="copy-prompt">Copy Connection Prompt</button>
       <details style="margin-top:0.75rem;">
-        <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview what gets copied</summary>
-        <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.85rem;line-height:1.6;">
-          <p style="margin:0 0 0.5rem;"><em>I want to connect to the SSWR Conference History Database via MCP. Please add this to my MCP config and help me restart:</em></p>
-          <pre style="margin:0;font-size:0.8rem;"><code>{"mcpServers":{"sswr-history":{"url":"https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database"}}}</code></pre>
-          <p style="margin:0.5rem 0 0;"><em>Then verify by listing the available tables.</em></p>
+        <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview</summary>
+        <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.85rem;line-height:1.6;font-style:italic;">
+          I want to connect to the SSWR Conference History Database via MCP. The server name is &ldquo;sswr-history&rdquo; and the URL is https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database. Please add this to my MCP configuration, help me restart, and verify it works by listing the available tables.
         </div>
       </details>
 
-      <h3>Option B: Add it yourself</h3>
-      <p>Add this to your MCP config file (no API key or Node.js needed):</p>
-      <pre><code>{
-  "mcpServers": {
-    "sswr-history": {
-      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database"
-    }
-  }
-}</code></pre>
-      <p>Restart your application. The database is now connected.</p>
+      <p style="margin-top:1rem;">Already know MCP? The config details are on the <a href="download.html#mcp">Download page</a>.</p>
 
       <hr>
 
-      <h2 id="step2">Step 2 &mdash; Install the <a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents" style="text-decoration-color:#c20000;">Skill Files</a></h2>
-      <p><a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">Skill files</a> give the AI complete context about the database schema, field definitions, query patterns, and data quality notes. Without them, the AI can still query the database but may not know the best join patterns or categorical values.</p>
+      <h2 id="step2">Step 2 &mdash; Load the <a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents" style="text-decoration-color:#c20000;">Skill File</a></h2>
+      <p><a href="https://beperron.substack.com/p/skills-are-the-backbone-of-ai-agents">Skill files</a> give the AI complete context about the database &mdash; schema, query patterns, categorical values, and semantic search instructions. Copy this prompt:</p>
 
-      <pre><code>git clone https://github.com/beperron/SSWR-History-Public.git
-cd SSWR-History-Public</code></pre>
+      <button class="btn btn--primary" id="copy-skill-prompt">Copy Skill File Prompt</button>
+      <details style="margin-top:0.75rem;">
+        <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview</summary>
+        <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.85rem;line-height:1.6;font-style:italic;">
+          Please clone the SSWR Conference History Database repository from github.com/beperron/SSWR-History-Public. Read the CLAUDE.md skill file (or AGENTS.md if using OpenCode). This gives you the full database schema, query patterns, data quality notes, and semantic search instructions. Confirm you have the context loaded.
+        </div>
+      </details>
 
-      <p>The repository contains three skill files that are read automatically:</p>
-
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>File</th><th>For</th><th>What it does</th></tr></thead>
-          <tbody>
-            <tr><td><code><a href="https://github.com/beperron/SSWR-History-Public/blob/main/CLAUDE.md">CLAUDE.md</a></code></td><td>Claude Code</td><td>Full schema, query patterns, data quality notes</td></tr>
-            <tr><td><code><a href="https://github.com/beperron/SSWR-History-Public/blob/main/AGENTS.md">AGENTS.md</a></code></td><td>OpenCode</td><td>Same content, for OpenCode&rsquo;s agent system</td></tr>
-            <tr><td><code><a href="https://github.com/beperron/SSWR-History-Public/blob/main/CODEBOOK_LLM.md">CODEBOOK_LLM.md</a></code></td><td>Any LLM</td><td>Compact reference &mdash; paste into any AI chat window</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p>If you&rsquo;re using Claude Desktop (not Claude Code), paste the contents of <code>CODEBOOK_LLM.md</code> into your first message to give Claude the full dataset context.</p>
+      <p style="margin-top:1rem;">Using a chat interface without file access? Download <a href="https://github.com/beperron/SSWR-History-Public/raw/main/CODEBOOK_LLM.md">CODEBOOK_LLM.md</a> and paste its contents into your first message.</p>
 
       <hr>
 
       <h2 id="step3">Step 3 &mdash; Start Asking Questions</h2>
-      <p>You now have everything set up. Here are real questions you can ask right now:</p>
+      <p>You&rsquo;re set up. Try these:</p>
 
-      <h3>Explore the data</h3>
       <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
-        <p style="margin:0;font-style:italic;">&ldquo;How many presentations were at SSWR in each year from 2005 to 2026? Show the trend.&rdquo;</p>
+        <p style="margin:0;font-style:italic;">&ldquo;How many presentations were at SSWR in each year from 2005 to 2026?&rdquo;</p>
       </div>
       <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
         <p style="margin:0;font-style:italic;">&ldquo;What are the top 20 institutions by first-authored presentations?&rdquo;</p>
       </div>
-
-      <h3>Analyze trends</h3>
       <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
-        <p style="margin:0;font-style:italic;">&ldquo;How has the proportion of qualitative vs. quantitative research changed over time? Show percentages by year.&rdquo;</p>
+        <p style="margin:0;font-style:italic;">&ldquo;How has the proportion of qualitative vs. quantitative research changed over time?&rdquo;</p>
       </div>
       <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
-        <p style="margin:0;font-style:italic;">&ldquo;What percentage of first authors are doctoral students? Has this changed?&rdquo;</p>
-      </div>
-
-      <h3>Answer research questions</h3>
-      <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
-        <p style="margin:0;font-style:italic;">&ldquo;How has international participation at SSWR changed since 2010? Which countries are growing fastest?&rdquo;</p>
+        <p style="margin:0;font-style:italic;">&ldquo;How has international participation at SSWR changed since 2010?&rdquo;</p>
       </div>
       <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
-        <p style="margin:0;font-style:italic;">&ldquo;Compare the methodology distribution of presentations from University of Michigan vs. Columbia University.&rdquo;</p>
+        <p style="margin:0;font-style:italic;">&ldquo;Find presentations about substance use interventions from the last 5 years. Who are the most active researchers?&rdquo;</p>
       </div>
-
-      <h3>Discover connections</h3>
       <div class="callout" style="background:#f7f7f8;border-left-color:#c20000;">
-        <p style="margin:0;font-style:italic;">&ldquo;Find presentations about substance use interventions from the last 5 years. Who are the most active researchers in this area?&rdquo;</p>
+        <p style="margin:0;font-style:italic;">&ldquo;Compare the methodology distribution of University of Michigan vs. Columbia University.&rdquo;</p>
       </div>
 
       <hr>
 
-      <h2 id="traditional">Traditional Access</h2>
-      <p>If you prefer working with files directly, the data is available as <a href="download.html">CSV, JSON, and SQLite downloads</a>. A <a href="download.html#api">REST API</a> is also available for programmatic access.</p>
+      <h2 id="traditional">Prefer files?</h2>
+      <p>The data is also available as <a href="download.html#sqlite">SQLite</a>, <a href="download.html#csv">CSV</a>, and <a href="download.html#json">JSON</a> downloads, plus a <a href="download.html#api">REST API</a>.</p>
 
     </div>
   </main>
@@ -157,11 +126,17 @@ cd SSWR-History-Public</code></pre>
   <script src="js/main.js"></script>
   <script>
   document.getElementById('copy-prompt').addEventListener('click', function() {
-    var prompt = 'I want to connect to the SSWR Conference History Database via MCP so I can query two decades of social work research data through natural language.\n\nPlease add this to my MCP configuration:\n\n{\n  "mcpServers": {\n    "sswr-history": {\n      "url": "https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database"\n    }\n  }\n}\n\nHelp me:\n1. Find my config file and add this MCP server\n2. Restart the application\n3. Verify by listing the available tables\n\nFor more information see: https://beperron.github.io/SSWR-History-Public/quickstart.html\nSkill file for full schema context: https://github.com/beperron/SSWR-History-Public/blob/main/CODEBOOK_LLM.md';
-    navigator.clipboard.writeText(prompt).then(function() {
+    var p = 'I want to connect to the SSWR Conference History Database via MCP. The server name is "sswr-history" and the URL is https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database\n\nPlease add this to my MCP configuration, help me restart, and verify it works by listing the available tables.\n\nMore info: https://beperron.github.io/SSWR-History-Public/quickstart.html';
+    navigator.clipboard.writeText(p).then(function() {
       var btn = document.getElementById('copy-prompt');
-      btn.textContent = 'Copied!';
-      setTimeout(function() { btn.textContent = 'Copy Setup Prompt'; }, 2000);
+      btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy Connection Prompt'; }, 2000);
+    });
+  });
+  document.getElementById('copy-skill-prompt').addEventListener('click', function() {
+    var p = 'Please clone the SSWR Conference History Database repository from github.com/beperron/SSWR-History-Public. Read the CLAUDE.md skill file (or AGENTS.md if using OpenCode). This gives you the full database schema, query patterns, data quality notes, and semantic search instructions. Confirm you have the context loaded.';
+    navigator.clipboard.writeText(p).then(function() {
+      var btn = document.getElementById('copy-skill-prompt');
+      btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy Skill File Prompt'; }, 2000);
     });
   });
   </script>

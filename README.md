@@ -12,7 +12,7 @@
 
 ---
 
-[**Explore the Data**](https://beperron.github.io/SSWR-History/) · [**Download**](https://beperron.github.io/SSWR-History/download.html) · [**Codebook**](https://beperron.github.io/SSWR-History/codebook.html) · [**Report an Error**](https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml)
+[**Explore the Data**](https://beperron.github.io/SSWR-History-Public/) · [**Download**](https://beperron.github.io/SSWR-History-Public/download.html) · [**Codebook**](https://beperron.github.io/SSWR-History-Public/codebook.html) · [**Report an Error**](https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml)
 
 </div>
 
@@ -154,13 +154,13 @@ paper_authors (69,924 rows)
 | Entity resolution | 23,481 → 20,779 canonical identities |
 | Human review stages | 4 (after scraping, parsing, resolution, classification) |
 
-Despite extensive quality assurance, errors will exist in a dataset of this scale. **[Report errors here](https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml)** — corrections with evidence are especially valuable.
+Despite extensive quality assurance, errors will exist in a dataset of this scale. **[Report errors here](https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml)** — corrections with evidence are especially valuable.
 
 ---
 
 ## Release Status
 
-**v0.9.0-beta** — This is a beta release. Data and documentation are under active review. We welcome error reports and feedback via [GitHub Issues](https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml). Version numbers follow [Semantic Versioning](https://semver.org/). The `v1.0.0` release will follow community review.
+**v0.9.0-beta** — This is a beta release. Data and documentation are under active review. We welcome error reports and feedback via [GitHub Issues](https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml). Version numbers follow [Semantic Versioning](https://semver.org/). The `v1.0.0` release will follow community review.
 
 ## License
 

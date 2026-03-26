@@ -14,9 +14,9 @@ Zenodo is free, run by CERN, and integrates directly with GitHub. Every GitHub r
 
 1. **Go to [zenodo.org/login](https://zenodo.org/login)** and log in with your GitHub account.
 
-2. **Enable the repository.** Navigate to [zenodo.org/account/settings/github](https://zenodo.org/account/settings/github/). Find `beperron/SSWR-History` in the list and flip the toggle to **ON**.
+2. **Enable the repository.** Navigate to [zenodo.org/account/settings/github](https://zenodo.org/account/settings/github/). Find `beperron/SSWR-History-Public` in the list and flip the toggle to **ON**.
 
-3. **Create a GitHub release.** Go to [github.com/beperron/SSWR-History/releases/new](https://github.com/beperron/SSWR-History/releases/new):
+3. **Create a GitHub release.** Go to [github.com/beperron/SSWR-History-Public/releases/new](https://github.com/beperron/SSWR-History-Public/releases/new):
    - **Tag:** `v0.9.0-beta`
    - **Title:** `SSWR Conference History Database v0.9.0-beta`
    - **Description:**

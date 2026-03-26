@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="beta-banner"><strong>Beta Release v0.9.0</strong> — Data and documentation are under active review. <a href="https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml">Report errors</a></div>
+  <div class="beta-banner"><strong>Beta Release v0.9.0</strong> — Data and documentation are under active review. <a href="https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml">Report errors</a></div>
   <header class="site-header">
     <nav class="nav-inner">
       <a href="index.html" class="nav-brand"><img src="assets/seal.png" alt="">SSWR History</a>
@@ -72,8 +72,8 @@
       <h3>Python</h3>
       <pre><code>import pandas as pd
 
-papers  = pd.read_csv("https://github.com/beperron/SSWR-History/raw/main/data/csv/papers.csv")
-authors = pd.read_csv("https://github.com/beperron/SSWR-History/raw/main/data/csv/paper_authors.csv")
+papers  = pd.read_csv("https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/papers.csv")
+authors = pd.read_csv("https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/paper_authors.csv")
 
 # Methodology distribution
 papers.methodology.value_counts()
@@ -88,8 +88,8 @@ first[first.institution_normalized == "University of Michigan"]</code></pre>
       <h3>R</h3>
       <pre><code>library(readr)
 
-papers  &lt;- read_csv("https://github.com/beperron/SSWR-History/raw/main/data/csv/papers.csv")
-authors &lt;- read_csv("https://github.com/beperron/SSWR-History/raw/main/data/csv/paper_authors.csv")
+papers  &lt;- read_csv("https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/papers.csv")
+authors &lt;- read_csv("https://github.com/beperron/SSWR-History-Public/raw/main/data/csv/paper_authors.csv")
 
 # Methodology distribution
 table(papers$methodology)

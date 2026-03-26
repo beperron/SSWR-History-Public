@@ -17,8 +17,9 @@
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
+        <li><a href="quickstart.html">Quick Start</a></li>
         <li><a href="codebook.html">Codebook</a></li>
-        <li><a href="methodology.html">Methodology</a></li>
+        <li><a href="mcp.html">MCP</a></li>
         <li><a href="download.html" class="active">Download</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
@@ -213,77 +214,8 @@ response = client.embeddings.create(
         <p><strong>Explore further:</strong> <a href="https://openrouter.ai/">OpenRouter</a> gives you access to models from every major provider through one API. Beyond embeddings, you can use it to run analyses, generate summaries, or build applications on top of this dataset using models from OpenAI, Anthropic, Google, Meta, Mistral, and many others.</p>
       </div>
 
-      <hr>
-
-      <h2 id="mcp">AI-Native Access via MCP</h2>
-      <p>The database is available as a <strong>Model Context Protocol (MCP)</strong> resource. MCP allows AI assistants like Claude to query the database directly through natural conversation &mdash; no code required. You ask a question in plain language, and the AI formulates the query, executes it, and interprets the results.</p>
-
-      <h3>What You Can Do</h3>
-      <ul>
-        <li>Ask questions like <em>&ldquo;What percentage of presentations used qualitative methods in 2025?&rdquo;</em></li>
-        <li>Run complex analyses: <em>&ldquo;Which institutions had the most first-authored presentations over the last five years?&rdquo;</em></li>
-        <li>Explore trends: <em>&ldquo;How has international participation changed since 2010?&rdquo;</em></li>
-        <li>Cross-reference tables: <em>&ldquo;What are the most common positions among qualitative researchers?&rdquo;</em></li>
-      </ul>
-
-      <h3>Step-by-Step Setup</h3>
-
-      <h4>Prerequisites</h4>
-      <ul>
-        <li><a href="https://nodejs.org/">Node.js</a> (version 18 or later) installed on your system</li>
-        <li><a href="https://claude.ai/download">Claude Desktop</a> or <a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a> installed</li>
-      </ul>
-
-      <h4>1. Locate your MCP configuration file</h4>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Application</th><th>Config File Location</th></tr></thead>
-          <tbody>
-            <tr><td>Claude Desktop (macOS)</td><td><code>~/Library/Application Support/Claude/claude_desktop_config.json</code></td></tr>
-            <tr><td>Claude Desktop (Windows)</td><td><code>%APPDATA%\Claude\claude_desktop_config.json</code></td></tr>
-            <tr><td>Claude Code</td><td><code>~/.claude/settings.json</code> (under <code>mcpServers</code>)</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h4>2. Add the SSWR database connection</h4>
-      <p>Open the configuration file and add the following inside the <code>mcpServers</code> object. Create the file or the <code>mcpServers</code> key if it does not exist.</p>
-
-      <pre><code>{
-  "mcpServers": {
-    "sswr-history": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@anthropic-ai/mcp-supabase@latest",
-        "--supabase-url",
-        "https://jomsksqqcpkbuhwytovo.supabase.co",
-        "--supabase-key",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",
-        "--read-only"
-      ]
-    }
-  }
-}</code></pre>
-
-      <h4>3. Restart the application</h4>
-      <p>Close and reopen Claude Desktop or restart Claude Code. The MCP server will start automatically when the application launches.</p>
-
-      <h4>4. Verify the connection</h4>
-      <p>In Claude Desktop, look for the MCP server icon (hammer icon) in the bottom-left of the chat window. In Claude Code, the server will appear in the tool list. You can verify by asking:</p>
-      <blockquote><em>&ldquo;List the tables available in the SSWR database and show me how many rows each has.&rdquo;</em></blockquote>
-
-      <h4>5. Start asking questions</h4>
-      <p>Once connected, you can query the database in plain language. Claude will translate your questions into SQL, run them against the live database, and return interpreted results. Example prompts:</p>
-      <ul>
-        <li><em>&ldquo;Show me the top 20 institutions by number of presentations&rdquo;</em></li>
-        <li><em>&ldquo;What is the year-over-year growth in mixed methods research?&rdquo;</em></li>
-        <li><em>&ldquo;How many unique countries are represented in each year?&rdquo;</em></li>
-        <li><em>&ldquo;Find all presentations by researchers from the University of Michigan in 2024&rdquo;</em></li>
-      </ul>
-
       <div class="callout callout--blue">
-        <p><strong>Read-only access:</strong> The <code>--read-only</code> flag ensures the AI can only query data &mdash; it cannot modify, insert, or delete any records. The anon API key provides the same protection at the database level via row-level security policies.</p>
+        <p><strong>AI-native access:</strong> You can also query this database directly through an AI assistant using MCP &mdash; no code required. See the <a href="mcp.html">MCP &amp; Skill File</a> page for setup instructions.</p>
       </div>
 
     </div>
@@ -298,7 +230,9 @@ response = client.embeddings.create(
       <div class="footer-col">
         <h4>Links</h4>
         <ul>
+        <li><a href="quickstart.html">Quick Start</a></li>
           <li><a href="codebook.html">Codebook</a></li>
+        <li><a href="mcp.html">MCP</a></li>
           <li><a href="download.html">Download</a></li>
           <li><a href="about.html">About &amp; Citation</a></li>
           <li><a href="https://github.com/beperron/SSWR-History/issues/new?template=data-error-report.yml">Report an Error</a></li>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Start | SSWR Conference History Database</title>
+  <meta name="description" content="Get started with the SSWR Conference History Database in under 5 minutes.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-inner">
+      <a href="index.html" class="nav-brand"><img src="assets/seal.png" alt="">SSWR History</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="quickstart.html" class="active">Quick Start</a></li>
+        <li><a href="codebook.html">Codebook</a></li>
+        <li><a href="mcp.html">MCP</a></li>
+        <li><a href="download.html">Download</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>Quick Start</h1>
+      <p>Three ways to access the data, from simplest to most powerful. Pick whichever fits your workflow.</p>
+
+      <hr>
+
+      <h2>Option 1 &mdash; Ask an AI (no code)</h2>
+      <p>Connect Claude to the live database using MCP. Ask questions in plain language and get answers instantly.</p>
+      <ol>
+        <li>Install <a href="https://claude.ai/download">Claude Desktop</a> and <a href="https://nodejs.org/">Node.js 18+</a></li>
+        <li>Open your config file:
+          <ul>
+            <li>macOS: <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li>
+            <li>Windows: <code>%APPDATA%\Claude\claude_desktop_config.json</code></li>
+          </ul>
+        </li>
+        <li>Paste this configuration:
+      <pre><code>{
+  "mcpServers": {
+    "sswr-history": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic-ai/mcp-supabase@latest",
+        "--supabase-url",
+        "https://jomsksqqcpkbuhwytovo.supabase.co",
+        "--supabase-key",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",
+        "--read-only"
+      ]
+    }
+  }
+}</code></pre>
+        </li>
+        <li>Restart Claude Desktop</li>
+        <li>Try asking: <em>&ldquo;How many presentations were at SSWR in 2026?&rdquo;</em></li>
+      </ol>
+      <p>For the full guide, see <a href="mcp.html">MCP &amp; Skill File</a>.</p>
+
+      <hr>
+
+      <h2>Option 2 &mdash; Python or R</h2>
+      <p>Download the CSV files and start analyzing locally.</p>
+
+      <h3>Python</h3>
+      <pre><code>import pandas as pd
+
+papers  = pd.read_csv("https://github.com/beperron/SSWR-History/raw/main/data/csv/papers.csv")
+authors = pd.read_csv("https://github.com/beperron/SSWR-History/raw/main/data/csv/paper_authors.csv")
+
+# Methodology distribution
+papers.methodology.value_counts()
+
+# Presentations per year
+papers.groupby("year").size()
+
+# First authors from a specific institution
+first = authors[authors.author_order == 1]
+first[first.institution_normalized == "University of Michigan"]</code></pre>
+
+      <h3>R</h3>
+      <pre><code>library(readr)
+
+papers  &lt;- read_csv("https://github.com/beperron/SSWR-History/raw/main/data/csv/papers.csv")
+authors &lt;- read_csv("https://github.com/beperron/SSWR-History/raw/main/data/csv/paper_authors.csv")
+
+# Methodology distribution
+table(papers$methodology)
+
+# Join and analyze
+merged &lt;- merge(authors, papers, by.x = "paper_id", by.y = "id")
+table(merged$year, merged$methodology)</code></pre>
+
+      <hr>
+
+      <h2>Option 3 &mdash; REST API</h2>
+      <p>Query the live database programmatically without downloading anything.</p>
+
+      <pre><code># All qualitative presentations from 2025
+curl "https://jomsksqqcpkbuhwytovo.supabase.co/rest/v1/papers?year=eq.2025&amp;methodology=eq.qualitative&amp;select=id,title" \
+  -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg"</code></pre>
+
+      <pre><code># Python
+from supabase import create_client
+
+db = create_client(
+    "https://jomsksqqcpkbuhwytovo.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg"
+)
+
+result = db.table("papers") \
+    .select("id, title, year, methodology") \
+    .eq("methodology", "review") \
+    .order("year", desc=True) \
+    .limit(20) \
+    .execute()</code></pre>
+
+      <p>Full API documentation and embedding search examples on the <a href="download.html">Download</a> page.</p>
+
+      <hr>
+
+      <h2>What&rsquo;s in the Data</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Table</th><th>Rows</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>papers</code></td><td>23,793</td><td>Presentations with titles, abstracts, methodology classifications</td></tr>
+            <tr><td><code>paper_authors</code></td><td>69,924</td><td>Author records with names, positions, institutions, countries</td></tr>
+            <tr><td><code>paper_embeddings</code></td><td>23,793</td><td>Semantic vectors for similarity search (API only)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Join tables on <code>papers.id = paper_authors.paper_id</code>. Use <code>author_order = 1</code> for first authors. Use <code>canonical_author_id</code> to count unique researchers. Full field documentation in the <a href="codebook.html">Codebook</a>.</p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>SSWR History Database</h4>
+        <p>Companion dataset to Perron, Victor, &amp; Qi (in press).<br><em>Journal of the Society for Social Work and Research.</em></p>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="quickstart.html">Quick Start</a></li>
+          <li><a href="codebook.html">Codebook</a></li>
+          <li><a href="mcp.html">MCP &amp; Skill File</a></li>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="about.html">About &amp; Citation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>Brian E. Perron<br>
+        <a href="mailto:beperron@umich.edu">beperron@umich.edu</a><br>
+        School of Social Work<br>
+        University of Michigan</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source data from the SSWR Confex archive.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

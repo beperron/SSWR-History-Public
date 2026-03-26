@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCP &amp; Skill File | SSWR Conference History Database</title>
+  <meta name="description" content="Connect an AI assistant to the SSWR database using MCP. Query two decades of social work research through natural conversation.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav-inner">
+      <a href="index.html" class="nav-brand"><img src="assets/seal.png" alt="">SSWR History</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="quickstart.html">Quick Start</a></li>
+        <li><a href="codebook.html">Codebook</a></li>
+        <li><a href="mcp.html" class="active">MCP</a></li>
+        <li><a href="download.html">Download</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>MCP &amp; Skill File</h1>
+      <p>The Model Context Protocol (MCP) lets AI assistants like Claude query this database directly through conversation. No SQL, no downloads, no setup beyond a one-time configuration. You ask a question in plain language. The AI writes the query, runs it, and interprets the results.</p>
+
+      <p>This is an early example of how structured research datasets can become AI-accessible &mdash; collapsing the distance between a question and its answer.</p>
+
+      <hr>
+
+      <h2>What is MCP?</h2>
+      <p>MCP is an open protocol that connects AI assistants to external data sources. When you connect Claude to the SSWR database via MCP, Claude can:</p>
+      <ul>
+        <li>Run SQL queries against the live database</li>
+        <li>Inspect table schemas and relationships</li>
+        <li>Combine data across tables to answer complex questions</li>
+        <li>Return interpreted, contextualized results &mdash; not raw data dumps</li>
+      </ul>
+
+      <p>The connection is <strong>read-only</strong>. Claude cannot modify, insert, or delete any records. This is enforced at both the MCP configuration level and the database level through row-level security policies.</p>
+
+      <hr>
+
+      <h2>Setup</h2>
+
+      <h3>Prerequisites</h3>
+      <ul>
+        <li><a href="https://nodejs.org/">Node.js</a> version 18 or later</li>
+        <li><a href="https://claude.ai/download">Claude Desktop</a>, <a href="https://docs.anthropic.com/en/docs/claude-code">Claude Code</a>, or any MCP-compatible client</li>
+      </ul>
+
+      <h3>Step 1 &mdash; Open your configuration file</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Application</th><th>File</th></tr></thead>
+          <tbody>
+            <tr><td>Claude Desktop (macOS)</td><td><code>~/Library/Application Support/Claude/claude_desktop_config.json</code></td></tr>
+            <tr><td>Claude Desktop (Windows)</td><td><code>%APPDATA%\Claude\claude_desktop_config.json</code></td></tr>
+            <tr><td>Claude Code</td><td><code>~/.claude/settings.json</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Create the file if it doesn&rsquo;t exist.</p>
+
+      <h3>Step 2 &mdash; Add the SSWR connection</h3>
+      <p>Paste the following into your configuration file. If you already have other MCP servers, add <code>sswr-history</code> inside the existing <code>mcpServers</code> object.</p>
+
+      <pre><code>{
+  "mcpServers": {
+    "sswr-history": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@anthropic-ai/mcp-supabase@latest",
+        "--supabase-url",
+        "https://jomsksqqcpkbuhwytovo.supabase.co",
+        "--supabase-key",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg",
+        "--read-only"
+      ]
+    }
+  }
+}</code></pre>
+
+      <h3>Step 3 &mdash; Restart and verify</h3>
+      <p>Restart the application. In Claude Desktop, the MCP server icon (hammer) should appear at the bottom of the chat window. Verify by asking:</p>
+      <blockquote><em>&ldquo;List the tables in the SSWR database and tell me how many rows each has.&rdquo;</em></blockquote>
+
+      <hr>
+
+      <h2>Example Prompts</h2>
+      <p>Once connected, try these to get a feel for what&rsquo;s possible:</p>
+
+      <h3>Trends</h3>
+      <ul>
+        <li><em>&ldquo;Show me the number of presentations per year from 2005 to 2026&rdquo;</em></li>
+        <li><em>&ldquo;How has the proportion of qualitative research changed over time?&rdquo;</em></li>
+        <li><em>&ldquo;What is the year-over-year growth rate in mixed methods presentations?&rdquo;</em></li>
+      </ul>
+
+      <h3>Institutions &amp; Geography</h3>
+      <ul>
+        <li><em>&ldquo;Which 20 institutions have produced the most first-authored presentations?&rdquo;</em></li>
+        <li><em>&ldquo;How has international participation changed since 2010?&rdquo;</em></li>
+        <li><em>&ldquo;What countries are represented in the 2026 conference?&rdquo;</em></li>
+      </ul>
+
+      <h3>Authorship &amp; Careers</h3>
+      <ul>
+        <li><em>&ldquo;What percentage of first authors are doctoral students vs. assistant professors?&rdquo;</em></li>
+        <li><em>&ldquo;How has the average number of authors per presentation changed?&rdquo;</em></li>
+        <li><em>&ldquo;Who are the 10 most prolific presenters across all years?&rdquo;</em></li>
+      </ul>
+
+      <h3>Content &amp; Methods</h3>
+      <ul>
+        <li><em>&ldquo;Find presentations about child welfare from the last 3 years&rdquo;</em></li>
+        <li><em>&ldquo;What proportion of review papers are meta-analyses vs. scoping reviews?&rdquo;</em></li>
+        <li><em>&ldquo;Search for presentations mentioning &lsquo;machine learning&rsquo; in the abstract&rdquo;</em></li>
+      </ul>
+
+      <hr>
+
+      <h2>Skill File</h2>
+      <p>The repository includes a <a href="https://github.com/beperron/SSWR-History/blob/main/CLAUDE.md"><code>CLAUDE.md</code></a> file &mdash; a structured reference that AI assistants automatically read when working within the repository. It contains:</p>
+      <ul>
+        <li>Complete schema reference with types and descriptions</li>
+        <li>All categorical values with counts</li>
+        <li>Common SQL query patterns</li>
+        <li>Key relationships and join logic</li>
+        <li>Data quality notes and known limitations</li>
+        <li>OpenRouter embedding setup</li>
+      </ul>
+
+      <h3>Using the Skill File Locally</h3>
+      <p>If you&rsquo;re working with the CSV files in Claude Code rather than through MCP, clone the repository. The <code>CLAUDE.md</code> file is read automatically and gives Claude full context about the dataset structure.</p>
+      <pre><code>git clone https://github.com/beperron/SSWR-History.git
+cd SSWR-History
+# Open Claude Code in this directory &mdash; it reads CLAUDE.md automatically</code></pre>
+
+      <h3>Using the Skill File with MCP</h3>
+      <p>When connected via MCP, Claude can discover the schema by inspecting the database directly. The <code>CLAUDE.md</code> file adds context that isn&rsquo;t in the schema &mdash; categorical value meanings, data quality caveats, recommended join patterns, and the citation requirement.</p>
+
+      <p>You can paste the contents of <code>CLAUDE.md</code> into your first message, or ask Claude to read it:</p>
+      <blockquote><em>&ldquo;Read the CLAUDE.md file from the SSWR-History repository and use it as context for our analysis.&rdquo;</em></blockquote>
+
+      <hr>
+
+      <h2>How It Works</h2>
+      <p>When you ask a question, the following happens behind the scenes:</p>
+      <ol>
+        <li><strong>You ask</strong> a question in natural language</li>
+        <li><strong>Claude inspects</strong> the database schema (tables, columns, types)</li>
+        <li><strong>Claude writes</strong> a SQL query that answers your question</li>
+        <li><strong>The MCP server</strong> executes the query against the Supabase database</li>
+        <li><strong>Claude interprets</strong> the results and responds in plain language</li>
+      </ol>
+      <p>You can ask Claude to show the SQL it ran, request modifications, or chain follow-up questions. The entire conversation has access to the live data.</p>
+
+      <div class="callout">
+        <p><strong>Security:</strong> The connection uses a read-only API key with row-level security. Claude can query <code>papers</code>, <code>paper_authors</code>, and <code>paper_embeddings</code>. It cannot access administrative tables, and it cannot modify any data.</p>
+      </div>
+
+      <hr>
+
+      <h2>Why This Matters</h2>
+      <p>Most research datasets sit in repositories as downloadable files. Accessing them requires downloading, cleaning, loading into a statistical package, and writing analysis code &mdash; before you can ask your first question.</p>
+      <p>MCP inverts this. The dataset is live, queryable, and conversational. A doctoral student exploring SSWR trends, a faculty member preparing a conference submission, or a program officer reviewing the field&rsquo;s research portfolio can all start with a question rather than a download.</p>
+      <p>We see this as a model for how scholarly datasets should be distributed &mdash; not just as files, but as living, queryable infrastructure that meets researchers where they already work.</p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>SSWR History Database</h4>
+        <p>Companion dataset to Perron, Victor, &amp; Qi (in press).<br><em>Journal of the Society for Social Work and Research.</em></p>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="quickstart.html">Quick Start</a></li>
+          <li><a href="codebook.html">Codebook</a></li>
+          <li><a href="mcp.html">MCP &amp; Skill File</a></li>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="about.html">About &amp; Citation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>Brian E. Perron<br>
+        <a href="mailto:beperron@umich.edu">beperron@umich.edu</a><br>
+        School of Social Work<br>
+        University of Michigan</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source data from the SSWR Confex archive.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

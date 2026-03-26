@@ -36,7 +36,7 @@
   </section>
 
   <div class="container" style="margin-top:2rem; margin-bottom:1rem;">
-    <div class="card" style="text-align:center;">
+    <div class="card">
       <p style="margin:0;">Perron, B. E., Victor, B. G., &amp; Qi, Z. (in press). AI-assisted curation of conference scholarship: Compiling, structuring, and analyzing two decades of presentations at the Society for Social Work and Research (2005&ndash;2026). <em>Journal of the Society for Social Work and Research</em>. <a href="https://arxiv.org/abs/2603.06814">arXiv:2603.06814</a></p>
     </div>
   </div>
@@ -78,34 +78,66 @@
         <p class="section-label">Growth</p>
         <h2>Conference Presentations by Year</h2>
         <p>Annual presentations grew from 423 in 2005 to 1,935 in 2026, a compound annual growth rate (CAGR) of <strong>7.5%</strong>.</p>
-        <svg viewBox="0 0 600 250" style="width:100%;max-width:600px;margin:1.5rem auto;display:block;" xmlns="http://www.w3.org/2000/svg">
-          <!-- Grid lines -->
-          <line x1="50" y1="20" x2="50" y2="210" stroke="#e6e0d8" stroke-width="1"/>
-          <line x1="50" y1="210" x2="580" y2="210" stroke="#e6e0d8" stroke-width="1"/>
-          <line x1="50" y1="115" x2="580" y2="115" stroke="#e6e0d8" stroke-width="0.5" stroke-dasharray="4"/>
-          <line x1="50" y1="20" x2="580" y2="20" stroke="#e6e0d8" stroke-width="0.5" stroke-dasharray="4"/>
-          <!-- Y-axis labels -->
-          <text x="45" y="215" text-anchor="end" fill="#7a736e" font-family="JetBrains Mono,monospace" font-size="10">0</text>
-          <text x="45" y="120" text-anchor="end" fill="#7a736e" font-family="JetBrains Mono,monospace" font-size="10">1,000</text>
-          <text x="45" y="25" text-anchor="end" fill="#7a736e" font-family="JetBrains Mono,monospace" font-size="10">2,000</text>
-          <!-- X-axis labels -->
-          <text x="50" y="228" text-anchor="middle" fill="#7a736e" font-family="JetBrains Mono,monospace" font-size="9">05</text>
-          <text x="176" y="228" text-anchor="middle" fill="#7a736e" font-family="JetBrains Mono,monospace" font-size="9">10</text>
-          <text x="302" y="228" text-anchor="middle" fill="#7a736e" font-family="JetBrains Mono,monospace" font-size="9">15</text>
-          <text x="428" y="228" text-anchor="middle" fill="#7a736e" font-family="JetBrains Mono,monospace" font-size="9">20</text>
-          <text x="554" y="228" text-anchor="middle" fill="#7a736e" font-family="JetBrains Mono,monospace" font-size="9">25</text>
-          <!-- Area fill -->
-          <polygon points="50,210 50,170 75,172 101,168 126,169 151,163 176,157 202,147 227,150 252,148 277,134 302,99 328,71 353,72 378,56 403,64 428,63 454,80 479,75 504,67 529,66 554,44 580,18 580,210" fill="rgba(181,64,58,0.06)"/>
-          <!-- Line: 22 points, x from 50 to 580 (step ~25.2), y: 210 - (val/2000*190) -->
-          <polyline points="50,170 75,172 101,168 126,169 151,163 176,157 202,147 227,150 252,148 277,134 302,99 328,71 353,72 378,56 403,64 428,63 454,80 479,75 504,67 529,66 554,44 580,18" fill="none" stroke="#b5403a" stroke-width="2" stroke-linejoin="round"/>
-          <!-- Dots on endpoints -->
-          <circle cx="50" cy="170" r="3" fill="#b5403a"/>
-          <circle cx="580" cy="18" r="3" fill="#b5403a"/>
-          <!-- Labels -->
-          <text x="50" y="165" text-anchor="middle" fill="#1a1a1a" font-family="JetBrains Mono,monospace" font-size="10" font-weight="600">423</text>
-          <text x="580" y="13" text-anchor="middle" fill="#1a1a1a" font-family="JetBrains Mono,monospace" font-size="10" font-weight="600">1,935</text>
-          <text x="315" y="245" text-anchor="middle" fill="#7a736e" font-family="JetBrains Mono,monospace" font-size="10">CAGR 7.5%</text>
-        </svg>
+
+        <!-- Tab navigation -->
+        <div style="display:flex;gap:0;border-bottom:2px solid #e5e5e5;margin-bottom:1.5rem;">
+          <button class="chart-tab active" data-chart="presentations" style="background:none;border:none;padding:0.5rem 1rem;font-family:var(--font-sans);font-size:0.82rem;font-weight:600;color:#999;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;">Presentations</button>
+          <button class="chart-tab" data-chart="methodology" style="background:none;border:none;padding:0.5rem 1rem;font-family:var(--font-sans);font-size:0.82rem;font-weight:600;color:#999;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;">Methodology</button>
+          <button class="chart-tab" data-chart="authors" style="background:none;border:none;padding:0.5rem 1rem;font-family:var(--font-sans);font-size:0.82rem;font-weight:600;color:#999;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;">Collaboration</button>
+          <button class="chart-tab" data-chart="international" style="background:none;border:none;padding:0.5rem 1rem;font-family:var(--font-sans);font-size:0.82rem;font-weight:600;color:#999;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;">International</button>
+        </div>
+
+        <div id="chart-presentations" class="chart-panel">
+          <canvas id="canvas-presentations" height="280"></canvas>
+        </div>
+        <div id="chart-methodology" class="chart-panel" style="display:none;">
+          <canvas id="canvas-methodology" height="280"></canvas>
+        </div>
+        <div id="chart-authors" class="chart-panel" style="display:none;">
+          <canvas id="canvas-authors" height="280"></canvas>
+        </div>
+        <div id="chart-international" class="chart-panel" style="display:none;">
+          <canvas id="canvas-international" height="280"></canvas>
+        </div>
+      </section>
+
+      <section class="section">
+        <p class="section-label">Data Structure</p>
+        <h2>Schema</h2>
+        <p>The database consists of two primary tables linked by paper identifier, plus a vector embeddings table for semantic search.</p>
+        <div style="background:#f7f7f8;border:1px solid #e5e5e5;border-radius:8px;padding:2rem;margin:1.5rem 0;font-family:var(--font-mono);font-size:0.82rem;line-height:2;">
+          <div style="display:flex;gap:3rem;flex-wrap:wrap;justify-content:center;align-items:flex-start;">
+            <div>
+              <div style="font-weight:700;font-size:0.95rem;margin-bottom:0.5rem;color:#111;">papers</div>
+              <div style="color:#666;">id <span style="color:#c20000;">PK</span></div>
+              <div style="color:#666;">year</div>
+              <div style="color:#666;">title</div>
+              <div style="color:#666;">abstract</div>
+              <div style="color:#666;">author_count</div>
+              <div style="color:#666;">methodology</div>
+              <div style="color:#666;">methodology_classification_rationale</div>
+              <div style="color:#666;">original_paper_id</div>
+            </div>
+            <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:2rem;">
+              <div style="font-size:0.7rem;color:#999;margin-bottom:0.25rem;">1 : N</div>
+              <div style="width:4rem;height:2px;background:#c20000;"></div>
+              <div style="font-size:0.65rem;color:#999;margin-top:0.25rem;">papers.id = paper_authors.paper_id</div>
+            </div>
+            <div>
+              <div style="font-weight:700;font-size:0.95rem;margin-bottom:0.5rem;color:#111;">paper_authors</div>
+              <div style="color:#666;">id <span style="color:#c20000;">PK</span></div>
+              <div style="color:#666;">paper_id <span style="color:#c20000;">FK</span></div>
+              <div style="color:#666;">author_order</div>
+              <div style="color:#666;">name / name_normalized</div>
+              <div style="color:#666;">degree</div>
+              <div style="color:#666;">position / position_normalized</div>
+              <div style="color:#666;">institution / institution_normalized</div>
+              <div style="color:#666;">city / state_province</div>
+              <div style="color:#666;">country / country_normalized</div>
+              <div style="color:#666;">author_id / canonical_author_id</div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="section">
@@ -176,5 +208,96 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script>
+  (function() {
+    var years = [2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+    var counts = [423,401,448,444,494,550,658,631,655,801,1166,1466,1454,1620,1541,1550,1364,1415,1514,1516,1747,1935];
+
+    var defaults = {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 11 }, usePointStyle: true, pointStyle: 'line' } } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: 'JetBrains Mono', size: 10 } } },
+        y: { grid: { color: '#f0f0f0' }, ticks: { font: { family: 'JetBrains Mono', size: 10 } } }
+      }
+    };
+
+    // Presentations chart
+    new Chart(document.getElementById('canvas-presentations'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Presentations',
+          data: counts,
+          borderColor: '#c20000',
+          backgroundColor: 'rgba(194,0,0,.05)',
+          fill: true,
+          tension: 0.2,
+          pointRadius: 3,
+          pointHoverRadius: 6,
+          borderWidth: 2
+        }]
+      },
+      options: { ...defaults, plugins: { ...defaults.plugins, legend: { display: false } }, scales: { ...defaults.scales, y: { ...defaults.scales.y, title: { display: true, text: 'Number of Presentations', font: { family: 'Inter', size: 11 } } } } }
+    });
+
+    // Methodology chart (percentages from paper)
+    new Chart(document.getElementById('canvas-methodology'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          { label: 'Quantitative', data: [71,70,73,71,68,73,72,73,72,67,63,62,60,59,58,56,53,55,53,54,51,50], borderColor: '#111', borderWidth: 2, tension: 0.2, pointRadius: 2 },
+          { label: 'Qualitative', data: [15,17,14,16,18,15,16,15,16,19,22,21,23,22,24,24,27,26,27,28,30,30], borderColor: '#c20000', borderWidth: 2, tension: 0.2, pointRadius: 2 },
+          { label: 'Mixed Methods', data: [10,9,9,10,10,8,8,8,9,9,9,10,10,11,9,11,10,10,11,10,9,11], borderColor: '#666', borderWidth: 2, tension: 0.2, pointRadius: 2, borderDash: [5,3] },
+          { label: 'Review', data: [2,2,2,1,2,2,2,2,2,4,5,5,5,6,7,7,8,7,8,7,8,8], borderColor: '#999', borderWidth: 2, tension: 0.2, pointRadius: 2, borderDash: [2,2] }
+        ]
+      },
+      options: { ...defaults, scales: { ...defaults.scales, y: { ...defaults.scales.y, title: { display: true, text: 'Percentage of Papers', font: { family: 'Inter', size: 11 } }, max: 80 } } }
+    });
+
+    // Authors per paper chart
+    new Chart(document.getElementById('canvas-authors'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          { label: 'Mean Authors', data: [2.22,2.18,2.37,2.41,2.46,2.51,2.64,2.52,2.63,2.80,2.73,2.79,2.73,2.88,2.73,2.96,2.98,3.17,3.24,3.41,3.45,3.31], borderColor: '#c20000', borderWidth: 2, tension: 0.2, pointRadius: 3 },
+          { label: 'Median Authors', data: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3], borderColor: '#999', borderWidth: 2, tension: 0.2, pointRadius: 2, borderDash: [5,3] }
+        ]
+      },
+      options: { ...defaults, scales: { ...defaults.scales, y: { ...defaults.scales.y, title: { display: true, text: 'Number of Authors', font: { family: 'Inter', size: 11 } }, min: 1, max: 5 } } }
+    });
+
+    // International participation chart
+    new Chart(document.getElementById('canvas-international'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          { label: 'First Author', data: [3.1,5.5,4.5,6.4,6.0,5.8,6.1,5.7,5.5,5.7,5.6,5.5,6.8,7.3,7.4,7.0,10.0,10.7,11.1,11.5,12.8,12.9], borderColor: '#c20000', borderWidth: 2, tension: 0.2, pointRadius: 3 },
+          { label: 'Co-Author', data: [2.8,4.4,5.7,6.5,6.6,5.1,5.0,7.3,6.8,8.1,7.0,6.7,9.6,9.8,8.1,7.5,12.5,12.7,14.1,15.2,15.9,14.6], borderColor: '#999', borderWidth: 2, tension: 0.2, pointRadius: 2, borderDash: [5,3] }
+        ]
+      },
+      options: { ...defaults, scales: { ...defaults.scales, y: { ...defaults.scales.y, title: { display: true, text: '% International Authors', font: { family: 'Inter', size: 11 } }, max: 18 } } }
+    });
+
+    // Tab switching
+    document.querySelectorAll('.chart-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.chart-tab').forEach(function(t) { t.classList.remove('active'); t.style.color='#999'; t.style.borderBottomColor='transparent'; });
+        tab.classList.add('active'); tab.style.color='#c20000'; tab.style.borderBottomColor='#c20000';
+        document.querySelectorAll('.chart-panel').forEach(function(p) { p.style.display='none'; });
+        document.getElementById('chart-' + tab.dataset.chart).style.display='block';
+      });
+    });
+    // Set initial active tab style
+    document.querySelector('.chart-tab.active').style.color='#c20000';
+    document.querySelector('.chart-tab.active').style.borderBottomColor='#c20000';
+  })();
+  </script>
 </body>
 </html>

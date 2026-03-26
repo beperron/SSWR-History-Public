@@ -21,7 +21,7 @@
 
 A comprehensive, structured database of every publicly available presentation abstract from the SSWR Annual Conference over 22 years — 23,793 presentations, 20,779 unique researchers, 4,049 institutions, 93 countries.
 
-> Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship. *Journal of the Society for Social Work and Research*. [arXiv:2603.06814](https://arxiv.org/abs/2603.06814)
+> Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship. *Journal of the Society for Social Work and Research*. [DOI: 10.1086/741324](https://www.journals.uchicago.edu/doi/10.1086/741324)
 >
 > Perron, B. E., & Qi, Z. (2025). Theoretical and methodological shifts in social work research. *Research on Social Work Practice*. [DOI: 10.1177/10497315251352838](https://journals.sagepub.com/doi/10.1177/10497315251352838)
 
@@ -82,7 +82,7 @@ All files versioned `v0.9.0-beta`. [Full options](https://beperron.github.io/SSW
 
 ### :bookmark: Citation
 
-Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship. *Journal of the Society for Social Work and Research*. https://doi.org/10.48550/arXiv.2603.06814
+Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship. *Journal of the Society for Social Work and Research*. https://doi.org/10.1086/741324
 
 **License:** CC BY 4.0
 

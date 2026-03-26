@@ -3,7 +3,7 @@
 **Version 0.9.0-beta** — 23,793 presentations, 69,924 author records, 2005–2026.
 
 ## Citation (required)
-Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship. *JSSWR*. https://doi.org/10.48550/arXiv.2603.06814
+Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship. *JSSWR*. https://doi.org/10.1086/741324
 
 ## MCP
 The database is connected via `.claude/mcp.json`. Query it directly with SQL through the MCP tools.

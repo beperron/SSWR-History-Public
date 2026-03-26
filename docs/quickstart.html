@@ -55,7 +55,6 @@
             <li>Help me restart the application</li>
             <li>Verify the connection by listing the available tables</li>
           </ol>
-          <p style="margin:0;">If you need help, see: <a href="https://beperron.github.io/SSWR-History-Public/quickstart.html">beperron.github.io/SSWR-History-Public/quickstart.html</a> and <a href="https://beperron.substack.com/p/apis-and-mcps-essential-acronyms">What is MCP?</a></p>
         </div>
       </details>
 
@@ -214,7 +213,7 @@
   <script src="js/main.js"></script>
   <script>
   document.getElementById('copy-prompt').addEventListener('click', function() {
-    var p = 'I want to connect to the SSWR Conference History Database via MCP. The server name is "sswr-history" and the URL is https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database\n\nPlease add this to my MCP configuration, help me restart, and verify it works by listing the available tables.\n\nMore info: https://beperron.github.io/SSWR-History-Public/quickstart.html';
+    var p = 'I want to connect to the SSWR Conference History Database via MCP (Model Context Protocol). This is a read-only research database with 23,793 conference presentations from 2005-2026.\n\nPlease add an MCP server called "sswr-history" with this URL:\nhttps://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database\n\nSteps:\n1. Find my MCP configuration file (claude_desktop_config.json for Claude Desktop, .claude/mcp.json for Claude Code, .cursor/mcp.json for Cursor)\n2. Add the sswr-history server to the mcpServers section\n3. Help me restart the application\n4. Verify the connection by listing the available tables';
     navigator.clipboard.writeText(p).then(function() {
       var btn = document.getElementById('copy-prompt');
       btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy Connection Prompt'; }, 2000);

@@ -4,7 +4,7 @@ Use this skill when asked about the dataset's provenance, citation, limitations,
 
 ## Citation (required when using this data)
 
-Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship: Compiling, structuring, and analyzing two decades of presentations at the Society for Social Work and Research (2005–2026). *Journal of the Society for Social Work and Research*. https://doi.org/10.48550/arXiv.2603.06814
+Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship: Compiling, structuring, and analyzing two decades of presentations at the Society for Social Work and Research (2005–2026). *Journal of the Society for Social Work and Research*. https://doi.org/10.1086/741324
 
 ### BibTeX
 ```bibtex
@@ -14,7 +14,7 @@ Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of confe
   journal = {Journal of the Society for Social Work and Research},
   year    = {2026},
   note    = {In press},
-  doi     = {10.48550/arXiv.2603.06814}
+  doi     = {10.1086/741324}
 }
 ```
 

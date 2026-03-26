@@ -31,7 +31,7 @@ Zenodo is free, run by CERN, and integrates directly with GitHub. Every GitHub r
 
      Data and documentation are under active review. Report errors via GitHub Issues.
 
-     Companion paper: Perron, B. E., Victor, B. G., & Qi, Z. (in press). Journal of the Society for Social Work and Research. https://doi.org/10.48550/arXiv.2603.06814
+     Companion paper: Perron, B. E., Victor, B. G., & Qi, Z. (in press). Journal of the Society for Social Work and Research. https://doi.org/10.1086/741324
      ```
    - Check **Set as a pre-release**
    - Click **Publish release**
@@ -52,7 +52,7 @@ After the first release, go to your Zenodo record and edit the metadata:
 - **Description:** Copy from the release description above
 - **License:** Creative Commons Attribution 4.0 International
 - **Keywords:** bibliometric analysis, conference abstracts, social work research, SSWR, scientometrics
-- **Related identifiers:** Link to the arXiv paper (DOI: 10.48550/arXiv.2603.06814) as "is supplement to"
+- **Related identifiers:** Link to the arXiv paper (DOI: 10.1086/741324) as "is supplement to"
 - **Communities:** Consider adding to relevant Zenodo communities (Social Sciences, Bibliometrics)
 
 ---

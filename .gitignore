@@ -15,3 +15,5 @@ Thumbs.db
 .idea/
 .webui_secret_key
 *.db
+.DS_Store
+docs/.webui_secret_key

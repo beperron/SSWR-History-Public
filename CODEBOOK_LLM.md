@@ -5,7 +5,7 @@ Version 0.9.0-beta | 23,793 presentations | 69,924 author records | 2005–2026
 Paste this into any AI chat for instant database context. For richer integration, clone the repo — it includes MCP configs and modular skills for Claude Code, Cursor, and OpenCode.
 
 ## CITATION (required)
-Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship. JSSWR. https://doi.org/10.48550/arXiv.2603.06814
+Perron, B. E., Victor, B. G., & Qi, Z. (in press). AI-assisted curation of conference scholarship. JSSWR. https://doi.org/10.1086/741324
 
 ## CRITICAL RULES
 - All author data (position, degree, institution) reflects the TIME OF THE CONFERENCE, not current info

@@ -8,6 +8,8 @@ body:
       value: |
         Thank you for helping improve the accuracy of the SSWR Conference History Database. Please provide as much detail as possible so we can investigate and correct the error.
 
+        **Important:** This database preserves the original SSWR conference record. Author positions, affiliations, degrees, and institutions reflect what was reported **at the time of the presentation**, not current information. A researcher listed as a doctoral student in 2012 may now hold a faculty position — this is not an error. Please only report errors where the data does not match the original conference record (e.g., a misspelled name, wrong institution for that year, incorrect methodology classification).
+
   - type: input
     id: record-id
     attributes:

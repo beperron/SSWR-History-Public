@@ -67,9 +67,9 @@ SELECT * FROM paper_authors WHERE author_order = 1; -- first authors
 SELECT COUNT(DISTINCT canonical_author_id) FROM paper_authors; -- unique people
 ```
 
-## MCP CONNECTION
+## MCP CONNECTION (requires Node.js 18+)
 ```json
-{"mcpServers":{"sswr-history":{"url":"https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database"}}}
+{"mcpServers":{"sswr-history":{"command":"npx","args":["-y","@supabase/mcp-server-supabase@latest","--supabase-url","https://jomsksqqcpkbuhwytovo.supabase.co","--supabase-key","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg","--read-only"]}}}
 ```
 
 ## DATA QUALITY

@@ -45,13 +45,13 @@
       <details style="margin-top:0.75rem;">
         <summary style="font-size:0.82rem;color:#666;cursor:pointer;">Preview what gets copied</summary>
         <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.88rem;line-height:1.7;">
-          <p style="margin:0 0 0.75rem;">I want to connect to the SSWR Conference History Database using MCP (Model Context Protocol). This is a read-only research database containing 23,793 conference presentations from 2005&ndash;2026.</p>
-          <p style="margin:0 0 0.75rem;">Please add an MCP server called &ldquo;sswr-history&rdquo; with this URL:<br>
-          <code style="word-break:break-all;">https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database</code></p>
+          <p style="margin:0 0 0.75rem;">I want to connect to the SSWR Conference History Database using MCP (Model Context Protocol). This is a read-only research database with 23,793 conference presentations (2005&ndash;2026). No login required &mdash; it uses a public read-only key.</p>
+          <p style="margin:0 0 0.75rem;">Please add an MCP server called &ldquo;sswr-history&rdquo; using the npx command with @supabase/mcp-server-supabase. The Supabase URL is https://jomsksqqcpkbuhwytovo.supabase.co and the read-only anon key is included in the prompt.</p>
           <p style="margin:0 0 0.75rem;">Steps:</p>
           <ol style="margin:0 0 0.75rem;">
-            <li>Find my MCP configuration file (claude_desktop_config.json for Claude Desktop, .claude/mcp.json for Claude Code, .cursor/mcp.json for Cursor)</li>
-            <li>Add the sswr-history server to the mcpServers section</li>
+            <li>Make sure Node.js (version 18+) is installed</li>
+            <li>Find my MCP configuration file</li>
+            <li>Add the sswr-history server with the npx command, Supabase URL, anon key, and --read-only flag</li>
             <li>Help me restart the application</li>
             <li>Verify the connection by listing the available tables</li>
           </ol>
@@ -103,7 +103,7 @@
           <div style="margin-top:0.5rem;padding:1rem;background:#f7f7f8;border-radius:6px;font-size:0.85rem;line-height:1.7;">
             Download the SSWR database context files for Cursor. Save each to the project:<br>
             1. Download CODEBOOK_LLM.md from github.com/beperron/SSWR-History-Public and save to .cursor/rules/sswr-codebook.md<br>
-            2. Download the MCP config: .cursor/mcp.json should contain {"mcpServers":{"sswr-history":{"url":"https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&amp;read_only=true&amp;features=database"}}}<br>
+            2. Create .cursor/mcp.json with the npx-based MCP config (command: npx @supabase/mcp-server-supabase, with Supabase URL and anon key). No login required.<br>
             Confirm the database is connected and list available tables.
           </div>
         </details>
@@ -213,7 +213,7 @@
   <script src="js/main.js"></script>
   <script>
   document.getElementById('copy-prompt').addEventListener('click', function() {
-    var p = 'I want to connect to the SSWR Conference History Database via MCP (Model Context Protocol). This is a read-only research database with 23,793 conference presentations from 2005-2026.\n\nPlease add an MCP server called "sswr-history" with this URL:\nhttps://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database\n\nSteps:\n1. Find my MCP configuration file (claude_desktop_config.json for Claude Desktop, .claude/mcp.json for Claude Code, .cursor/mcp.json for Cursor)\n2. Add the sswr-history server to the mcpServers section\n3. Help me restart the application\n4. Verify the connection by listing the available tables';
+    var p = 'I want to connect to the SSWR Conference History Database via MCP. This is a read-only research database (23,793 presentations, 2005-2026). No Supabase login required — it uses a public anon key.\n\nPlease add an MCP server called "sswr-history" to my config. Here is the JSON to add inside mcpServers:\n\n"sswr-history": {\n  "command": "npx",\n  "args": ["-y", "@supabase/mcp-server-supabase@latest", "--supabase-url", "https://jomsksqqcpkbuhwytovo.supabase.co", "--supabase-key", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg", "--read-only"]\n}\n\nPrerequisite: Node.js 18+ must be installed.\n\nSteps:\n1. Find my MCP config file\n2. Add the sswr-history server\n3. Restart the application\n4. Verify by listing available tables';
     navigator.clipboard.writeText(p).then(function() {
       var btn = document.getElementById('copy-prompt');
       btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy Connection Prompt'; }, 2000);
@@ -246,7 +246,7 @@
     'Copy Claude Code Prompt');
 
   copyBtn('copy-skill-cursor',
-    'Please set up the SSWR Conference History Database for Cursor.\n\n1. Download the codebook from https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/CODEBOOK_LLM.md and save it to .cursor/rules/sswr-codebook.md\n\n2. Ensure .cursor/mcp.json exists with this content:\n{"mcpServers":{"sswr-history":{"url":"https://mcp.supabase.com/mcp?project_ref=jomsksqqcpkbuhwytovo&read_only=true&features=database"}}}\n\nThis connects to a read-only database with 23,793 SSWR conference presentations (2005-2026).\n\nConfirm the MCP is connected and list the available tables.\n\nMore info: https://beperron.github.io/SSWR-History-Public/quickstart.html | https://beperron.substack.com/p/apis-and-mcps-essential-acronyms',
+    'Please set up the SSWR Conference History Database for Cursor.\n\n1. Download the codebook from https://raw.githubusercontent.com/beperron/SSWR-History-Public/main/CODEBOOK_LLM.md and save it to .cursor/rules/sswr-codebook.md\n\n2. Ensure .cursor/mcp.json exists with this content:\n{"mcpServers":{"sswr-history":{"command":"npx","args":["-y","@supabase/mcp-server-supabase@latest","--supabase-url","https://jomsksqqcpkbuhwytovo.supabase.co","--supabase-key","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpvbXNrc3FxY3BrYnVod3l0b3ZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQyMDgwODksImV4cCI6MjA1OTc4NDA4OX0.9Vxp6gB03H0MKxrX1ltSCKCumlT-ba5GszWqAAw1Aqg","--read-only"]}}}\n\nPrerequisite: Node.js 18+. No Supabase login required.\n\nConfirm the MCP is connected and list the available tables.',
     'Copy Cursor Prompt');
 
   copyBtn('copy-skill-opencode',

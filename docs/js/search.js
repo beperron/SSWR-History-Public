@@ -32,7 +32,7 @@
       showFilters: true
     },
     author: {
-      placeholder: 'e.g., Brian Perron',
+      placeholder: 'e.g., Sunshine Rote',
       help: 'Search by researcher name. Fuzzy matching handles partial names and spelling variations. Affiliations reflect what was reported at the time of each presentation, not current positions.',
       showFilters: false
     },

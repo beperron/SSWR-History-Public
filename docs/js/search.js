@@ -317,7 +317,8 @@
     }
 
     var apa = formatApa(r);
-    var titleHtml = escapeHtml(r.title || '');
+    var displayTitle = cleanTitle(r.title || '');
+    var titleHtml = escapeHtml(displayTitle);
     if (r.confex_url) {
       titleHtml = '<a href="' + escapeAttr(r.confex_url) + '" target="_blank" rel="noopener">' + titleHtml + '</a>';
     }
@@ -573,7 +574,7 @@
     }
 
     var year = r.year || 'n.d.';
-    var title = (r.title || '').replace(/\.$/, '');
+    var title = cleanTitle(r.title || '').replace(/\.$/, '');
 
     // Presentation type bracket
     var bracket = formatToBracket[r.format] || 'Conference presentation';
@@ -641,6 +642,10 @@
 
   function escapeAttr(str) {
     return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function cleanTitle(str) {
+    return str.replace(/^\(Converted as ePoster,?\s*See Poster Gallery\)\s*/i, '');
   }
 
   function formatMethodology(m) {

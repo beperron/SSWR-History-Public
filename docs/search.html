@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search | SSWR Conference History Database</title>
+  <meta name="description" content="Search 23,793 conference presentations by topic, author, or institution. Keyword, semantic, and hybrid search modes.">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+</head>
+<body>
+  <div class="beta-banner"><strong>Beta Release v0.9.0</strong> — Data and documentation are under active review. <a href="https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml">Report errors</a></div>
+  <header class="site-header">
+    <nav class="nav-inner">
+      <a href="index.html" class="nav-brand"><img src="assets/seal.png" alt="">SSWR History</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</a></li>
+        <li><a href="quickstart.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Quick Start</a></li>
+        <li><a href="search.html" class="active"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search</a></li>
+        <li><a href="codebook.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Codebook</a></li>
+        <li><a href="download.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</a></li>
+        <li><a href="https://github.com/beperron/SSWR-History-Public"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:3px"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a></li>
+        <li><a href="about.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container--wide">
+      <h1>Search the Database</h1>
+      <p>Search 23,793 presentations from the SSWR Annual Conference (2005&ndash;2026) by topic, researcher, or institution.</p>
+
+      <!-- How search works -->
+      <details class="search-explainer">
+        <summary>How does this search work?</summary>
+        <div class="search-explainer-body">
+          <p><strong>This is not generative AI.</strong> The search system does not create, summarize, or generate any text. Every result is a real presentation from the SSWR conference archives, shown exactly as it was submitted.</p>
+          <p><strong>Keyword search</strong> finds presentations containing your exact words in the title or abstract &mdash; just like searching a document.</p>
+          <p><strong>Semantic search</strong> goes further. Your query is converted into a mathematical representation (think of it as a &ldquo;fingerprint&rdquo; for the meaning of your words). This fingerprint is compared against pre-computed fingerprints for all 23,793 abstracts. Results are ranked by how closely their meaning matches yours &mdash; even if the exact words differ. For example, searching <em>&ldquo;how communities recover after natural disasters&rdquo;</em> will surface papers about <em>post-disaster resilience</em>, even though those exact words are not in your query.</p>
+          <p><strong>Hybrid search</strong> combines both approaches: keyword matching for precision and semantic matching for breadth, merged into a single ranked list.</p>
+          <p><strong>Match scores:</strong> Semantic and hybrid results display a percentage (e.g., &ldquo;63% match&rdquo;). This is a cosine similarity score &mdash; it measures how closely the meaning of your query aligns with each abstract. Scores above 60% indicate a strong topical match. Scores between 40&ndash;60% indicate related concepts. Scores below 40% are looser associations. These scores reflect similarity of meaning, not a quality or relevance judgment &mdash; a 50% match on a broad query may be exactly what you need.</p>
+          <p><strong>Tips for semantic and hybrid search:</strong> Be descriptive. Use phrases like you would describe a topic to a colleague. More detail usually produces better results. If you know the exact term you are looking for, keyword search may be more effective.</p>
+        </div>
+      </details>
+
+      <details class="search-explainer search-explainer--quality">
+        <summary>Data quality notice</summary>
+        <div class="search-explainer-body">
+          <p>This database was constructed using AI-assisted methods applied to unstructured conference program data. While extensive validation was performed (94% institution accuracy, 91% position accuracy, Cohen&rsquo;s kappa = .83 for methodology), errors and inconsistencies exist.</p>
+          <p>Institutional names in particular may appear in multiple forms (e.g., &ldquo;University of Michigan&rdquo; vs. &ldquo;University of Michigan School of Social Work&rdquo;) because the original program data was not standardized &mdash; further normalization is in progress. Author names, affiliations, and methodology classifications may also contain inaccuracies.</p>
+          <p>All affiliation data reflects what was reported <strong>at the time of the conference</strong>, not current positions.</p>
+          <p style="margin-bottom:0">If you find an error, please <a href="https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml">report it here</a> &mdash; corrections with evidence are especially valuable.</p>
+        </div>
+      </details>
+
+      <!-- Search mode tabs -->
+      <div class="search-tabs" role="tablist">
+        <button class="search-tab active" role="tab" data-mode="keyword" aria-selected="true">Keyword</button>
+        <button class="search-tab" role="tab" data-mode="semantic" aria-selected="false">Semantic</button>
+        <button class="search-tab" role="tab" data-mode="hybrid" aria-selected="false">Hybrid</button>
+        <button class="search-tab" role="tab" data-mode="author" aria-selected="false">Author</button>
+        <button class="search-tab" role="tab" data-mode="institution" aria-selected="false">Institution</button>
+      </div>
+
+      <!-- Search form -->
+      <div class="card search-form">
+        <div class="search-input-row">
+          <div class="search-input-wrap">
+            <input type="text" id="search-query" placeholder="e.g., trauma-informed care" autocomplete="off" aria-label="Search query">
+            <div id="autocomplete-dropdown" class="autocomplete-dropdown" style="display:none;"></div>
+          </div>
+          <button id="search-btn" class="btn btn--primary">Search</button>
+        </div>
+        <div class="search-help" id="search-help">
+          Finds presentations containing your exact search terms in the title or abstract.
+        </div>
+        <div class="search-filters" id="search-filters">
+          <label>Year:
+            <input type="number" id="filter-min-year" value="2005" min="2005" max="2026" aria-label="Minimum year">
+            <span>&ndash;</span>
+            <input type="number" id="filter-max-year" value="2026" min="2005" max="2026" aria-label="Maximum year">
+          </label>
+          <label>Methodology:
+            <select id="filter-methodology" aria-label="Methodology filter">
+              <option value="">All</option>
+              <option value="quantitative">Quantitative</option>
+              <option value="qualitative">Qualitative</option>
+              <option value="mixed_methods">Mixed Methods</option>
+              <option value="review">Review</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <!-- hCaptcha (hidden until needed) -->
+      <div id="captcha-container" class="captcha-container" style="display:none;">
+        <p>Please verify you are human to search the database.</p>
+        <div class="h-captcha" data-sitekey="288ed9be-1790-46fa-b632-8a9cd97c10da" data-callback="onCaptchaSuccess" data-error-callback="onCaptchaError"></div>
+      </div>
+
+      <!-- Results -->
+      <div id="results-status" class="results-status"></div>
+      <div id="results-container"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>SSWR History Database</h4>
+        <p>Companion dataset to Perron, Victor, &amp; Qi (in press).<br><em>Journal of the Society for Social Work and Research.</em></p>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="quickstart.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Quick Start</a></li>
+          <li><a href="search.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Search</a></li>
+          <li><a href="codebook.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Codebook</a></li>
+          <li><a href="download.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:3px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</a></li>
+          <li><a href="https://github.com/beperron/SSWR-History-Public"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:3px"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a></li>
+          <li><a href="about.html">About &amp; Citation</a></li>
+          <li><a href="https://github.com/beperron/SSWR-History-Public/issues/new?template=data-error-report.yml">Report an Error</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>Brian E. Perron<br>
+        <a href="mailto:beperron@umich.edu">beperron@umich.edu</a><br>
+        School of Social Work<br>
+        University of Michigan</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source data from the SSWR Confex archive.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/search.js"></script>
+</body>
+</html>
